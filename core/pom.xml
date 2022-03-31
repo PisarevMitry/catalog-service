@@ -8,6 +8,7 @@
         <version>0.0.1</version>
         <relativePath>../dependency-management-bom/pom.xml</relativePath>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>catalog-service-core</artifactId>
@@ -42,6 +43,11 @@
             <artifactId>catalog-service-dto</artifactId>
             <version>0.0.1</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mirea</groupId>
+            <artifactId>catalog-service-utils</artifactId>
+            <version>0.0.1</version>
         </dependency>
     </dependencies>
 

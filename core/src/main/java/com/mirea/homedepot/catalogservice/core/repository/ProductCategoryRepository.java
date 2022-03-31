@@ -4,6 +4,7 @@ import com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntit
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestBody;
+import src.main.java.com.mirea.homedepot.catalogservice.utils.tree.Tree;
 
 import java.util.List;
 
@@ -23,4 +24,10 @@ public interface ProductCategoryRepository {
     void updateById(@RequestBody @Param("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
 
     void deleteById(@Param("productCategoryId") Long productCategoryId);
+
+
+    List<ProductCategoryEntity> findByParentId(@Param("productCategoryId") Long productCategoryId);
+
+    Tree<ProductCategoryEntity> findTreeByParentId(@Param("productCategoryId") Long productCategoryId);
+
 }
