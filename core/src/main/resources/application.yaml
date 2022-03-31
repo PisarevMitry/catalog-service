@@ -1,0 +1,29 @@
+server:
+  port: 8021
+  servlet:
+    context-path: /home_depot
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/home_depot?currentSchema=catalog_data
+    username: postgres
+    password: 913548Qaz
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+
+      maximum-pool-size: 10
+      # Настройка тайм-аута соединения = 2мин
+      connection-timeout: 120000
+      max-lifetime: 120000
+      minimum-idle: 4
+#      validation-timeout: 120000
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+logging:
+  level:
+    com.spring.ibatis: DEBUG
