@@ -4,9 +4,7 @@ import com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntit
 import com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository;
 import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;
 import com.mirea.homedepot.catalogservice.dto.ProductCategoryDto;
-import com.mirea.homedepot.catalogservice.dto.ProductCategoryTreeDto;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,59 +17,58 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     private final ProductCategoryRepository productCategoryRepository;
     private final ModelMapper modelMapper;
 
-    @Autowired
     public ProductCategoryServiceImpl(ProductCategoryRepository productCategoryRepository, ModelMapper modelMapper) {
         this.productCategoryRepository = productCategoryRepository;
         this.modelMapper = modelMapper;
     }
 
-    @Override
     public List<ProductCategoryDto> findAll() {
         List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findAll();
         return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
     }
 
-    @Override
-    public ProductCategoryDto findById(Long id) {
-        ProductCategoryEntity productCategoryEntity = productCategoryRepository.findById(id);
+    public ProductCategoryDto findById(Long productCategoryId) {
+        ProductCategoryEntity productCategoryEntity = productCategoryRepository.findById(productCategoryId);
         return modelMapper.map(productCategoryEntity, ProductCategoryDto.class);
     }
 
-    @Override
     public List<ProductCategoryDto> findByListId(List<Long> listId) {
         List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByListId(listId);
-        return null;
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
     }
 
-    @Override
     public void insert(ProductCategoryDto productCategoryDto) {
         ProductCategoryEntity productCategoryEntity = modelMapper.map(productCategoryDto, ProductCategoryEntity.class);
-        if (ProductCategoryEntity.getId() == null)
-            productCategoryRepository.insert(productCategoryEntity);
-        else
-            productCategoryRepository.updateById(productCategoryEntity);
+        if (productCategoryEntity.getId() == null) productCategoryRepository.insert(productCategoryEntity);
+        else productCategoryRepository.update(productCategoryEntity);
     }
 
-    @Override
-    public void insertAll(List<ProductCategoryDto> productCategoryDtoList) {
+    public void insertList(List<ProductCategoryDto> productCategoryDtoList) {
         List<ProductCategoryEntity> productCategoryEntityList =
                 productCategoryDtoList.stream().map(el -> modelMapper.map(el, ProductCategoryEntity.class)).collect(Collectors.toList());
-        productCategoryRepository.insertAll(productCategoryEntityList);
+        productCategoryRepository.insertList(productCategoryEntityList);
     }
 
-    @Override
-    public void updateById(ProductCategoryDto productCategoryDto) {
+    public void update(ProductCategoryDto productCategoryDto) {
         ProductCategoryEntity productCategoryEntity = modelMapper.map(productCategoryDto, ProductCategoryEntity.class);
-        productCategoryRepository.updateById(productCategoryEntity);
+        productCategoryRepository.update(productCategoryEntity);
     }
 
-    @Override
-    public void deleteById(Long id) {
-        productCategoryRepository.deleteById(id);
+    public void deleteById(Long productCategoryId) {
+        productCategoryRepository.deleteById(productCategoryId);
     }
 
 
-    public List<ProductCategoryDto> findListByParentId(Long id);
 
-    public ProductCategoryTreeDto findTreeByParentId(Long id);
+
+
+  /*  public List<ProductCategoryDto> findListByParentId(Long id) {
+        List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByParentId(id);
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
+    }*/
+
+   /* public Tree<ProductCategoryDto> findTreeByParentId(Long id) {
+        Tree<ProductCategoryEntity> productCategoryEntityTree = productCategoryRepository.findTreeByParentId(id);
+        return productCategoryEntityTree.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
+    }*/
 }

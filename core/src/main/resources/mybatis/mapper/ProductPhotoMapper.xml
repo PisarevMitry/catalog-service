@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository">
+<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.ProductPhotoRepository">
 
-    <resultMap id="ProductCategoryEntity"
-               type="com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity" autoMapping="true">
+    <resultMap id="ProductPhotoEntity"
+               type="com.mirea.homedepot.catalogservice.core.model.entity.ProductPhotoEntity" autoMapping="true">
         <id property="id" column="id" jdbcType="BIGINT"/>
     </resultMap>
 
-    <select id="findAll" resultMap="ProductCategoryEntity">
+    <select id="findAll" resultMap="ProductPhotoEntity">
         SELECT *
-        FROM catalog_data.product_category;
+        FROM catalog_data.product_photo;
     </select>
 
-    <select id="findById" resultMap="ProductCategoryEntity">
+    <select id="findById" resultMap="ProductPhotoEntity">
         SELECT *
-        FROM catalog_data.product_category
+        FROM catalog_data.product_photo
         WHERE id = #{id, jdbcType=BIGINT};
     </select>
 
-    <select id="findByListId" resultMap="ProductCategoryEntity">
+    <select id="findByListId" resultMap="ProductPhotoEntity">
         <bind name="" value=""/>
         SELECT *
-        FROM catalog_data.product_category
+        FROM catalog_data.product_photo
         <choose>
             <when test="listId.isEmpty()">
                 ORDER BY id DESC
@@ -36,22 +36,22 @@
         </choose>
     </select>
 
-    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.product_category (id, title, parent_id)
-        VALUES (#{title}, #{parentId});
+    <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO catalog_data.product_photo (id, url, parent_id)
+        VALUES (#{url}, #{parentId});
     </insert>
 
-    <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTOcatalog_data.product_category (id, title, parent_id) VALUES
+    <insert id="insertAll" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTOcatalog_data.product_photo (id, url, parent_id) VALUES
         <foreach collection="entityList" item="entity" separator=",">
-            (#{title}, #{parentId});
+            (#{url}, #{parentId});
         </foreach>
     </insert>
 
     <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.ProductPhotoEntity">
-        UPDATE catalog_data.product_category SET
-        <if test="title != null">
-            title = #{title},
+        UPDATE catalog_data.product_photo SET
+        <if test="url != null">
+            url = #{url},
         </if>
         <if test="parentId != null">
             parent_id = #{parentId},
@@ -61,7 +61,7 @@
 
     <delete id="deleteById">
         DELETE
-        FROM catalog_data.product_category
+        FROM catalog_data.product_photo
         WHERE id = #{id};
     </delete>
 </mapper>

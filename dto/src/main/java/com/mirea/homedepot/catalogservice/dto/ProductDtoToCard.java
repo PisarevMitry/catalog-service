@@ -11,5 +11,5 @@ public class ProductDtoToCard extends ProductDto {
     private Integer price;
     private Integer amount;
     private ProductPhotoDto photo;
-    private List<SpecialConditionDto> specialConditionList;
+    private List<ProductSpecialConditionDto> specialConditionList;
 }

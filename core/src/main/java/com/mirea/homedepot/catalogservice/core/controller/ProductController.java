@@ -49,5 +49,4 @@ public class ProductController {
         List<ProductEntity> entity = productRepository.findByListOption(option);
         return entity.stream().map(el -> modelMapper.map(el, ProductDto.class)).collect(Collectors.toList());
     }
-
 }

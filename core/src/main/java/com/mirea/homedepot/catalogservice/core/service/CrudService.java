@@ -11,9 +11,9 @@ public interface CrudService<D> {
 
     void insert(D d);
 
-    void insertAll(List<D> dList);
+    void insertList(List<D> dList);
 
-    void updateById(D d);
+    void update(D d);
 
     void deleteById(Long id);
 }

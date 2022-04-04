@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository">
+<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.ProductSpecialConditionRepository">
 
-    <resultMap id="ProductCategoryEntity"
-               type="com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity" autoMapping="true">
+    <resultMap id="ProductSpecialConditionEntity"
+               type="com.mirea.homedepot.catalogservice.core.model.entity.ProductSpecialConditionEntity"
+               autoMapping="true">
         <id property="id" column="id" jdbcType="BIGINT"/>
     </resultMap>
 
-    <select id="findAll" resultMap="ProductCategoryEntity">
+    <select id="findAll" resultMap="ProductSpecialConditionEntity">
         SELECT *
-        FROM catalog_data.product_category;
+        FROM catalog_data.product_special_condition;
     </select>
 
-    <select id="findById" resultMap="ProductCategoryEntity">
+    <select id="findById" resultMap="ProductSpecialConditionEntity">
         SELECT *
-        FROM catalog_data.product_category
+        FROM catalog_data.product_special_condition
         WHERE id = #{id, jdbcType=BIGINT};
     </select>
 
-    <select id="findByListId" resultMap="ProductCategoryEntity">
+    <select id="findByListId" resultMap="ProductSpecialConditionEntity">
         <bind name="" value=""/>
         SELECT *
-        FROM catalog_data.product_category
+        FROM catalog_data.product_special_condition
         <choose>
             <when test="listId.isEmpty()">
                 ORDER BY id DESC
@@ -37,31 +38,29 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.product_category (id, title, parent_id)
-        VALUES (#{title}, #{parentId});
+        INSERT INTO catalog_data.product_special_condition (id, description)
+        VALUES (#{description});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTOcatalog_data.product_category (id, title, parent_id) VALUES
+        INSERT INTOcatalog_data.product_special_condition (id, description) VALUES
         <foreach collection="entityList" item="entity" separator=",">
-            (#{title}, #{parentId});
+            ( #{description})
         </foreach>
     </insert>
 
-    <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.ProductPhotoEntity">
-        UPDATE catalog_data.product_category SET
-        <if test="title != null">
-            title = #{title},
-        </if>
-        <if test="parentId != null">
-            parent_id = #{parentId},
+    <update id="update"
+            parameterType="com.mirea.homedepot.catalogservice.core.model.entity.ProductSpecialConditionEntity">
+        UPDATE catalog_data.product_special_condition SET
+        <if test="description != null">
+            description = #{description},
         </if>
         WHERE id = #{id};
     </update>
 
     <delete id="deleteById">
         DELETE
-        FROM catalog_data.product_category
+        FROM catalog_data.product_special_condition
         WHERE id = #{id};
     </delete>
 </mapper>

@@ -2,7 +2,6 @@ package com.mirea.homedepot.catalogservice.core.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.AdviceMode;
@@ -20,7 +19,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement(mode = AdviceMode.PROXY)
-@MapperScan(basePackages = "mybatis")
+//@MapperScan(basePackages = "mybatis")
 @Slf4j
 public class MyBatisConfig {
 
@@ -56,9 +55,10 @@ public class MyBatisConfig {
      */
     private DataSource getDataSource() {
 
-        log.info("Setting up datasource for {} environment.", env.getActiveProfiles());
+       /* log.info("Setting up datasource for {} environment.", env.getActiveProfiles());*/
 
-        DataSource dataSource = DataSourceBuilder.create().url(env.getProperty("spring.datasource.url")).username(env.getProperty("spring.datasource.username")).password(env.getProperty("spring.datasource.password")).build();
+        DataSource dataSource = DataSourceBuilder.create().url(env.getProperty("spring.datasource.url")).username(env.getProperty("spring.datasource.username"))
+                .password(env.getProperty("spring.datasource.password")).build();
         String maxPoolSize = env.getProperty("spring.datasource.hikari.maximum-pool-size");
         assert maxPoolSize != null;
         ((HikariDataSource) dataSource).setMaximumPoolSize(Integer.parseInt(maxPoolSize));

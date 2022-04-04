@@ -13,9 +13,8 @@ public class ProductDtoToFullCard extends ProductDto {
     private Integer price;
     private Integer amount;
     private List<ProductPhotoDto> photoList;
-    private List<ProductVideoDto> videoList;
     private JSONObject options;
     private Long categoryId;
     private List<ProductFeedbackDto> feedbackList;
-    private List<SpecialConditionDto> specialConditionList;
+    private List<ProductSpecialConditionDto> specialConditionList;
 }

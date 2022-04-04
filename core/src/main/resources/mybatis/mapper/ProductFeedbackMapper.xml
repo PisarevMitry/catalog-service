@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.ProductFeedbackRepository">
+
+    <resultMap id="ProductFeedbackEntity"
+               type="com.mirea.homedepot.catalogservice.core.model.entity.ProductFeedbackEntity" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="ProductFeedbackEntity">
+        SELECT *
+        FROM catalog_data.product_feedback;
+    </select>
+
+    <select id="findById" resultMap="ProductFeedbackEntity">
+        SELECT *
+        FROM catalog_data.product_feedback
+        WHERE id = #{id, jdbcType=BIGINT};
+    </select>
+
+    <select id="findByListId" resultMap="ProductFeedbackEntity">
+        <bind name="" value=""/>
+        SELECT *
+        FROM catalog_data.product_feedback
+        <choose>
+            <when test="listId.isEmpty()">
+                ORDER BY id DESC
+                LIMIT 10;
+            </when>
+            <otherwise>
+                WHERE id IN
+                <foreach collection='listId' item='id' open='(' separator=',' close=')'>
+                    #{id, jdbcType=BIGINT}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO catalog_data.product_feedback (id, grade, description, create_dttm, client_id, parent_id)
+        VALUES (#{grade}, #{description}, #{createDttm}, #{clientId}, #{parentId});
+    </insert>
+
+    <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTOcatalog_data.product_feedback  (id, grade, description, create_dttm, client_id, parent_id) VALUES
+        <foreach collection="entityList" item="entity" separator=",">
+            (#{grade}, #{description}, #{createDttm}, #{clientId}, #{parentId})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.ProductFeedbackEntity">
+        UPDATE catalog_data.product_feedback SET
+        <if test="grade != null">
+            grade = #{grade},
+        </if>
+        <if test="description != null">
+            description = #{description},
+        </if>
+        <if test="createDttm != null">
+            create_dttm = #{createDttm},
+        </if>
+        <if test="clientId != null">
+            client_id = #{clientId},
+        </if>
+        <if test="parentId != null">
+            parent_id = #{parentId},
+        </if>
+        WHERE id = #{id};
+    </update>
+
+    <delete id="deleteById">
+        DELETE
+        FROM catalog_data.product_feedback
+        WHERE id = #{id};
+    </delete>
+</mapper>
