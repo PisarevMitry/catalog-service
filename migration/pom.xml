@@ -24,12 +24,13 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase.plugin.version}</version>
+                <version>${liquibase.version}</version>
                 <configuration>
                     <changelogSchemaName>${profile.changelogSchemaName}</changelogSchemaName>
                     <propertyFile>${profile.propertyFile}</propertyFile>
@@ -60,7 +61,7 @@
                 <profile.dataDir>src/main/resources/db/local/data</profile.dataDir>
                 <profile.verbose>true</profile.verbose>
                 <profile.logging>debug</profile.logging>
-                <profile.changelogSchemaName>person_data</profile.changelogSchemaName>
+                <profile.changelogSchemaName>warehouse_data</profile.changelogSchemaName>
             </properties>
         </profile>
     </profiles>

@@ -7,6 +7,7 @@ import com.mirea.homedepot.catalogservice.dto.ProductFeedbackDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,8 @@ public class ProductFeedbackServiceImpl implements ProductFeedbackService {
     }
 
     public void insertList(List<ProductFeedbackDto> productFeedbackDtoList) {
-        List<ProductFeedbackEntity> productFeedbackEntityList = productFeedbackDtoList.stream().map(el -> modelMapper.map(el, ProductFeedbackEntity.class)).collect(Collectors.toList());
+        List<ProductFeedbackEntity> productFeedbackEntityList =
+                productFeedbackDtoList.stream().map(el -> modelMapper.map(el, ProductFeedbackEntity.class)).collect(Collectors.toList());
         productFeedbackRepository.insertList(productFeedbackEntityList);
     }
 
@@ -54,5 +56,23 @@ public class ProductFeedbackServiceImpl implements ProductFeedbackService {
 
     public void deleteById(Long productFeedbackId) {
         productFeedbackRepository.deleteById(productFeedbackId);
+    }
+
+    @Override
+    public List<ProductFeedbackDto> findRecurListByParentId(Long id) {
+        List<ProductFeedbackEntity> productFeedbackEntityList = new ArrayList<ProductFeedbackEntity>();
+        ProductFeedbackEntity currentProductFeedbackEntity;
+        ProductFeedbackEntity parentProductFeedbackEntity;
+        Long parentId;
+
+        currentProductFeedbackEntity = productFeedbackRepository.findById(id);
+        parentId = currentProductFeedbackEntity.getParentId();
+        productFeedbackEntityList.add(currentProductFeedbackEntity);
+        while (parentId != 0) {
+            parentProductFeedbackEntity = productFeedbackRepository.findById(parentId);
+            productFeedbackEntityList.add(parentProductFeedbackEntity);
+            parentId = parentProductFeedbackEntity.getParentId();
+        }
+        return productFeedbackEntityList.stream().map(el -> modelMapper.map(el, ProductFeedbackDto.class)).collect(Collectors.toList());
     }
 }

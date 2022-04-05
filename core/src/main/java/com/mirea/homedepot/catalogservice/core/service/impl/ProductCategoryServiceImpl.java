@@ -3,10 +3,12 @@ package com.mirea.homedepot.catalogservice.core.service.impl;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository;
 import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;
+import com.mirea.homedepot.catalogservice.dto.DtoType;
 import com.mirea.homedepot.catalogservice.dto.ProductCategoryDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 //репозитории взаимодействуют с сущностями (получаем всегда одинакового формата), а их уже парсим  в нужный ормат дто
@@ -22,7 +24,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         this.modelMapper = modelMapper;
     }
 
-    public List<ProductCategoryDto> findAll() {
+    public List<ProductCategoryDto> findAll(DtoType type) {
         List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findAll();
         return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
     }
@@ -58,14 +60,31 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         productCategoryRepository.deleteById(productCategoryId);
     }
 
-
-
-
-
-  /*  public List<ProductCategoryDto> findListByParentId(Long id) {
+    @Override
+    public List<ProductCategoryDto> findListByParentId(Long id) {
         List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByParentId(id);
         return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
-    }*/
+    }
+
+    @Override
+    public List<ProductCategoryDto> findRecurListByParentId(Long id) {
+        List<ProductCategoryEntity> productCategoryEntityList = new ArrayList<ProductCategoryEntity>();
+        ProductCategoryEntity currentProductCategoryEntity;
+        ProductCategoryEntity parentProductCategoryEntity;
+        Long parentId;
+
+        currentProductCategoryEntity = productCategoryRepository.findById(id);
+        parentId = currentProductCategoryEntity.getParentId();
+        productCategoryEntityList.add(currentProductCategoryEntity);
+        while (parentId != 0) {
+
+            parentProductCategoryEntity = productCategoryRepository.findById(parentId);
+            productCategoryEntityList.add(parentProductCategoryEntity);
+            parentId = parentProductCategoryEntity.getParentId();
+        }
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
+    }
+
 
    /* public Tree<ProductCategoryDto> findTreeByParentId(Long id) {
         Tree<ProductCategoryEntity> productCategoryEntityTree = productCategoryRepository.findTreeByParentId(id);

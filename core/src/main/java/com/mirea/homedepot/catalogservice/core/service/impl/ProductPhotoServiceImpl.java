@@ -6,6 +6,7 @@ import com.mirea.homedepot.catalogservice.core.service.ProductPhotoService;
 import com.mirea.homedepot.catalogservice.dto.ProductPhotoDto;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,5 +55,21 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
         productPhotoRepository.deleteById(productPhotoId);
     }
 
+    @Override
+    public List<ProductPhotoDto> findRecurListByParentId(Long id) {
+        List<ProductPhotoEntity> productPhotoEntityList = new ArrayList<ProductPhotoEntity>();
+        ProductPhotoEntity currentProductPhotoEntity;
+        ProductPhotoEntity parentProductPhotoEntity;
+        Long parentId;
 
+        currentProductPhotoEntity = productPhotoRepository.findById(id);
+        parentId = currentProductPhotoEntity.getParentId();
+        productPhotoEntityList.add(currentProductPhotoEntity);
+        while (parentId != 0) {
+            parentProductPhotoEntity = productPhotoRepository.findById(parentId);
+            productPhotoEntityList.add(parentProductPhotoEntity);
+            parentId = parentProductPhotoEntity.getParentId();
+        }
+        return productPhotoEntityList.stream().map(el -> modelMapper.map(el, ProductPhotoDto.class)).collect(Collectors.toList());
+    }
 }

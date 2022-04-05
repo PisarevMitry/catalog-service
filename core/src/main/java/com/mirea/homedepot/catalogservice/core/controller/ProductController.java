@@ -5,7 +5,6 @@ import com.mirea.homedepot.catalogservice.core.repository.ProductRepository;
 import com.mirea.homedepot.catalogservice.dto.ProductDto;
 import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,14 +16,17 @@ import java.util.stream.Collectors;
 
 @Validated
 @RestController
-@RequestMapping("/catalog-service")
+@RequestMapping("/product")
 public class ProductController {
 
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
+
+    public ProductController(ProductRepository productRepository, ModelMapper modelMapper) {
+        this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @GetMapping("/get")
     List<ProductDto> getAllProductList() {
