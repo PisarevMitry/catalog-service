@@ -2,7 +2,7 @@ package com.mirea.homedepot.catalogservice.core.service.impl;
 
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductSpecialConditionEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductSpecialConditionRepository;
-import com.mirea.homedepot.catalogservice.core.service.ProductSpecialConditionService;
+import com.mirea.homedepot.catalogservice.core.service.base.ProductSpecialConditionService;
 import com.mirea.homedepot.catalogservice.dto.ProductSpecialConditionDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,7 @@ package com.mirea.homedepot.catalogservice.core.service.impl;
 
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductFeedbackEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductFeedbackRepository;
-import com.mirea.homedepot.catalogservice.core.service.ProductFeedbackService;
+import com.mirea.homedepot.catalogservice.core.service.base.ProductFeedbackService;
 import com.mirea.homedepot.catalogservice.dto.ProductFeedbackDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

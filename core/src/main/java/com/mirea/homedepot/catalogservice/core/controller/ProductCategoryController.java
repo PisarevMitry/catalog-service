@@ -1,6 +1,6 @@
 package com.mirea.homedepot.catalogservice.core.controller;
 
-import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;
+import com.mirea.homedepot.catalogservice.core.service.base.ProductCategoryService;
 import com.mirea.homedepot.catalogservice.dto.ProductCategoryDto;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get")
-    List<ProductCategoryDto> getProductCategoryById() {
+    List<ProductCategoryDto> getAllProductCategory() {
         return productCategoryService.findAll();
     }
 
@@ -38,7 +38,7 @@ public class ProductCategoryController {
 
     @GetMapping("/get/relative/list")
     List<ProductCategoryDto> getProductCategoryByParentId(@RequestParam Long id) {
-        return productCategoryService.findRecurListByParentId(id);
+        return productCategoryService.findListRecursiveByParentId(id);
     }
 
  /*   @GetMapping("/get?{id}&{numberIteration}")

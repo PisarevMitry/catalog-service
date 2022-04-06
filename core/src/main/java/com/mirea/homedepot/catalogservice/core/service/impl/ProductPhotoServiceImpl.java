@@ -2,8 +2,9 @@ package com.mirea.homedepot.catalogservice.core.service.impl;
 
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductPhotoEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductPhotoRepository;
-import com.mirea.homedepot.catalogservice.core.service.ProductPhotoService;
+import com.mirea.homedepot.catalogservice.core.service.base.ProductPhotoService;
 import com.mirea.homedepot.catalogservice.dto.ProductPhotoDto;
+import com.mirea.homedepot.catalogservice.dtotype.DtoType;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;

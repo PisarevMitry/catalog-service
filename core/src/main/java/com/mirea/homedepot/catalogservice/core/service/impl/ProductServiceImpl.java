@@ -2,8 +2,9 @@ package com.mirea.homedepot.catalogservice.core.service.impl;
 
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductRepository;
-import com.mirea.homedepot.catalogservice.core.service.ProductService;
+import com.mirea.homedepot.catalogservice.core.service.base.ProductService;
 import com.mirea.homedepot.catalogservice.dto.ProductDto;
+import com.mirea.homedepot.catalogservice.dtotype.ProductDtoType;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
@@ -55,4 +56,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
+    @Override
+    public List<ProductDto> findAll(ProductDtoType type) {
+        return null;
+    }
+
+    @Override
+    public ProductDto findById(ProductDtoType type, Long id) {
+        return null;
+    }
+
+    @Override
+    public List<ProductDto> findByListId(ProductDtoType type, List<Long> listId) {
+        return null;
+    }
 }

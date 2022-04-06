@@ -1,8 +1,10 @@
 package com.mirea.homedepot.catalogservice.core.service;
 
+import com.mirea.homedepot.catalogservice.dtotype.DtoType;
+
 import java.util.List;
 
-public interface CrudService<D> {
+public interface CrudServiceForDefaultDto<D> {
     List<D> findAll();
 
     D findById(Long id);
