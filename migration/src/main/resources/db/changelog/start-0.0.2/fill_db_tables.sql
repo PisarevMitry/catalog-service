@@ -241,3 +241,15 @@ insert into product_photo (url, parent_id)
 values ('https://home-depot/photo/jvykhxxoexthgjrxzbln', null);
 insert into product_photo (url, parent_id)
 values ('https://home-depot/photo/ppjyxkijgstdjnuzkyuf', 22);
+
+
+
+insert into product_special_condition (description)
+values ('-10%');
+
+insert into product_feedback (grade, description, client_id, parent_id)
+VALUES (5, 'wewe', null, null);
+
+insert into product (title, description, price, amount, photo_id, option, category_id, feedback_id,
+                     special_condition_id)
+values ('самолет', 'он летает', 1000, 100, 100, null, 16, 1, 1);

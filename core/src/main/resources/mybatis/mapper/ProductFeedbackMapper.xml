@@ -35,6 +35,11 @@
             </otherwise>
         </choose>
     </select>
+    <select id="findByParentId" resultMap="ProductFeedbackEntity">
+        SELECT *
+        FROM catalog_data.product_feedback
+        WHERE parent_id = #{parentId, jdbcType=BIGINT};
+    </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO catalog_data.product_feedback (id, grade, description, create_dttm, client_id, parent_id)

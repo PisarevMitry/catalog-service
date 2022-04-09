@@ -3,9 +3,10 @@ package com.mirea.homedepot.catalogservice.dto.variable.basic;
 import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
-
+@EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

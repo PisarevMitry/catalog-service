@@ -36,6 +36,11 @@
         </choose>
     </select>
 
+    <select id="findByParentId" resultMap="ProductPhotoEntity">
+        SELECT *
+        FROM catalog_data.product_photo
+        WHERE parent_id = #{parentId, jdbcType=BIGINT};
+    </select>
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO catalog_data.product_photo (id, url, parent_id)
         VALUES (#{url}, #{parentId});

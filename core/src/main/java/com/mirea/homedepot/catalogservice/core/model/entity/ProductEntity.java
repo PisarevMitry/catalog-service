@@ -12,7 +12,6 @@ public class ProductEntity {
     private Integer price;
     private Integer amount;
     private Long photoId;
-    private Long videoId;
     private JSONObject option;
     private Long categoryId;
     private Long feedbackId;

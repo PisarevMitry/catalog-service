@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
 
 @Component
-public class MappingUtils {
+public class MappingUtils<E,D> {
 
     @Bean
     public static ModelMapper modelMapper() {
@@ -20,4 +20,6 @@ public class MappingUtils {
                 .setFieldAccessLevel(PRIVATE);
         return mapper;
     }
+
+
 }

@@ -2,13 +2,18 @@ package com.mirea.homedepot.catalogservice.core.controller;
 
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductRepository;
+import com.mirea.homedepot.catalogservice.core.service.base.ProductService;
 import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
+import com.mirea.homedepot.catalogservice.dto.type.ProductDtoType;
 import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,36 +24,57 @@ import java.util.stream.Collectors;
 @RequestMapping("/product")
 public class ProductController {
 
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
-    private final ModelMapper modelMapper;
-
-    public ProductController(ProductRepository productRepository, ModelMapper modelMapper) {
-        this.productRepository = productRepository;
-        this.modelMapper = modelMapper;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping("/get")
-    List<ProductDto> getAllProductList() {
-        List<ProductEntity> entity = productRepository.findAll();
-        return entity.stream().map(el -> modelMapper.map(el, ProductDto.class)).collect(Collectors.toList());
+    public List<ProductDto> getAll(@RequestParam(required = false) String type) {
+        if (type == null) {
+            return productService.findAll();
+        } else {
+            return productService.findAll(ProductDtoType.valueOf(type));
+        }
     }
 
-    @GetMapping("/get/{id}")
-    ProductDto getProductById(@PathVariable Long id) {
-        ProductEntity entity = productRepository.findById(id);
-        return modelMapper.map(entity, ProductDto.class);
+    @GetMapping("/get/definite/item")
+    public ProductDto getById(@RequestParam(required = false) String type, @RequestParam Long id) {
+        if (type == null) {
+            return productService.findById(id);
+        } else {
+            return productService.findById(ProductDtoType.valueOf(type), id);
+        }
     }
 
-    @GetMapping("/get/{listId}")
-    List<ProductDto> getProductByListId(@PathVariable List<Long> listId) {
-        List<ProductEntity> entity = productRepository.findByListId(listId);
-        return entity.stream().map(el -> modelMapper.map(el, ProductDto.class)).collect(Collectors.toList());
+    @GetMapping("/get/definite/list")
+    List<ProductDto> getById(@RequestParam(required = false) String type, @RequestBody List<Long> listId) {
+        if (type == null) {
+            return productService.findByListId(listId);
+        } else {
+            return productService.findByListId(ProductDtoType.valueOf(type), listId);
+        }
     }
 
-    @GetMapping("/get/{option}")
-    List<ProductDto> getProductByOption(@PathVariable JSONObject option) {
-        List<ProductEntity> entity = productRepository.findByListOption(option);
-        return entity.stream().map(el -> modelMapper.map(el, ProductDto.class)).collect(Collectors.toList());
+    @GetMapping("/get/category/list")
+    List<ProductDto> getByCategoryId(@RequestParam(
+            required = false) String type, @RequestParam Long id) {
+        if (type == null) {
+            return productService.findByCategoryId(id);
+        } else {
+            return productService.findByCategoryId(ProductDtoType.valueOf(type), id);
+        }
     }
+
+    @GetMapping("/get/option/list")
+    List<ProductDto> getByOption (@RequestParam(required = false) String type, @RequestParam JSONObject option) {
+        if (type == null) {
+            return productService.findByOption(option);
+        } else {
+            return productService.findByOption(ProductDtoType.valueOf(type), option);
+        }
+    }
+
+
 }

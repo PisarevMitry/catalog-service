@@ -182,9 +182,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         return productCategoryDtoList;
     }
 
-   /* public Tree<ProductCategoryDto> findTreeByParentId(Long id) {
-        Tree<ProductCategoryEntity> productCategoryEntityTree = productCategoryRepository.findTreeByParentId(id);
-        return productCategoryEntityTree.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
-    }*/
+
 }
 
