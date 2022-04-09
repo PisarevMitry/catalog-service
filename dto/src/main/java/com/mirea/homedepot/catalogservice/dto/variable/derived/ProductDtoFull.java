@@ -1,12 +1,20 @@
-package com.mirea.homedepot.catalogservice.dto;
+package com.mirea.homedepot.catalogservice.dto.variable.derived;
 
+import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
+import com.mirea.homedepot.catalogservice.dto.abstractive.ProductFeedbackDto;
+import com.mirea.homedepot.catalogservice.dto.abstractive.ProductPhotoDto;
+import com.mirea.homedepot.catalogservice.dto.abstractive.ProductSpecialConditionDto;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.json.JSONObject;
 
 import java.util.List;
 
 @Data
-public class ProductDtoFull {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductDtoFull extends ProductDto {
     private Long id;
     private String title;
     private String description;
@@ -18,7 +26,7 @@ public class ProductDtoFull {
     private List<ProductFeedbackDto> feedbackList;
     private List<ProductSpecialConditionDto> specialConditionList;
 
-    public ProductDtoFull(ProductDto productDto, List<ProductPhotoDto> photoList, List<ProductFeedbackDto> feedbackList, List<ProductSpecialConditionDto> specialConditionList) {
+ /*   public ProductDtoFull(ProductDto productDto, List<ProductPhotoDto> photoList, List<ProductFeedbackDto> feedbackList, List<ProductSpecialConditionDto> specialConditionList) {
         this.id = productDto.getId();
         this.title = productDto.getTitle();
         this.description = productDto.getDescription();
@@ -29,5 +37,5 @@ public class ProductDtoFull {
         this.categoryId = productDto.getCategoryId();
         this.feedbackList = feedbackList;
         this.specialConditionList = specialConditionList;
-    }
+    }*/
 }

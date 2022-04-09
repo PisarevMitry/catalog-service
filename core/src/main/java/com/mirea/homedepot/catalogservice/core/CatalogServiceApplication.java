@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
 @ComponentScan("com.mirea.homedepot")
-public class PersonServiceApplication {
+public class CatalogServiceApplication {
 
     /**
      * The entry point of application.
@@ -18,6 +18,6 @@ public class PersonServiceApplication {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        SpringApplication.run(PersonServiceApplication.class);
+        SpringApplication.run(CatalogServiceApplication.class);
     }
 }

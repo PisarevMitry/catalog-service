@@ -2,6 +2,7 @@ package com.mirea.homedepot.catalogservice.core.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.AdviceMode;
@@ -15,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 /**
- * The type Mybatis config.
+ * The type Mybatis com.mirea.homedepot.gatewayservice.core.config.
  */
 @Configuration
 @EnableTransactionManagement(mode = AdviceMode.PROXY)

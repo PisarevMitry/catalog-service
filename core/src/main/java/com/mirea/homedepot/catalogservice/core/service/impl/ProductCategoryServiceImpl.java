@@ -3,17 +3,16 @@ package com.mirea.homedepot.catalogservice.core.service.impl;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository;
 import com.mirea.homedepot.catalogservice.core.service.base.ProductCategoryService;
-import com.mirea.homedepot.catalogservice.dto.ProductCategoryDto;
-import com.mirea.homedepot.catalogservice.dto.ProductCategoryDtoDefault;
-import com.mirea.homedepot.catalogservice.dto.ProductCategoryDtoWithoutParent;
-import com.mirea.homedepot.catalogservice.dtotype.ProductCategoryDtoType;
+import com.mirea.homedepot.catalogservice.dto.abstractive.ProductCategoryDto;
+import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductCategoryDtoDefault;
+import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductCategoryDtoWithoutParent;
+import com.mirea.homedepot.catalogservice.dto.type.ProductCategoryDtoType;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-//репозитории взаимодействуют с сущностями (получаем всегда одинакового формата), а их уже парсим  в нужный ормат дто
 
 @Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
@@ -51,7 +50,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public ProductCategoryDto findById(Long productCategoryId) {
         ProductCategoryEntity productCategoryEntity = productCategoryRepository.findById(productCategoryId);
-        return modelMapper.map(productCategoryEntity, ProductCategoryDtoWithoutParent.class);
+        return modelMapper.map(productCategoryEntity, ProductCategoryDtoDefault.class);
     }
 
     @Override
@@ -72,7 +71,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public List<ProductCategoryDto> findByListId(List<Long> listId) {
         List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByListId(listId);
-        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -118,12 +117,27 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public List<ProductCategoryDto> findListByParentId(Long id) {
         List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByParentId(id);
-        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductCategoryDto> findListByParentId(ProductCategoryDtoType type, Long id) {
+        List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByParentId(id);
+        List<ProductCategoryDto> productCategoryDtoList;
+        switch (type) {
+            case WITHOUT_PARENT: {
+                productCategoryDtoList = productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoWithoutParent.class)).collect(Collectors.toList());
+            }
+            break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        return productCategoryDtoList;
     }
 
     @Override
     public List<ProductCategoryDto> findListRecursiveByParentId(Long id) {
-        List<ProductCategoryEntity> productCategoryEntityList = new ArrayList<ProductCategoryEntity>();
+        List<ProductCategoryEntity> productCategoryEntityList = new ArrayList<>();
         ProductCategoryEntity currentProductCategoryEntity;
         ProductCategoryEntity parentProductCategoryEntity;
         Long parentId;
@@ -131,18 +145,18 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         currentProductCategoryEntity = productCategoryRepository.findById(id);
         parentId = currentProductCategoryEntity.getParentId();
         productCategoryEntityList.add(currentProductCategoryEntity);
-        while (parentId != 0) {
+        while (parentId != null) {
 
             parentProductCategoryEntity = productCategoryRepository.findById(parentId);
             productCategoryEntityList.add(parentProductCategoryEntity);
             parentId = parentProductCategoryEntity.getParentId();
         }
-        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDto.class)).collect(Collectors.toList());
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class)).collect(Collectors.toList());
     }
 
     @Override
     public List<ProductCategoryDto> findListRecursiveByParentId(ProductCategoryDtoType type, Long id) {
-        List<ProductCategoryEntity> productCategoryEntityList = new ArrayList<ProductCategoryEntity>();
+        List<ProductCategoryEntity> productCategoryEntityList = new ArrayList<>();
         ProductCategoryEntity currentProductCategoryEntity;
         ProductCategoryEntity parentProductCategoryEntity;
         Long parentId;
@@ -150,7 +164,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         currentProductCategoryEntity = productCategoryRepository.findById(id);
         parentId = currentProductCategoryEntity.getParentId();
         productCategoryEntityList.add(currentProductCategoryEntity);
-        while (parentId != 0) {
+        while (parentId != null) {
 
             parentProductCategoryEntity = productCategoryRepository.findById(parentId);
             productCategoryEntityList.add(parentProductCategoryEntity);

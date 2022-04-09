@@ -2,7 +2,7 @@ package com.mirea.homedepot.catalogservice.core.controller;
 
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductRepository;
-import com.mirea.homedepot.catalogservice.dto.ProductDto;
+import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
 import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.validation.annotation.Validated;

@@ -1,7 +1,7 @@
 server:
-  port: 8030
+  port: 8040
   servlet:
-    context-path: /home-depot/catalog-service
+    context-path: /catalog
 
 spring:
   datasource:

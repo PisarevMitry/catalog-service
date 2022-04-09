@@ -3,8 +3,8 @@ package com.mirea.homedepot.catalogservice.core.service.impl;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductRepository;
 import com.mirea.homedepot.catalogservice.core.service.base.ProductService;
-import com.mirea.homedepot.catalogservice.dto.ProductDto;
-import com.mirea.homedepot.catalogservice.dtotype.ProductDtoType;
+import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
+import com.mirea.homedepot.catalogservice.dto.type.ProductDtoType;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;

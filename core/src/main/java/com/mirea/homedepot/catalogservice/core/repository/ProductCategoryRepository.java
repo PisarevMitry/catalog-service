@@ -2,13 +2,9 @@ package com.mirea.homedepot.catalogservice.core.repository;
 
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 @Mapper
-public interface ProductCategoryRepository extends BasicMethodRepository<ProductCategoryEntity> {
-    List<ProductCategoryEntity> findByParentId(@Param("id") Long id);
+public interface ProductCategoryRepository extends BasicMethodRepository<ProductCategoryEntity>, ParentSearchRepository<ProductCategoryEntity> {
 
     /**
      * Метод для получения списка дочерних категорий одной итерации

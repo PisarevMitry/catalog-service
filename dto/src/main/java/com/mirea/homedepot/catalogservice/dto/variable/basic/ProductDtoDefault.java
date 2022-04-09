@@ -1,10 +1,15 @@
-package com.mirea.homedepot.catalogservice.dto;
+package com.mirea.homedepot.catalogservice.dto.variable.basic;
 
+import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.json.JSONObject;
 
 @Data
-public class ProductDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProductDtoDefault extends ProductDto {
     private Long id;
     private String title;
     private String description;
