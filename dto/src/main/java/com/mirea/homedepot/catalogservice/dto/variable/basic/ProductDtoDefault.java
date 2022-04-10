@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
+
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor

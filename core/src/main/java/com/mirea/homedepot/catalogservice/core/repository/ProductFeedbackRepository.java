@@ -4,7 +4,7 @@ import com.mirea.homedepot.catalogservice.core.model.entity.ProductFeedbackEntit
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ProductFeedbackRepository extends BasicMethodRepository<ProductFeedbackEntity>, ParentSearchRepository<ProductFeedbackEntity> {
-
+public interface ProductFeedbackRepository
+        extends BasicMethodRepository<ProductFeedbackEntity>, ParentSearchRepository<ProductFeedbackEntity> {
 
 }

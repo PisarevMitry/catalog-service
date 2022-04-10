@@ -5,5 +5,4 @@ import com.mirea.homedepot.catalogservice.dto.abstractive.ProductSpecialConditio
 
 public interface ProductSpecialConditionService extends CrudServiceForDefaultDto<ProductSpecialConditionDto> {
 
-
 }

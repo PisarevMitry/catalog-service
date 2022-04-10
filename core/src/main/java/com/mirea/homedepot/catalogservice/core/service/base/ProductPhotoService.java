@@ -7,7 +7,9 @@ import com.mirea.homedepot.catalogservice.core.service.RecursiveSearchForNotDefa
 import com.mirea.homedepot.catalogservice.dto.abstractive.ProductPhotoDto;
 import com.mirea.homedepot.catalogservice.dto.type.ProductPhotoDtoType;
 
-public interface ProductPhotoService extends CrudServiceForDefaultDto<ProductPhotoDto>, CrudServiceForNotDefaultDto<ProductPhotoDto, ProductPhotoDtoType>, RecursiveSearchForDefaultDto<ProductPhotoDto>, RecursiveSearchForNotDefaultDto<ProductPhotoDto, ProductPhotoDtoType> {
-
+public interface ProductPhotoService extends CrudServiceForDefaultDto<ProductPhotoDto>,
+        CrudServiceForNotDefaultDto<ProductPhotoDto, ProductPhotoDtoType>,
+        RecursiveSearchForDefaultDto<ProductPhotoDto>,
+        RecursiveSearchForNotDefaultDto<ProductPhotoDto, ProductPhotoDtoType> {
 
 }

@@ -9,7 +9,10 @@ import com.mirea.homedepot.catalogservice.dto.type.ProductCategoryDtoType;
 
 import java.util.List;
 
-public interface ProductCategoryService extends CrudServiceForDefaultDto<ProductCategoryDto>, CrudServiceForNotDefaultDto<ProductCategoryDto, ProductCategoryDtoType>, RecursiveSearchForDefaultDto<ProductCategoryDto>, RecursiveSearchForNotDefaultDto<ProductCategoryDto, ProductCategoryDtoType> {
+public interface ProductCategoryService extends CrudServiceForDefaultDto<ProductCategoryDto>,
+        CrudServiceForNotDefaultDto<ProductCategoryDto, ProductCategoryDtoType>,
+        RecursiveSearchForDefaultDto<ProductCategoryDto>,
+        RecursiveSearchForNotDefaultDto<ProductCategoryDto, ProductCategoryDtoType> {
 
     List<ProductCategoryDto> findListByParentId(Long id);
 

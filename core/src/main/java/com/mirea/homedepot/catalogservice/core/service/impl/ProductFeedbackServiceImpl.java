@@ -23,13 +23,12 @@ public class ProductFeedbackServiceImpl implements ProductFeedbackService {
         this.modelMapper = modelMapper;
     }
 
-
     @Override
     public List<ProductFeedbackDto> findAll() {
         List<ProductFeedbackEntity> productFeedbackEntityList = productFeedbackRepository.findAll();
-        return productFeedbackEntityList.stream().map(el -> modelMapper.map(el, ProductFeedbackDtoDefault.class)).collect(Collectors.toList());
+        return productFeedbackEntityList.stream().map(el -> modelMapper.map(el, ProductFeedbackDtoDefault.class))
+                .collect(Collectors.toList());
     }
-
 
     @Override
     public ProductFeedbackDto findById(Long productFeedbackId) {
@@ -40,9 +39,9 @@ public class ProductFeedbackServiceImpl implements ProductFeedbackService {
     @Override
     public List<ProductFeedbackDto> findByListId(List<Long> listId) {
         List<ProductFeedbackEntity> productFeedbackEntityList = productFeedbackRepository.findByListId(listId);
-        return productFeedbackEntityList.stream().map(el -> modelMapper.map(el, ProductFeedbackDtoDefault.class)).collect(Collectors.toList());
+        return productFeedbackEntityList.stream().map(el -> modelMapper.map(el, ProductFeedbackDtoDefault.class))
+                .collect(Collectors.toList());
     }
-
 
     @Override
     public void insert(ProductFeedbackDto productFeedbackDto) {
@@ -54,7 +53,8 @@ public class ProductFeedbackServiceImpl implements ProductFeedbackService {
     @Override
     public void insertList(List<ProductFeedbackDto> productFeedbackDtoList) {
         List<ProductFeedbackEntity> productFeedbackEntityList =
-                productFeedbackDtoList.stream().map(el -> modelMapper.map(el, ProductFeedbackEntity.class)).collect(Collectors.toList());
+                productFeedbackDtoList.stream().map(el -> modelMapper.map(el, ProductFeedbackEntity.class))
+                        .collect(Collectors.toList());
         productFeedbackRepository.insertList(productFeedbackEntityList);
     }
 
@@ -85,6 +85,7 @@ public class ProductFeedbackServiceImpl implements ProductFeedbackService {
             productFeedbackEntityList.add(parentProductFeedbackEntity);
             parentId = parentProductFeedbackEntity.getParentId();
         }
-        return productFeedbackEntityList.stream().map(el -> modelMapper.map(el, ProductFeedbackDtoDefault.class)).collect(Collectors.toList());
+        return productFeedbackEntityList.stream().map(el -> modelMapper.map(el, ProductFeedbackDtoDefault.class))
+                .collect(Collectors.toList());
     }
 }

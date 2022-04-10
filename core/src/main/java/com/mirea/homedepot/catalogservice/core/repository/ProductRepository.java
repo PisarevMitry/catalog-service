@@ -11,6 +11,9 @@ import java.util.List;
 @Mapper
 public interface ProductRepository extends BasicMethodRepository<ProductEntity> {
 
-    List<ProductEntity> findByListOption(@RequestBody @Param("option") JSONObject option);
+    List<ProductEntity> findByListOption(
+            @RequestBody
+            @Param("option")
+                    JSONObject option);
 
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class ProductFeedbackEntity {
+public class ProductFeedbackEntity extends Entity{
 
     private Long id;
     private Integer grade;

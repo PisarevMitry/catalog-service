@@ -8,7 +8,8 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public interface ProductService extends CrudServiceForDefaultDto<ProductDto>, CrudServiceForNotDefaultDto<ProductDto, ProductDtoType> {
+public interface ProductService
+        extends CrudServiceForDefaultDto<ProductDto>, CrudServiceForNotDefaultDto<ProductDto, ProductDtoType> {
 
     List<ProductDto> findByCategoryId(Long id);
 

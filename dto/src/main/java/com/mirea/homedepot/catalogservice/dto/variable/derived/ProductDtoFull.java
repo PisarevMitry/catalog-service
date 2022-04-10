@@ -29,7 +29,8 @@ public class ProductDtoFull extends ProductDto {
     private List<ProductFeedbackDto> feedbackList;
     private ProductSpecialConditionDto specialCondition;
 
-    public ProductDtoFull(ProductDtoDefault productDto, List<ProductPhotoDto> photoList, List<ProductFeedbackDto> feedbackList, ProductSpecialConditionDto specialCondition) {
+    public ProductDtoFull(ProductDtoDefault productDto, List<ProductPhotoDto> photoList,
+                          List<ProductFeedbackDto> feedbackList, ProductSpecialConditionDto specialCondition) {
         this.id = productDto.getId();
         this.title = productDto.getTitle();
         this.description = productDto.getDescription();

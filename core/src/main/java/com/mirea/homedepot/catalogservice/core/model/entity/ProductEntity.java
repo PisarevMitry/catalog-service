@@ -4,7 +4,7 @@ import lombok.Data;
 import org.json.JSONObject;
 
 @Data
-public class ProductEntity {
+public class ProductEntity extends Entity{
 
     private Long id;
     private String title;

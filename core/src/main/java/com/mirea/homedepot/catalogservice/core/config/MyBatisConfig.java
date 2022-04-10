@@ -2,7 +2,6 @@ package com.mirea.homedepot.catalogservice.core.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.AdviceMode;
@@ -38,6 +37,25 @@ public class MyBatisConfig {
     }
 
     /**
+     * Gets data source.
+     *
+     * @return the data source
+     */
+    private DataSource getDataSource() {
+
+        /* log.info("Setting up datasource for {} environment.", env.getActiveProfiles());*/
+
+        DataSource dataSource = DataSourceBuilder.create().url(env.getProperty("spring.datasource.url"))
+                .username(env.getProperty("spring.datasource.username"))
+                .password(env.getProperty("spring.datasource.password")).build();
+        String maxPoolSize = env.getProperty("spring.datasource.hikari.maximum-pool-size");
+        assert maxPoolSize != null;
+        ((HikariDataSource) dataSource).setMaximumPoolSize(Integer.parseInt(maxPoolSize));
+
+        return dataSource;
+    }
+
+    /**
      * Transaction manager data source transaction manager.
      *
      * @param dataSource the data source
@@ -47,23 +65,5 @@ public class MyBatisConfig {
     @Primary
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
-    }
-
-    /**
-     * Gets data source.
-     *
-     * @return the data source
-     */
-    private DataSource getDataSource() {
-
-       /* log.info("Setting up datasource for {} environment.", env.getActiveProfiles());*/
-
-        DataSource dataSource = DataSourceBuilder.create().url(env.getProperty("spring.datasource.url")).username(env.getProperty("spring.datasource.username"))
-                .password(env.getProperty("spring.datasource.password")).build();
-        String maxPoolSize = env.getProperty("spring.datasource.hikari.maximum-pool-size");
-        assert maxPoolSize != null;
-        ((HikariDataSource) dataSource).setMaximumPoolSize(Integer.parseInt(maxPoolSize));
-
-        return dataSource;
     }
 }

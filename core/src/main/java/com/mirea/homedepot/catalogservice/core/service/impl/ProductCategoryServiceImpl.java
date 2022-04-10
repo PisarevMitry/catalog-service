@@ -4,9 +4,9 @@ import com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntit
 import com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository;
 import com.mirea.homedepot.catalogservice.core.service.base.ProductCategoryService;
 import com.mirea.homedepot.catalogservice.dto.abstractive.ProductCategoryDto;
+import com.mirea.homedepot.catalogservice.dto.type.ProductCategoryDtoType;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductCategoryDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductCategoryDtoWithoutParent;
-import com.mirea.homedepot.catalogservice.dto.type.ProductCategoryDtoType;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +25,50 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         this.modelMapper = modelMapper;
     }
 
-
     @Override
     public List<ProductCategoryDto> findAll() {
         List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findAll();
-        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class)).collect(Collectors.toList());
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductCategoryDto findById(Long productCategoryId) {
+        ProductCategoryEntity productCategoryEntity = productCategoryRepository.findById(productCategoryId);
+        return modelMapper.map(productCategoryEntity, ProductCategoryDtoDefault.class);
+    }
+
+    @Override
+    public List<ProductCategoryDto> findByListId(List<Long> listId) {
+        List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByListId(listId);
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void insert(ProductCategoryDto productCategoryDto) {
+        ProductCategoryEntity productCategoryEntity = modelMapper.map(productCategoryDto, ProductCategoryEntity.class);
+        if (productCategoryEntity.getId() == null) productCategoryRepository.insert(productCategoryEntity);
+        else productCategoryRepository.update(productCategoryEntity);
+    }
+
+    @Override
+    public void insertList(List<ProductCategoryDto> productCategoryDtoList) {
+        List<ProductCategoryEntity> productCategoryEntityList =
+                productCategoryDtoList.stream().map(el -> modelMapper.map(el, ProductCategoryEntity.class))
+                        .collect(Collectors.toList());
+        productCategoryRepository.insertList(productCategoryEntityList);
+    }
+
+    @Override
+    public void update(ProductCategoryDto productCategoryDto) {
+        ProductCategoryEntity productCategoryEntity = modelMapper.map(productCategoryDto, ProductCategoryEntity.class);
+        productCategoryRepository.update(productCategoryEntity);
+    }
+
+    @Override
+    public void deleteById(Long productCategoryId) {
+        productCategoryRepository.deleteById(productCategoryId);
     }
 
     @Override
@@ -38,19 +77,15 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<ProductCategoryDto> productCategoryDtoList;
         switch (type) {
             case WITHOUT_PARENT: {
-                productCategoryDtoList = productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoWithoutParent.class)).collect(Collectors.toList());
+                productCategoryDtoList = productCategoryEntityList.stream()
+                        .map(el -> modelMapper.map(el, ProductCategoryDtoWithoutParent.class))
+                        .collect(Collectors.toList());
             }
             break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         return productCategoryDtoList;
-    }
-
-    @Override
-    public ProductCategoryDto findById(Long productCategoryId) {
-        ProductCategoryEntity productCategoryEntity = productCategoryRepository.findById(productCategoryId);
-        return modelMapper.map(productCategoryEntity, ProductCategoryDtoDefault.class);
     }
 
     @Override
@@ -69,18 +104,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public List<ProductCategoryDto> findByListId(List<Long> listId) {
-        List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByListId(listId);
-        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class)).collect(Collectors.toList());
-    }
-
-    @Override
     public List<ProductCategoryDto> findByListId(ProductCategoryDtoType type, List<Long> listId) {
         List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByListId(listId);
         List<ProductCategoryDto> productCategoryDtoList;
         switch (type) {
             case WITHOUT_PARENT: {
-                productCategoryDtoList = productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoWithoutParent.class)).collect(Collectors.toList());
+                productCategoryDtoList = productCategoryEntityList.stream()
+                        .map(el -> modelMapper.map(el, ProductCategoryDtoWithoutParent.class))
+                        .collect(Collectors.toList());
             }
             break;
             default:
@@ -90,34 +121,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public void insert(ProductCategoryDto productCategoryDto) {
-        ProductCategoryEntity productCategoryEntity = modelMapper.map(productCategoryDto, ProductCategoryEntity.class);
-        if (productCategoryEntity.getId() == null) productCategoryRepository.insert(productCategoryEntity);
-        else productCategoryRepository.update(productCategoryEntity);
-    }
-
-    @Override
-    public void insertList(List<ProductCategoryDto> productCategoryDtoList) {
-        List<ProductCategoryEntity> productCategoryEntityList =
-                productCategoryDtoList.stream().map(el -> modelMapper.map(el, ProductCategoryEntity.class)).collect(Collectors.toList());
-        productCategoryRepository.insertList(productCategoryEntityList);
-    }
-
-    @Override
-    public void update(ProductCategoryDto productCategoryDto) {
-        ProductCategoryEntity productCategoryEntity = modelMapper.map(productCategoryDto, ProductCategoryEntity.class);
-        productCategoryRepository.update(productCategoryEntity);
-    }
-
-    @Override
-    public void deleteById(Long productCategoryId) {
-        productCategoryRepository.deleteById(productCategoryId);
-    }
-
-    @Override
     public List<ProductCategoryDto> findListByParentId(Long id) {
         List<ProductCategoryEntity> productCategoryEntityList = productCategoryRepository.findByParentId(id);
-        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class)).collect(Collectors.toList());
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -126,7 +133,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<ProductCategoryDto> productCategoryDtoList;
         switch (type) {
             case WITHOUT_PARENT: {
-                productCategoryDtoList = productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoWithoutParent.class)).collect(Collectors.toList());
+                productCategoryDtoList = productCategoryEntityList.stream()
+                        .map(el -> modelMapper.map(el, ProductCategoryDtoWithoutParent.class))
+                        .collect(Collectors.toList());
             }
             break;
             default:
@@ -151,7 +160,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             productCategoryEntityList.add(parentProductCategoryEntity);
             parentId = parentProductCategoryEntity.getParentId();
         }
-        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class)).collect(Collectors.toList());
+        return productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoDefault.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -173,7 +183,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<ProductCategoryDto> productCategoryDtoList;
         switch (type) {
             case WITHOUT_PARENT: {
-                productCategoryDtoList = productCategoryEntityList.stream().map(el -> modelMapper.map(el, ProductCategoryDtoWithoutParent.class)).collect(Collectors.toList());
+                productCategoryDtoList = productCategoryEntityList.stream()
+                        .map(el -> modelMapper.map(el, ProductCategoryDtoWithoutParent.class))
+                        .collect(Collectors.toList());
             }
             break;
             default:
@@ -181,7 +193,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         }
         return productCategoryDtoList;
     }
-
 
 }
 

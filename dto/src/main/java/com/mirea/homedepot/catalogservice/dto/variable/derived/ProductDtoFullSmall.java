@@ -4,7 +4,6 @@ import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
 import com.mirea.homedepot.catalogservice.dto.abstractive.ProductPhotoDto;
 import com.mirea.homedepot.catalogservice.dto.abstractive.ProductSpecialConditionDto;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductDtoDefault;
-import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductSpecialConditionDtoDefault;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +21,8 @@ public class ProductDtoFullSmall extends ProductDto {
     private ProductPhotoDto photo;
     private ProductSpecialConditionDto specialCondition;
 
-    public ProductDtoFullSmall(ProductDtoDefault productDto, ProductPhotoDto photo, ProductSpecialConditionDto specialCondition) {
+    public ProductDtoFullSmall(ProductDtoDefault productDto, ProductPhotoDto photo,
+                               ProductSpecialConditionDto specialCondition) {
         this.id = productDto.getId();
         this.title = productDto.getTitle();
         this.price = productDto.getPrice();

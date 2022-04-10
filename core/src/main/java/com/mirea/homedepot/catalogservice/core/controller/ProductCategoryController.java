@@ -24,7 +24,9 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get")
-    public List<ProductCategoryDto> getList(@RequestParam(required = false) String type) {
+    public List<ProductCategoryDto> getList(
+            @RequestParam(required = false)
+                    String type) {
         if (type == null) {
             return productCategoryService.findAll();
         } else {
@@ -33,7 +35,11 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get/definite/item")
-    public ProductCategoryDto getItem(@RequestParam(required = false) String type, @RequestParam Long id) {
+    public ProductCategoryDto getItem(
+            @RequestParam(required = false)
+                    String type,
+            @RequestParam
+                    Long id) {
         if (type == null) {
             return productCategoryService.findById(id);
         } else {
@@ -42,7 +48,11 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get/definite/list")
-    List<ProductCategoryDto> getList(@RequestParam(required = false) String type, @RequestBody List<Long> listId) {
+     List<ProductCategoryDto> getList(
+            @RequestParam(required = false)
+                    String type,
+            @RequestBody
+                    List<Long> listId) {
         if (type == null) {
             return productCategoryService.findByListId(listId);
         } else {
@@ -51,7 +61,11 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get/child/list")
-    List<ProductCategoryDto> getListChildItem(@RequestParam(required = false) String type, @RequestParam Long id) {
+    List<ProductCategoryDto> getListChildItem(
+            @RequestParam(required = false)
+                    String type,
+            @RequestParam
+                    Long id) {
         if (type == null) {
             return productCategoryService.findListByParentId(id);
         } else {
@@ -60,7 +74,11 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get/path/list")
-    List<ProductCategoryDto> getItemPath(@RequestParam(required = false) String type, @RequestParam Long id) {
+    List<ProductCategoryDto> getItemPath(
+            @RequestParam(required = false)
+                    String type,
+            @RequestParam
+                    Long id) {
         if (type == null) {
             return productCategoryService.findListRecursiveByParentId(id);
         } else {

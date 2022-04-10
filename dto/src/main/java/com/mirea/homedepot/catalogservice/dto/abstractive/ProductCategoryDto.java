@@ -1,5 +1,5 @@
 package com.mirea.homedepot.catalogservice.dto.abstractive;
 
-public abstract class ProductCategoryDto {
+public abstract class ProductCategoryDto extends Dto {
 
 }
