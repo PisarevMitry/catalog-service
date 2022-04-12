@@ -4,7 +4,7 @@ import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 
 import java.util.List;
 
-public interface CrudServiceForNotDefaultDto< T> {
+public interface CrudServiceForNotDefaultDto<T> {
 
     List<Dto> findAll(T type);
 

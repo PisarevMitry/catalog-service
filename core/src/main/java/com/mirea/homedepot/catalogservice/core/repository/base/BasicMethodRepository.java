@@ -1,8 +1,6 @@
 package com.mirea.homedepot.catalogservice.core.repository.base;
 
 import com.mirea.homedepot.catalogservice.core.model.base.Entity;
-
-
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;

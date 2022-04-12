@@ -22,11 +22,9 @@
 
     <distributionManagement>
         <repository>
-            <id>nexus-releases</id>
-            <name>releases</name>
-            <url>
-                https://github.com/PisarevMitry/homedepot.common-module.git
-            </url>
+            <id>internal.repo</id>
+            <name>Internal repo</name>
+            <url>https://homedepot-clientservice.herokuapp.com/</url>
         </repository>
     </distributionManagement>
 </project>

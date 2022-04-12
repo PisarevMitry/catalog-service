@@ -1,3 +1,8 @@
+server:
+  port: 8040
+  servlet:
+    context-path: /
+
 spring:
   datasource:
     url: jdbc:postgresql://ec2-63-32-248-14.eu-west-1.compute.amazonaws.com:5432/d67kl6gr8ituvl
