@@ -1,18 +1,13 @@
 package com.mirea.homedepot.catalogservice.core.repository;
 
-import com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity;
+import com.mirea.homedepot.catalogservice.core.repository.base.BasicMethodRepository;
+import com.mirea.homedepot.catalogservice.core.repository.base.ParentSearchRepository;
+import com.mirea.homedepot.catalogservice.core.repository.base.Repository;
+import com.mirea.homedepot.catalogservice.core.repository.base.TreeSearchRepository;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ProductCategoryRepository
-        extends BasicMethodRepository<ProductCategoryEntity>, ParentSearchRepository<ProductCategoryEntity> {
-/*
-    /**
-     * Метод для получения списка дочерних категорий одной итерации
-     * @param id идентификатор родительской категории
-     * @return список сущностей категорий
-*/    //List<ProductCategoryEntity> findByParentId(@Param("id") Long id);
-
-    //   Tree<ProductCategoryEntity> findTreeByParentId(@Param("id") Long id);
-
+        extends Repository, BasicMethodRepository, ParentSearchRepository,
+                TreeSearchRepository {
 }

@@ -1,4 +1,7 @@
-package com.mirea.homedepot.catalogservice.core.repository;
+package com.mirea.homedepot.catalogservice.core.repository.base;
+
+import com.mirea.homedepot.catalogservice.core.model.base.Entity;
+
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -6,22 +9,21 @@ import java.util.List;
 
 /**
  * Интерфейс опряделяющий общие методы для работы с записями в БД.
- * @param <E> Entity сущность
  */
-public interface BasicMethodRepository<E> {
+public interface BasicMethodRepository {
 
     /**
      * Метод для поиска всех записей.
      * @return список объектов класса Entity
      */
-    List<E> findAll();
+    List<Entity> findAll();
 
     /**
      * Метод для поиска одной записи.
      * @param id идентификатор записи
      * @return объект класса Entity
      */
-    E findById(
+    Entity findById(
             @RequestParam("id")
                     Long id);
 
@@ -30,7 +32,7 @@ public interface BasicMethodRepository<E> {
      * @param listId список идентификаторов записей
      * @return список объектов класса Entity
      */
-    List<E> findByListId(
+    List<Entity> findByListId(
             @RequestParam("listId")
                     List<Long> listId);
 
@@ -41,7 +43,7 @@ public interface BasicMethodRepository<E> {
      */
     Boolean insert(
             @RequestParam("entity")
-                    E entity);
+                    Entity entity);
 
     /**
      * Метод для добавления множества записей в таблицу.
@@ -50,7 +52,7 @@ public interface BasicMethodRepository<E> {
      */
     Boolean insertList(
             @RequestParam("entityList")
-                    List<E> entityList);
+                    List<Entity> entityList);
 
     /**
      * Метод для изменения записи в таблице.
@@ -59,7 +61,7 @@ public interface BasicMethodRepository<E> {
      */
     Boolean update(
             @RequestParam("entity")
-                    E entity);
+                    Entity entity);
 
     /**
      * Метод для удаления записи.

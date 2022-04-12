@@ -18,7 +18,6 @@ public class ProductDtoDefault extends ProductDto {
     private Integer price;
     private Integer amount;
     private Long photoId;
-    private Long videoId;
     private JSONObject option;
     private Long categoryId;
     private Long feedbackId;

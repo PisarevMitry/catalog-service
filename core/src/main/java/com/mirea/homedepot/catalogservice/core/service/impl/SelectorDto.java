@@ -1,53 +1,62 @@
 package com.mirea.homedepot.catalogservice.core.service.impl;
 
+import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SelectorDto<T> {
+/**
+ * Класс для изменения представления dto и entity
+ */
+@Component
+public class SelectorDto {
 
-    private final ModelMapper modelMapper;
+    static class SelectorDtoMapper<T> {
+
+        private final ModelMapper modelMapper;
+
+        public SelectorDtoMapper(ModelMapper modelMapper) {
+            this.modelMapper = modelMapper;
+        }
+
+        public Dto select(T t, Class<? extends Dto> resultClass) {
+            return map(t, resultClass);
+        }
+
+        public List<Dto> select(List<T> list,
+                                   Class<? extends Dto> resultClass) {
+            return mapList(list, resultClass);
+        }
+
+        private Dto map(T t, Class<? extends Dto> resultClass) {
+            return modelMapper.map(t, resultClass);
+        }
+
+        private List<Dto> mapList(@NotNull List<T> list,
+                                  Class<? extends Dto> resultClass) {
+            return list.stream().map(el -> map(el, resultClass))
+                    .collect(Collectors.toList());
+        }
+    }
+
+    private static SelectorDtoMapper<Entity> mapFromEntityClass;
+
+    private static SelectorDtoMapper<Dto> mapFromDtoClass;
 
     public SelectorDto(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
+        mapFromEntityClass = new SelectorDtoMapper<Entity>(modelMapper);
+        mapFromDtoClass = new SelectorDtoMapper<Dto>(modelMapper);
     }
 
-    public Dto selectItem(T t, Class<? extends Dto> resultClass) {
-        return map(t, resultClass);
+    public static SelectorDtoMapper<Entity> mapFromEntity() {
+        return mapFromEntityClass;
     }
 
-    public List<Dto> selectList(List<T> list, Class<? extends Dto> resultClass) {
-        return mapList(list, resultClass);
-    }
-
-    private Dto map(T t, Class<? extends Dto> resultClass) {
-        return modelMapper.map(t, resultClass);
-    }
-
-    private List<Dto> mapList(@NotNull List<T> list, Class<? extends Dto> resultClass) {
-        return list.stream().map(el -> map(el, resultClass)).collect(Collectors.toList());
+    public static SelectorDtoMapper<Dto> mapFromDto() {
+        return mapFromDtoClass;
     }
 }
-/*
-
-public static class SelectorDtoFromEntity extends SelectorDto {
-
-    public static Dto selectItemTypeDto(Entity entity, Class<? extends Dto> resultClass) {
-        return mapEntity(entity, resultClass);
-    }
-
-    public static List<Dto> selectListTypeDto(List<Entity> entityList, Class<? extends Dto> resultClass) {
-        return mapEntityList(entityList, resultClass);
-    }
-
-    private static Dto mapEntity(Entity entity, Class<? extends Dto> resultClass) {
-        return modelMapper.map(entity, resultClass);
-    }
-
-    private static List<Dto> mapEntityList(@NotNull List<Entity> entityList, Class<? extends Dto> resultClass) {
-        return entityList.stream().map(el -> mapEntity(el, resultClass)).collect(Collectors.toList());
-    }
-}*/

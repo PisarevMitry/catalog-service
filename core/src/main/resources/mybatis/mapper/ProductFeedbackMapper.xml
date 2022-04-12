@@ -35,10 +35,29 @@
             </otherwise>
         </choose>
     </select>
-    <select id="findByParentId" resultMap="ProductFeedbackEntity">
+
+    <select id="findTreePathByParentId" resultMap="ProductFeedbackEntity">
+        WITH RECURSIVE result AS (
+            SELECT *
+            FROM catalog_data.product_feedback
+            WHERE id = #{id, jdbcType=BIGINT}
+
+            UNION ALL
+
+            SELECT catalog_data.product_feedback.*
+            FROM catalog_data.product_feedback
+                     JOIN result
+                          ON catalog_data.product_feedback.parent_id = result.id
+        )
+
+        SELECT *
+        FROM result;
+    </select>
+
+    <select id="findTreeIterationByParentId" resultMap="ProductFeedbackEntity">
         SELECT *
         FROM catalog_data.product_feedback
-        WHERE parent_id = #{parentId, jdbcType=BIGINT};
+        WHERE parent_id = #{id, jdbcType=BIGINT};
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">

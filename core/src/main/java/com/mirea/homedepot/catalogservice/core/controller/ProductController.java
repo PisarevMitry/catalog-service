@@ -1,7 +1,7 @@
 package com.mirea.homedepot.catalogservice.core.controller;
 
-import com.mirea.homedepot.catalogservice.core.service.base.ProductService;
-import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
+import com.mirea.homedepot.catalogservice.core.service.ProductService;
+import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import com.mirea.homedepot.catalogservice.dto.type.ProductDtoType;
 import org.json.JSONObject;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +25,7 @@ public class ProductController {
     }
 
     @GetMapping("/get")
-    public List<ProductDto> getAll(
+    public List<Dto> getAll(
             @RequestParam(required = false)
                     String type) {
         if (type == null) {
@@ -36,7 +36,7 @@ public class ProductController {
     }
 
     @GetMapping("/get/definite/item")
-    public ProductDto getById(
+    public Dto getById(
             @RequestParam(required = false)
                     String type,
             @RequestParam
@@ -49,7 +49,7 @@ public class ProductController {
     }
 
     @GetMapping("/get/definite/list")
-    List<ProductDto> getById(
+    List<Dto> getById(
             @RequestParam(required = false)
                     String type,
             @RequestBody
@@ -62,7 +62,7 @@ public class ProductController {
     }
 
     @GetMapping("/get/category/list")
-    List<ProductDto> getByCategoryId(
+    List<Dto> getByCategoryId(
             @RequestParam(required = false)
                     String type,
             @RequestParam
@@ -75,7 +75,7 @@ public class ProductController {
     }
 
     @GetMapping("/get/option/list")
-    List<ProductDto> getByOption(
+    List<Dto> getByOption(
             @RequestParam(required = false)
                     String type,
             @RequestParam

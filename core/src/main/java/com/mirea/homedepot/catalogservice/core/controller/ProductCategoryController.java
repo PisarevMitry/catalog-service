@@ -1,7 +1,7 @@
 package com.mirea.homedepot.catalogservice.core.controller;
 
-import com.mirea.homedepot.catalogservice.core.service.base.ProductCategoryService;
-import com.mirea.homedepot.catalogservice.dto.abstractive.ProductCategoryDto;
+import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;
+import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import com.mirea.homedepot.catalogservice.dto.type.ProductCategoryDtoType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +24,7 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get")
-    public List<ProductCategoryDto> getList(
+    public List<Dto> getList(
             @RequestParam(required = false)
                     String type) {
         if (type == null) {
@@ -35,7 +35,7 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get/definite/item")
-    public ProductCategoryDto getItem(
+    public Dto getItem(
             @RequestParam(required = false)
                     String type,
             @RequestParam
@@ -48,7 +48,7 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get/definite/list")
-     List<ProductCategoryDto> getList(
+    List<Dto> getList(
             @RequestParam(required = false)
                     String type,
             @RequestBody
@@ -59,9 +59,8 @@ public class ProductCategoryController {
             return productCategoryService.findByListId(ProductCategoryDtoType.valueOf(type), listId);
         }
     }
-
-    @GetMapping("/get/child/list")
-    List<ProductCategoryDto> getListChildItem(
+/*    @GetMapping("/get/child/list")
+    List<Dto> getListChildItem(
             @RequestParam(required = false)
                     String type,
             @RequestParam
@@ -74,7 +73,7 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get/path/list")
-    List<ProductCategoryDto> getItemPath(
+    List<Dto> getItemPath(
             @RequestParam(required = false)
                     String type,
             @RequestParam
@@ -85,9 +84,10 @@ public class ProductCategoryController {
             return productCategoryService.findListRecursiveByParentId(ProductCategoryDtoType.valueOf(type), id);
         }
     }
-/*
+
    @GetMapping("/get?{id}&{numberIteration}")
-    Tree<ProductCategoryDto> getProductCategoryByParentId(@PathVariable Long id, @PathVariable Integer numberIteration) {
+    Tree<ProductCategoryDto> getProductCategoryByParentId(@PathVariable
+                                                                  Long id, @PathVariable Integer numberIteration) {
         return productCategoryService.findTreeByParentId(id, numberIteration);
     }*/
 }

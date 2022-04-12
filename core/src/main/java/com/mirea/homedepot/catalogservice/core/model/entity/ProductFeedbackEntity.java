@@ -1,11 +1,12 @@
 package com.mirea.homedepot.catalogservice.core.model.entity;
 
+import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class ProductFeedbackEntity extends Entity{
+public class ProductFeedbackEntity implements Entity {
 
     private Long id;
     private Integer grade;

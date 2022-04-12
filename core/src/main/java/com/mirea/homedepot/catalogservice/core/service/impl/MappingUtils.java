@@ -1,4 +1,4 @@
-package com.mirea.homedepot.catalogservice.core.model;
+package com.mirea.homedepot.catalogservice.core.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

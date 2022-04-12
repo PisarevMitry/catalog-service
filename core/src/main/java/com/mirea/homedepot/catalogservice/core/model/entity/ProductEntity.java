@@ -1,10 +1,11 @@
 package com.mirea.homedepot.catalogservice.core.model.entity;
 
+import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import lombok.Data;
 import org.json.JSONObject;
 
 @Data
-public class ProductEntity extends Entity{
+public class ProductEntity implements Entity {
 
     private Long id;
     private String title;

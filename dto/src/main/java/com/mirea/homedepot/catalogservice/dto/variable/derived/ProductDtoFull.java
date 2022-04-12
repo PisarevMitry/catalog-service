@@ -1,9 +1,7 @@
 package com.mirea.homedepot.catalogservice.dto.variable.derived;
 
+import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
-import com.mirea.homedepot.catalogservice.dto.abstractive.ProductFeedbackDto;
-import com.mirea.homedepot.catalogservice.dto.abstractive.ProductPhotoDto;
-import com.mirea.homedepot.catalogservice.dto.abstractive.ProductSpecialConditionDto;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductDtoDefault;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,18 +17,28 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductDtoFull extends ProductDto {
     private Long id;
-    private String title;
-    private String description;
-    private Integer price;
-    private Integer amount;
-    private List<ProductPhotoDto> photoList;
-    private JSONObject options;
-    private Long categoryId;
-    private List<ProductFeedbackDto> feedbackList;
-    private ProductSpecialConditionDto specialCondition;
 
-    public ProductDtoFull(ProductDtoDefault productDto, List<ProductPhotoDto> photoList,
-                          List<ProductFeedbackDto> feedbackList, ProductSpecialConditionDto specialCondition) {
+    private String title;
+
+    private String description;
+
+    private Integer price;
+
+    private Integer amount;
+
+    private List<Dto> photoList;
+
+    private JSONObject options;
+
+    private Dto category;
+
+    private List<Dto> feedbackList;
+
+    private Dto specialCondition;
+
+    public ProductDtoFull(ProductDtoDefault productDto, List<Dto> photoList,
+                          Dto productCategory, List<Dto> feedbackList,
+                          Dto specialCondition) {
         this.id = productDto.getId();
         this.title = productDto.getTitle();
         this.description = productDto.getDescription();
@@ -38,7 +46,7 @@ public class ProductDtoFull extends ProductDto {
         this.amount = productDto.getAmount();
         this.photoList = photoList;
         this.options = productDto.getOption();
-        this.categoryId = productDto.getCategoryId();
+        this.category = productCategory;
         this.feedbackList = feedbackList;
         this.specialCondition = specialCondition;
     }

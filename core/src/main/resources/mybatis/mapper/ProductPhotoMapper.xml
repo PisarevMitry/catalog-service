@@ -36,11 +36,30 @@
         </choose>
     </select>
 
-    <select id="findByParentId" resultMap="ProductPhotoEntity">
+    <select id="findTreePathByParentId" resultMap="ProductPhotoEntity">
+        WITH RECURSIVE result AS (
+            SELECT *
+            FROM catalog_data.product_photo
+            WHERE id = #{id, jdbcType=BIGINT}
+
+            UNION ALL
+
+            SELECT catalog_data.product_photo.*
+            FROM catalog_data.product_photo
+                     JOIN result
+                          ON catalog_data.product_photo.parent_id = result.id
+        )
+
+        SELECT *
+        FROM result;
+    </select>
+
+    <select id="findTreeIterationByParentId" resultMap="ProductPhotoEntity">
         SELECT *
         FROM catalog_data.product_photo
-        WHERE parent_id = #{parentId, jdbcType=BIGINT};
+        WHERE parent_id = #{id, jdbcType=BIGINT};
     </select>
+
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO catalog_data.product_photo (id, url, parent_id)
         VALUES (#{url}, #{parentId});

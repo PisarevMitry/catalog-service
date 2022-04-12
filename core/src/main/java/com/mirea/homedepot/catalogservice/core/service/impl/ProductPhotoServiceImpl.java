@@ -1,19 +1,17 @@
 package com.mirea.homedepot.catalogservice.core.service.impl;
 
+import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductPhotoEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductPhotoRepository;
-import com.mirea.homedepot.catalogservice.core.service.base.ProductPhotoService;
+import com.mirea.homedepot.catalogservice.core.service.ProductPhotoService;
 import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
-import com.mirea.homedepot.catalogservice.dto.abstractive.ProductPhotoDto;
 import com.mirea.homedepot.catalogservice.dto.type.ProductPhotoDtoType;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductPhotoDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductPhotoDtoWithoutParent;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductPhotoServiceImpl implements ProductPhotoService {
@@ -22,73 +20,31 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
 
     private final ModelMapper modelMapper;
 
-    private final SelectorDto<Dto> selectorDto;
-
-    private final SelectorDto<Entity> selectorDto;
-
-    public ProductPhotoServiceImpl(ProductPhotoRepository productPhotoRepository, ModelMapper modelMapper,
-                                   SelectorDto<Dto> selectorDto) {
+    public ProductPhotoServiceImpl(
+            ProductPhotoRepository productPhotoRepository,
+            ModelMapper modelMapper) {
         this.productPhotoRepository = productPhotoRepository;
         this.modelMapper = modelMapper;
-        this.selectorDto = selectorDto;
     }
 
     @Override
-    public List<ProductPhotoDto> findAll() {
-        List<ProductPhotoEntity> productPhotoEntityList = productPhotoRepository.findAll();
-        return productPhotoEntityList.stream().map(el -> modelMapper.map(el, ProductPhotoDtoDefault.class))
-                .collect(Collectors.toList());
+    public List<Dto> findAll() {
+        List<Entity> productPhotoEntityList = productPhotoRepository.findAll();
+        return SelectorDto.mapFromEntity()
+                .select(productPhotoEntityList, ProductPhotoDtoDefault.class);
     }
 
     @Override
-    public ProductPhotoDto findById(Long productPhotoId) {
-        ProductPhotoEntity productPhotoEntity = productPhotoRepository.findById(productPhotoId);
-        return modelMapper.map(productPhotoEntity, ProductPhotoDtoDefault.class);
-    }
-
-    @Override
-    public List<ProductPhotoDto> findByListId(List<Long> listId) {
-        List<ProductPhotoEntity> productPhotoEntityList = productPhotoRepository.findByListId(listId);
-        return productPhotoEntityList.stream().map(el -> modelMapper.map(el, ProductPhotoDtoDefault.class))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void insert(ProductPhotoDto productPhotoDto) {
-        ProductPhotoEntity productPhotoEntity = modelMapper.map(productPhotoDto, ProductPhotoEntity.class);
-        if (productPhotoEntity.getId() == null) productPhotoRepository.insert(productPhotoEntity);
-        else productPhotoRepository.update(productPhotoEntity);
-    }
-
-    @Override
-    public void insertList(List<ProductPhotoDto> productPhotoDtoList) {
-        List<ProductPhotoEntity> productPhotoEntityList =
-                productPhotoDtoList.stream().map(el -> modelMapper.map(el, ProductPhotoEntity.class))
-                        .collect(Collectors.toList());
-        productPhotoRepository.insertList(productPhotoEntityList);
-    }
-
-    @Override
-    public void update(ProductPhotoDto productPhotoDto) {
-        ProductPhotoEntity productPhotoEntity = modelMapper.map(productPhotoDto, ProductPhotoEntity.class);
-        productPhotoRepository.update(productPhotoEntity);
-    }
-
-    @Override
-    public void deleteById(Long productPhotoId) {
-        productPhotoRepository.deleteById(productPhotoId);
-    }
-
-    @Override
-    public List<ProductPhotoDto> findAll(ProductPhotoDtoType type) {
-        List<ProductPhotoEntity> productPhotoEntityList = productPhotoRepository.findAll();
-        List<ProductPhotoDto> productPhotoDtoList;
+    public List<Dto> findAll(ProductPhotoDtoType type) {
+        List<Entity> productPhotoEntityList = productPhotoRepository.findAll();
+        List<Dto> productPhotoDtoList;
         switch (type) {
-            case WITHOUT_PARENT:
-                productPhotoDtoList =
-                        selectorDto.selectList(productPhotoEntityList, ProductPhotoDtoWithoutParent.class);
-
-                break;
+            case WITHOUT_PARENT: {
+                productPhotoDtoList = SelectorDto.mapFromEntity()
+                        .select(productPhotoEntityList,
+                                ProductPhotoDtoWithoutParent.class);
+            }
+            break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
@@ -96,14 +52,25 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
     }
 
     @Override
-    public ProductPhotoDto findById(ProductPhotoDtoType type, Long productPhotoId) {
-        ProductPhotoEntity productPhotoEntity = productPhotoRepository.findById(productPhotoId);
-        ProductPhotoDto productPhotoDto;
-        switch (type) {
-            case WITHOUT_PARENT:
-                productPhotoDto = modelMapper.map(productPhotoEntity, ProductPhotoDtoWithoutParent.class);
+    public Dto findById(Long productPhotoId) {
+        Entity productPhotoEntity =
+                productPhotoRepository.findById(productPhotoId);
+        return SelectorDto.mapFromEntity()
+                .select(productPhotoEntity, ProductPhotoDtoDefault.class);
+    }
 
-                break;
+    @Override
+    public Dto findById(ProductPhotoDtoType type, Long productPhotoId) {
+        Entity productPhotoEntity =
+                productPhotoRepository.findById(productPhotoId);
+        Dto productPhotoDto;
+        switch (type) {
+            case WITHOUT_PARENT: {
+                productPhotoDto = SelectorDto.mapFromEntity()
+                        .select(productPhotoEntity,
+                                ProductPhotoDtoWithoutParent.class);
+            }
+            break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
@@ -111,16 +78,25 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
     }
 
     @Override
-    public List<ProductPhotoDto> findByListId(ProductPhotoDtoType type, List<Long> listId) {
-        List<ProductPhotoEntity> productPhotoEntityList = productPhotoRepository.findByListId(listId);
-        List<ProductPhotoDto> productPhotoDtoList;
-        switch (type) {
-            case WITHOUT_PARENT:
-                productPhotoDtoList = productPhotoEntityList.stream()
-                        .map(el -> modelMapper.map(el, ProductPhotoDtoWithoutParent.class))
-                        .collect(Collectors.toList());
+    public List<Dto> findByListId(List<Long> listId) {
+        List<Entity> productPhotoEntityList =
+                productPhotoRepository.findByListId(listId);
+        return SelectorDto.mapFromEntity()
+                .select(productPhotoEntityList, ProductPhotoDtoDefault.class);
+    }
 
-                break;
+    @Override
+    public List<Dto> findByListId(ProductPhotoDtoType type, List<Long> listId) {
+        List<Entity> productPhotoEntityList =
+                productPhotoRepository.findByListId(listId);
+        List<Dto> productPhotoDtoList;
+        switch (type) {
+            case WITHOUT_PARENT: {
+                productPhotoDtoList = SelectorDto.mapFromEntity()
+                        .select(productPhotoEntityList,
+                                ProductPhotoDtoWithoutParent.class);
+            }
+            break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
@@ -128,52 +104,86 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
     }
 
     @Override
-    public List<ProductPhotoDto> findListRecursiveByParentId(Long id) {
-        List<ProductPhotoEntity> productPhotoEntityList = new ArrayList<>();
-        ProductPhotoEntity currentProductPhotoEntity;
-        ProductPhotoEntity parentProductPhotoEntity;
-        Long parentId;
-
-        currentProductPhotoEntity = productPhotoRepository.findById(id);
-        parentId = currentProductPhotoEntity.getParentId();
-        productPhotoEntityList.add(currentProductPhotoEntity);
-        while (parentId != null) {
-
-            parentProductPhotoEntity = productPhotoRepository.findById(parentId);
-            productPhotoEntityList.add(parentProductPhotoEntity);
-            parentId = parentProductPhotoEntity.getParentId();
-        }
-        return productPhotoEntityList.stream().map(el -> modelMapper.map(el, ProductPhotoDtoDefault.class))
-                .collect(Collectors.toList());
+    public List<Dto> findTreeIterationByParentId(Long id) {
+        List<Entity> productPhotoEntityList =
+                productPhotoRepository.findTreeIterationByParentId(id);
+        return SelectorDto.mapFromEntity().select(productPhotoEntityList,
+                ProductPhotoDtoWithoutParent.class);
     }
 
     @Override
-    public List<ProductPhotoDto> findListRecursiveByParentId(ProductPhotoDtoType type, Long id) {
-        List<ProductPhotoEntity> productPhotoEntityList = new ArrayList<>();
-        ProductPhotoEntity currentProductPhotoEntity;
-        ProductPhotoEntity parentProductPhotoEntity;
-        Long parentId;
-
-        currentProductPhotoEntity = productPhotoRepository.findById(id);
-        parentId = currentProductPhotoEntity.getParentId();
-        productPhotoEntityList.add(currentProductPhotoEntity);
-        while (parentId != null) {
-
-            parentProductPhotoEntity = productPhotoRepository.findById(parentId);
-            productPhotoEntityList.add(parentProductPhotoEntity);
-            parentId = parentProductPhotoEntity.getParentId();
-        }
-        List<ProductPhotoDto> productPhotoDtoList;
+    public List<Dto> findTreeIterationByParentId(ProductPhotoDtoType type,
+                                                 Long id) {
+        List<Entity> productPhotoEntityList =
+                productPhotoRepository.findTreeIterationByParentId(id);
+        List<Dto> productPhotoDtoList;
         switch (type) {
-            case WITHOUT_PARENT:
-                productPhotoDtoList = productPhotoEntityList.stream()
-                        .map(el -> modelMapper.map(el, ProductPhotoDtoWithoutParent.class))
-                        .collect(Collectors.toList());
-                break;
+            case WITHOUT_PARENT: {
+                productPhotoDtoList = SelectorDto.mapFromEntity()
+                        .select(productPhotoEntityList,
+                                ProductPhotoDtoWithoutParent.class);
+
+            }
+            break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         return productPhotoDtoList;
+    }
+
+    @Override
+    public List<Dto> findTreePathByParentId(Long id) {
+        List<Entity> productPhotoEntityList =
+                productPhotoRepository.findTreePathByParentId(id);
+        return SelectorDto.mapFromEntity().select(productPhotoEntityList,
+                ProductPhotoDtoWithoutParent.class);
+    }
+
+    @Override
+    public List<Dto> findTreePathByParentId(ProductPhotoDtoType type, Long id) {
+        List<Entity> productPhotoEntityList =
+                productPhotoRepository.findTreePathByParentId(id);
+        List<Dto> productPhotoDtoList;
+        switch (type) {
+            case WITHOUT_PARENT: {
+                productPhotoDtoList = SelectorDto.mapFromEntity()
+                        .select(productPhotoEntityList,
+                                ProductPhotoDtoWithoutParent.class);
+
+            }
+            break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+        return productPhotoDtoList;
+    }
+
+    @Override
+    public void insert(Dto productPhotoDto) {
+        Entity productPhotoEntity = SelectorEntity.mapFromDto()
+                .select(productPhotoDto, ProductPhotoEntity.class);
+        if (productPhotoEntity.getId() == null)
+            productPhotoRepository.insert(productPhotoEntity);
+        else productPhotoRepository.update(productPhotoEntity);
+    }
+
+    @Override
+    public void insertList(List<Dto> productPhotoDtoList) {
+        List<Entity> productPhotoEntityList = SelectorEntity.mapFromDto()
+                .select(productPhotoDtoList, ProductPhotoEntity.class);
+        productPhotoRepository.insertList(productPhotoEntityList);
+    }
+
+    @Override
+    public void update(Dto productPhotoDto) {
+        Entity productPhotoEntity = SelectorEntity.mapFromDto()
+                .select(productPhotoDto, ProductPhotoEntity.class);
+        productPhotoRepository.update(productPhotoEntity);
+    }
+
+    @Override
+    public void deleteById(Long productPhotoId) {
+        productPhotoRepository.deleteById(productPhotoId);
     }
 
 }
