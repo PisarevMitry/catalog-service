@@ -10,12 +10,7 @@
 
     <artifactId>catalog-service</artifactId>
     <packaging>pom</packaging>
-    <repositories>
-        <repository>
-            <id>common</id>
-            <url>https://github.com/PisarevMitry/homedepot.common-module</url>
-        </repository>
-    </repositories>
+
     <modules>
         <module>core</module>
         <module>core-api</module>
@@ -24,4 +19,14 @@
         <module>utils</module>
         <module>migration</module>
     </modules>
+
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>releases</name>
+            <url>
+                https://github.com/PisarevMitry/homedepot.common-module.git
+            </url>
+        </repository>
+    </distributionManagement>
 </project>

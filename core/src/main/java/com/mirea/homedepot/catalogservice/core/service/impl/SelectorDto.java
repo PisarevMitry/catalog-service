@@ -2,7 +2,6 @@ package com.mirea.homedepot.catalogservice.core.service.impl;
 
 import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
-import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +27,7 @@ public class SelectorDto {
         }
 
         public List<Dto> select(List<T> list,
-                                   Class<? extends Dto> resultClass) {
+                                Class<? extends Dto> resultClass) {
             return mapList(list, resultClass);
         }
 
@@ -36,7 +35,7 @@ public class SelectorDto {
             return modelMapper.map(t, resultClass);
         }
 
-        private List<Dto> mapList(@NotNull List<T> list,
+        private List<Dto> mapList(List<T> list,
                                   Class<? extends Dto> resultClass) {
             return list.stream().map(el -> map(el, resultClass))
                     .collect(Collectors.toList());
