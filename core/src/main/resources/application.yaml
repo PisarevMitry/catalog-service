@@ -1,7 +1,4 @@
-server:
-  port: 8040
-  servlet:
-    context-path: /
+web: java -jar target/catalog-service.jar
 
 spring:
   datasource:
