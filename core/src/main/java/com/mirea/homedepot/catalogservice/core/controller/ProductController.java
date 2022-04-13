@@ -5,6 +5,7 @@ import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import com.mirea.homedepot.catalogservice.dto.type.ProductDtoType;
 import org.json.JSONObject;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Validated
 @RestController
 @RequestMapping("/product")
@@ -57,7 +59,8 @@ public class ProductController {
         if (type == null) {
             return productService.findByListId(listId);
         } else {
-            return productService.findByListId(ProductDtoType.valueOf(type), listId);
+            return productService.findByListId(ProductDtoType.valueOf(type),
+                    listId);
         }
     }
 
@@ -70,7 +73,8 @@ public class ProductController {
         if (type == null) {
             return productService.findByCategoryId(id);
         } else {
-            return productService.findByCategoryId(ProductDtoType.valueOf(type), id);
+            return productService.findByCategoryId(ProductDtoType.valueOf(type),
+                    id);
         }
     }
 
@@ -83,7 +87,8 @@ public class ProductController {
         if (type == null) {
             return productService.findByOption(option);
         } else {
-            return productService.findByOption(ProductDtoType.valueOf(type), option);
+            return productService.findByOption(ProductDtoType.valueOf(type),
+                    option);
         }
     }
 
