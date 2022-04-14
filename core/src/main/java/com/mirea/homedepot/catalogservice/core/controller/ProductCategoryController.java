@@ -4,7 +4,6 @@ import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;
 import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import com.mirea.homedepot.catalogservice.dto.type.ProductCategoryDtoType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Validated
 @RestController
 @RequestMapping("/category")
@@ -27,7 +25,7 @@ public class ProductCategoryController {
     }
 
     @GetMapping("/get")
-    public List<Dto> getList(
+    public List<Dto> getListAll(
             @RequestParam(required = false)
                     String type) {
         if (type == null) {
@@ -52,7 +50,7 @@ public class ProductCategoryController {
         }
     }
 
-    @GetMapping("/get/definite1/list")
+    @GetMapping("/get/definite/list")
     List<Dto> getList(
             @RequestParam(required = false)
                     String type,

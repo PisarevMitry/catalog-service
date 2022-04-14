@@ -18,7 +18,7 @@ public class SelectorDto {
 
         private final ModelMapper modelMapper;
 
-        public SelectorDtoMapper(ModelMapper modelMapper) {
+        SelectorDtoMapper(ModelMapper modelMapper) {
             this.modelMapper = modelMapper;
         }
 

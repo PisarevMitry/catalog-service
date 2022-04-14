@@ -24,6 +24,34 @@ import java.util.stream.Collectors;
 @Component
 public class EnricherProductDto {
 
+    private static EnricherProductDtoMapper enricherFromDtoClass;
+
+    private static EnricherProductDtoMapper enricherFromEntityClass;
+
+    public EnricherProductDto(
+            ProductCategoryRepository productCategoryRepository,
+            ProductFeedbackRepository productFeedbackRepository,
+            ProductPhotoRepository productPhotoRepository,
+            ProductRepository productRepository,
+            ProductSpecialConditionRepository productSpecialConditionRepository) {
+        enricherFromEntityClass =
+                new EnricherProductDtoMapper(productCategoryRepository,
+                        productFeedbackRepository, productPhotoRepository,
+                        productRepository, productSpecialConditionRepository);
+        enricherFromDtoClass =
+                new EnricherProductDtoMapper(productCategoryRepository,
+                        productFeedbackRepository, productPhotoRepository,
+                        productRepository, productSpecialConditionRepository);
+    }
+
+    public static EnricherProductDtoMapper enrichFromDtoClass() {
+        return enricherFromDtoClass;
+    }
+
+    public static EnricherProductDtoMapper enrichFromEntityClass() {
+        return enricherFromEntityClass;
+    }
+
     static class EnricherProductDtoMapper {
         private final ProductCategoryRepository productCategoryRepository;
 
@@ -34,7 +62,7 @@ public class EnricherProductDto {
         private final ProductSpecialConditionRepository
                 productSpecialConditionRepository;
 
-        public EnricherProductDtoMapper(
+        EnricherProductDtoMapper(
                 ProductCategoryRepository productCategoryRepository,
                 ProductFeedbackRepository productFeedbackRepository,
                 ProductPhotoRepository productPhotoRepository,
@@ -61,9 +89,6 @@ public class EnricherProductDto {
                     .collect(Collectors.toList());
         }
 
-        /**
-         * @param resultClass лютый колхоз
-         */
         private Dto enrich(Dto dto, Class<? extends Dto> resultClass) {
             if (Objects.equals(resultClass, ProductDtoFull.class)) {
                 return enrichToFull((ProductDtoDefault) dto);
@@ -168,31 +193,4 @@ public class EnricherProductDto {
 
     }
 
-    private static EnricherProductDtoMapper enricherFromDtoClass;
-
-    private static EnricherProductDtoMapper enricherFromEntityClass;
-
-    public EnricherProductDto(
-            ProductCategoryRepository productCategoryRepository,
-            ProductFeedbackRepository productFeedbackRepository,
-            ProductPhotoRepository productPhotoRepository,
-            ProductRepository productRepository,
-            ProductSpecialConditionRepository productSpecialConditionRepository) {
-        enricherFromEntityClass =
-                new EnricherProductDtoMapper(productCategoryRepository,
-                        productFeedbackRepository, productPhotoRepository,
-                        productRepository, productSpecialConditionRepository);
-        enricherFromDtoClass =
-                new EnricherProductDtoMapper(productCategoryRepository,
-                        productFeedbackRepository, productPhotoRepository,
-                        productRepository, productSpecialConditionRepository);
-    }
-
-    public static EnricherProductDtoMapper enrichFromDtoClass() {
-        return enricherFromDtoClass;
-    }
-
-    public static EnricherProductDtoMapper enrichFromEntityClass() {
-        return enricherFromEntityClass;
-    }
 }

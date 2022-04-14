@@ -9,12 +9,11 @@ import org.springframework.context.annotation.ComponentScan;
  * Service application.
  */
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
-@ComponentScan("com.mirea.homedepot")
+@ComponentScan("com.mirea.homedepot.catalogservice")
 public class CatalogServiceApplication {
 
     /**
      * The entry point of application.
-     *
      * @param args the input arguments
      */
     public static void main(String[] args) {

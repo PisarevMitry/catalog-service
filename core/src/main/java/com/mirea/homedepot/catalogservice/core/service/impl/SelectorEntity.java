@@ -15,7 +15,7 @@ public class SelectorEntity {
 
         private ModelMapper modelMapper;
 
-        public SelectorEntityMapper(ModelMapper modelMapper) {
+        SelectorEntityMapper(ModelMapper modelMapper) {
             this.modelMapper = modelMapper;
         }
 
