@@ -9,7 +9,7 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+/*
 @Configuration
 public class RabbitConfiguration {
 
@@ -31,7 +31,7 @@ public class RabbitConfiguration {
         return new RabbitTemplate(connectionFactory());
     }
 
-   /* @Bean
+   *//* @Bean
     public Queue catalogQueue() {
         return new Queue("catalogQueue");
     }
@@ -49,8 +49,8 @@ public class RabbitConfiguration {
     @Bean
     public Binding getProductCategoryByIdBinding() {
         return BindingBuilder.bind(catalogQueue()).to(catalogQueueDirectExchange()).with("getProductCategoryById");
-    }*/
-/*   Logger logger = LoggerFactory.getLogger(RabbitConfiguration.class);
+    }*//*
+*//*   Logger logger = LoggerFactory.getLogger(RabbitConfiguration.class);
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -103,5 +103,5 @@ public class RabbitConfiguration {
         factory.setConnectionFactory(connectionFactory);
         factory.setMessageConverter(new Jackson2JsonMessageConverter());
         return factory;
-    }*/
-}
+    }*//*
+}*/
