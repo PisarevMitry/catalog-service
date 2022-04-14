@@ -52,7 +52,7 @@ public class ProductCategoryController {
         }
     }
 
-    @GetMapping("/get/definite/list")
+    @GetMapping("/get/definite1/list")
     List<Dto> getList(
             @RequestParam(required = false)
                     String type,
