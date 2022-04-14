@@ -1,4 +1,7 @@
-web: java -jar target/catalog-service.jar
+server:
+  port: 8041
+  servlet:
+    context-path: /
 
 spring:
   datasource:
