@@ -44,11 +44,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public ProductDtoFull mapFromProductDtoDefaultToProductDtoFull(ProductEntity productEntity) {
-        return new ProductDtoFull(modelMapper.map(productEntity, ProductDtoDefault.class),
+        return new ProductDtoFull(/*modelMapper.map(productEntity, ProductDtoDefault.class),
                  productPhotoService.findListRecursiveByParentId(ProductPhotoDtoType.WITHOUT_PARENT, productEntity.getPhotoId()),
                 productFeedbackRepository.findByParentId(productEntity.getFeedbackId()).stream().map(el -> modelMapper.map(el, ProductFeedbackDtoDefault.class))
                         .collect(Collectors.toList()),
-                modelMapper.map(productSpecialConditionRepository.findById(productEntity.getSpecialConditionId()), ProductSpecialConditionDtoDefault.class));
+                modelMapper.map(productSpecialConditionRepository.findById(productEntity.getSpecialConditionId()), ProductSpecialConditionDtoDefault.class)*/);
 
     }
 

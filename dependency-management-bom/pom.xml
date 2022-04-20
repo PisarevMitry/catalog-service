@@ -14,6 +14,8 @@
     <packaging>pom</packaging>
 
     <properties>
+        <docker.image.prefix>myProject</docker.image.prefix>
+
         <postgresql.version>42.3.3</postgresql.version>
         <spring.security.version>5.6.2</spring.security.version>
         <spring.boot.version>2.6.5</spring.boot.version>
@@ -153,4 +155,16 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+<!--     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>exec</classifier>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build> -->
 </project>
