@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductPhotoDtoDefault extends ProductPhotoDto {
     private Long id;
+
     private String url;
+
     private Long parentId;
 }

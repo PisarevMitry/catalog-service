@@ -11,6 +11,23 @@ import java.util.stream.Collectors;
 @Component
 public class SelectorEntity {
 
+    private static SelectorEntityMapper<Entity> mapFromEntityClass;
+
+    private static SelectorEntityMapper<Dto> mapFromDtoClass;
+
+    public SelectorEntity(ModelMapper modelMapper) {
+        mapFromEntityClass = new SelectorEntityMapper<Entity>(modelMapper);
+        mapFromDtoClass = new SelectorEntityMapper<Dto>(modelMapper);
+    }
+
+    public static SelectorEntityMapper<Entity> mapFromEntity() {
+        return mapFromEntityClass;
+    }
+
+    public static SelectorEntityMapper<Dto> mapFromDto() {
+        return mapFromDtoClass;
+    }
+
     static class SelectorEntityMapper<T> {
 
         private ModelMapper modelMapper;
@@ -37,22 +54,5 @@ public class SelectorEntity {
             return list.stream().map(el -> map(el, resultClass))
                     .collect(Collectors.toList());
         }
-    }
-
-    private static SelectorEntityMapper<Entity> mapFromEntityClass;
-
-    private static SelectorEntityMapper<Dto> mapFromDtoClass;
-
-    public SelectorEntity(ModelMapper modelMapper) {
-        mapFromEntityClass = new SelectorEntityMapper<Entity>(modelMapper);
-        mapFromDtoClass = new SelectorEntityMapper<Dto>(modelMapper);
-    }
-
-    public static SelectorEntityMapper<Entity> mapFromEntity() {
-        return mapFromEntityClass;
-    }
-
-    public static SelectorEntityMapper<Dto> mapFromDto() {
-        return mapFromDtoClass;
     }
 }

@@ -172,6 +172,31 @@ public class ProductServiceImpl implements ProductService {
         }
         return productDtoList;
     }
+
+    @Override
+    public void insert(Dto productDto) {
+        Entity productEntity = SelectorEntity.mapFromDto()
+                .select(productDto, ProductEntity.class);
+        if (productEntity.getId() == null) {
+            productRepository.insert(productEntity);
+        } else {
+            productRepository.update(productEntity);
+        }
+    }
+
+    @Override
+    public void insertList(List<Dto> productDtoList) {
+        List<Entity> productEntityList = SelectorEntity.mapFromDto()
+                .select(productDtoList, ProductEntity.class);
+        productRepository.insertList(productEntityList);
+    }
+
+    @Override
+    public void update(Dto productDto) {
+        Entity productEntity = SelectorEntity.mapFromDto()
+                .select(productDto, ProductEntity.class);
+        productRepository.update(productEntity);
+    }
 /*
     @Override
     public List<Dto> findByCategoryId(Long id) {
@@ -259,31 +284,6 @@ public class ProductServiceImpl implements ProductService {
         }
         return productDtoList;
     }*/
-
-    @Override
-    public void insert(Dto productDto) {
-        Entity productEntity = SelectorEntity.mapFromDto()
-                .select(productDto, ProductEntity.class);
-        if (productEntity.getId() == null) {
-            productRepository.insert(productEntity);
-        } else {
-            productRepository.update(productEntity);
-        }
-    }
-
-    @Override
-    public void insertList(List<Dto> productDtoList) {
-        List<Entity> productEntityList = SelectorEntity.mapFromDto()
-                .select(productDtoList, ProductEntity.class);
-        productRepository.insertList(productEntityList);
-    }
-
-    @Override
-    public void update(Dto productDto) {
-        Entity productEntity = SelectorEntity.mapFromDto()
-                .select(productDto, ProductEntity.class);
-        productRepository.update(productEntity);
-    }
 
     @Override
     public void deleteById(Long productId) {

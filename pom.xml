@@ -11,58 +11,29 @@
     <artifactId>catalog-service</artifactId>
     <packaging>pom</packaging>
 
-    <properties>
-        <postgresql.version>42.3.3</postgresql.version>
-        <spring.security.version>5.6.2</spring.security.version>
-        <spring.boot.version>2.6.5</spring.boot.version>
-        <thymeleaf.version>3.1.0.M1</thymeleaf.version>
-        <!--        myBatis-->
-        <mybatis.version>2.2.2</mybatis.version>
-        <!--        liquibase-->
-        <liquibase.version>4.8.0</liquibase.version>
-        <liquibase.plugin.version>4.8.0</liquibase.plugin.version>
-        <!--        <slf4j.version>1.7.36</slf4j.version>-->
-        <!--        <logback.version>1.2.11</logback.version>-->
-    </properties>
-
     <modules>
         <module>core</module>
-        <module>core-api</module>
         <module>dependency-management-bom</module>
         <module>dto</module>
-        <module>utils</module>
         <module>migration</module>
     </modules>
 
+    <properties>
+        <start-class>com.mirea.homedepot.catalogservice.core.CatalogServiceApplication</start-class>
+    </properties>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin}</version>
+                <version>3.1</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
-                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
-
     </build>
+
 </project>

@@ -13,6 +13,11 @@ import java.util.List;
 @Mapper
 public interface ProductRepository extends Repository, BasicMethodRepository {
 
+    /**
+     * Метод поиска записей в БД.
+     * @param option список харрактеристик товара
+     * @return список объектов класса Entity
+     */
     List<Entity> findListByOption(
             @RequestBody
             @Param("option")

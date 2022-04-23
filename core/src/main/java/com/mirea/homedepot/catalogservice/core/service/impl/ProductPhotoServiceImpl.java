@@ -104,6 +104,34 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
     }
 
     @Override
+    public void insert(Dto productPhotoDto) {
+        Entity productPhotoEntity = SelectorEntity.mapFromDto()
+                .select(productPhotoDto, ProductPhotoEntity.class);
+        if (productPhotoEntity.getId() == null)
+            productPhotoRepository.insert(productPhotoEntity);
+        else productPhotoRepository.update(productPhotoEntity);
+    }
+
+    @Override
+    public void insertList(List<Dto> productPhotoDtoList) {
+        List<Entity> productPhotoEntityList = SelectorEntity.mapFromDto()
+                .select(productPhotoDtoList, ProductPhotoEntity.class);
+        productPhotoRepository.insertList(productPhotoEntityList);
+    }
+
+    @Override
+    public void update(Dto productPhotoDto) {
+        Entity productPhotoEntity = SelectorEntity.mapFromDto()
+                .select(productPhotoDto, ProductPhotoEntity.class);
+        productPhotoRepository.update(productPhotoEntity);
+    }
+
+    @Override
+    public void deleteById(Long productPhotoId) {
+        productPhotoRepository.deleteById(productPhotoId);
+    }
+
+    @Override
     public List<Dto> findTreeIterationByParentId(Long id) {
         List<Entity> productPhotoEntityList =
                 productPhotoRepository.findTreeIterationByParentId(id);
@@ -156,34 +184,6 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         return productPhotoDtoList;
-    }
-
-    @Override
-    public void insert(Dto productPhotoDto) {
-        Entity productPhotoEntity = SelectorEntity.mapFromDto()
-                .select(productPhotoDto, ProductPhotoEntity.class);
-        if (productPhotoEntity.getId() == null)
-            productPhotoRepository.insert(productPhotoEntity);
-        else productPhotoRepository.update(productPhotoEntity);
-    }
-
-    @Override
-    public void insertList(List<Dto> productPhotoDtoList) {
-        List<Entity> productPhotoEntityList = SelectorEntity.mapFromDto()
-                .select(productPhotoDtoList, ProductPhotoEntity.class);
-        productPhotoRepository.insertList(productPhotoEntityList);
-    }
-
-    @Override
-    public void update(Dto productPhotoDto) {
-        Entity productPhotoEntity = SelectorEntity.mapFromDto()
-                .select(productPhotoDto, ProductPhotoEntity.class);
-        productPhotoRepository.update(productPhotoEntity);
-    }
-
-    @Override
-    public void deleteById(Long productPhotoId) {
-        productPhotoRepository.deleteById(productPhotoId);
     }
 
 }

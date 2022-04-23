@@ -14,9 +14,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ProductFeedbackDtoDefault extends ProductFeedbackDto {
     private Long id;
+
     private Integer grade;
+
     private String description;
+
     private LocalDate createDttm;
+
     private Long clientId;
+
     private Long parentId;
 }

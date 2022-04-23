@@ -10,8 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductSpecialConditionDtoDefault extends ProductSpecialConditionDto {
+public class ProductSpecialConditionDtoDefault
+        extends ProductSpecialConditionDto {
     private Long id;
+
     private String description;
     //private JSONObject details;
 }

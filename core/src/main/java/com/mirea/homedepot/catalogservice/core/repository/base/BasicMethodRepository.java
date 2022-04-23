@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Интерфейс опряделяющий общие методы для работы с записями в БД.
  */
-public interface BasicMethodRepository {
+public interface BasicMethodRepository extends Repository {
 
     /**
      * Метод для поиска всех записей.

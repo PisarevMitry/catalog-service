@@ -7,6 +7,8 @@ import lombok.Data;
 public class ProductPhotoEntity implements Entity {
 
     private Long id;
+
     private String url;
+
     private Long parentId;
 }

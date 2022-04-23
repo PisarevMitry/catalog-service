@@ -5,6 +5,7 @@ import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import java.util.List;
 
 public interface CrudServiceForDefaultDto {
+
     List<Dto> findAll();
 
     Dto findById(Long id);

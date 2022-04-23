@@ -6,7 +6,6 @@ import com.mirea.homedepot.catalogservice.core.repository.ProductSpecialConditio
 import com.mirea.homedepot.catalogservice.core.service.ProductSpecialConditionService;
 import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductSpecialConditionDtoDefault;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,14 +17,10 @@ public class ProductSpecialConditionServiceImpl
     private final ProductSpecialConditionRepository
             productSpecialConditionRepository;
 
-    private final ModelMapper modelMapper;
-
     public ProductSpecialConditionServiceImpl(
-            ProductSpecialConditionRepository productSpecialConditionRepository,
-            ModelMapper modelMapper) {
+            ProductSpecialConditionRepository productSpecialConditionRepository) {
         this.productSpecialConditionRepository =
                 productSpecialConditionRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override

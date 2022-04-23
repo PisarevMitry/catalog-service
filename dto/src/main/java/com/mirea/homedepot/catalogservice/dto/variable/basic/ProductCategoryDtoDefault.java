@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductCategoryDtoDefault extends ProductCategoryDto {
     private Long id;
+
     private String title;
+
     private Long parentId;
 }

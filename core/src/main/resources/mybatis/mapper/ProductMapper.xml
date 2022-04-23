@@ -36,6 +36,8 @@
         </choose>
     </select>
 
+    <select id="findListByOption" resultMap="ProductEntity"></select>
+
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO catalog_data.product (id, title, description, price, amount, photo_id, option, category_id,
                                           feedback_id, special_condition_id)

@@ -7,6 +7,8 @@ import lombok.Data;
 public class ProductCategoryEntity implements Entity {
 
     private Long id;
+
     private String title;
+
     private Long parentId;
 }

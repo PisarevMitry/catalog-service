@@ -6,6 +6,7 @@ import com.mirea.homedepot.catalogservice.dto.type.ProductDtoType;
 import org.json.JSONObject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -24,7 +25,7 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/get")
+    @GetMapping("/")
     public List<Dto> getAll(
             @RequestParam(required = false)
                     String type) {
@@ -35,11 +36,11 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get/definite/item")
+    @GetMapping("/{id}")
     public Dto getById(
             @RequestParam(required = false)
                     String type,
-            @RequestParam
+            @PathVariable
                     Long id) {
         if (type == null) {
             return productService.findById(id);
@@ -48,8 +49,8 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get/definite/list")
-    List<Dto> getById(
+    @GetMapping("/list")
+    List<Dto> getByListId(
             @RequestParam(required = false)
                     String type,
             @RequestBody
@@ -62,11 +63,11 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get/category/list")
+    @GetMapping("/categories/{id}")
     List<Dto> getByCategoryId(
             @RequestParam(required = false)
                     String type,
-            @RequestParam
+            @PathVariable
                     Long id) {
         if (type == null) {
             return productService.findByCategoryId(id);
@@ -76,7 +77,7 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/get/option/list")
+    @GetMapping("/options")
     List<Dto> getByOption(
             @RequestParam(required = false)
                     String type,

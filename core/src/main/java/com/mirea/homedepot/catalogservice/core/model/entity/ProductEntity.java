@@ -8,13 +8,22 @@ import org.json.JSONObject;
 public class ProductEntity implements Entity {
 
     private Long id;
+
     private String title;
+
     private String description;
+
     private Integer price;
+
     private Integer amount;
+
     private Long photoId;
+
     private JSONObject option;
+
     private Long categoryId;
+
     private Long feedbackId;
+
     private Long specialConditionId;
 }

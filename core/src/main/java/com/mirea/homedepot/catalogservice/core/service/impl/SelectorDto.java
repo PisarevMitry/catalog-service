@@ -9,10 +9,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Класс для изменения представления dto и entity
+ * Класс для изменения представления dto и entity.
  */
 @Component
 public class SelectorDto {
+
+    private static SelectorDtoMapper<Entity> mapFromEntityClass;
+
+    private static SelectorDtoMapper<Dto> mapFromDtoClass;
+
+    public SelectorDto(ModelMapper modelMapper) {
+        mapFromEntityClass = new SelectorDtoMapper<Entity>(modelMapper);
+        mapFromDtoClass = new SelectorDtoMapper<Dto>(modelMapper);
+    }
+
+    public static SelectorDtoMapper<Entity> mapFromEntity() {
+        return mapFromEntityClass;
+    }
+
+    public static SelectorDtoMapper<Dto> mapFromDto() {
+        return mapFromDtoClass;
+    }
 
     static class SelectorDtoMapper<T> {
 
@@ -40,22 +57,5 @@ public class SelectorDto {
             return list.stream().map(el -> map(el, resultClass))
                     .collect(Collectors.toList());
         }
-    }
-
-    private static SelectorDtoMapper<Entity> mapFromEntityClass;
-
-    private static SelectorDtoMapper<Dto> mapFromDtoClass;
-
-    public SelectorDto(ModelMapper modelMapper) {
-        mapFromEntityClass = new SelectorDtoMapper<Entity>(modelMapper);
-        mapFromDtoClass = new SelectorDtoMapper<Dto>(modelMapper);
-    }
-
-    public static SelectorDtoMapper<Entity> mapFromEntity() {
-        return mapFromEntityClass;
-    }
-
-    public static SelectorDtoMapper<Dto> mapFromDto() {
-        return mapFromDtoClass;
     }
 }

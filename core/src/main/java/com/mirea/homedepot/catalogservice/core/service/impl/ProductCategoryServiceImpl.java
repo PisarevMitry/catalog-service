@@ -107,6 +107,34 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
+    public void insert(Dto productCategoryDto) {
+        Entity productCategoryEntity = SelectorEntity.mapFromDto()
+                .select(productCategoryDto, ProductCategoryEntity.class);
+        if (productCategoryEntity.getId() == null)
+            productCategoryRepository.insert(productCategoryEntity);
+        else productCategoryRepository.update(productCategoryEntity);
+    }
+
+    @Override
+    public void insertList(List<Dto> productCategoryDtoList) {
+        List<Entity> productCategoryEntityList = SelectorEntity.mapFromDto()
+                .select(productCategoryDtoList, ProductCategoryEntity.class);
+        productCategoryRepository.insertList(productCategoryEntityList);
+    }
+
+    @Override
+    public void update(Dto productCategoryDto) {
+        Entity productCategoryEntity = SelectorEntity.mapFromDto()
+                .select(productCategoryDto, ProductCategoryEntity.class);
+        productCategoryRepository.update(productCategoryEntity);
+    }
+
+    @Override
+    public void deleteById(Long productCategoryId) {
+        productCategoryRepository.deleteById(productCategoryId);
+    }
+
+    @Override
     public List<Dto> findTreeByParentId(Long id) {
         List<Entity> productCategoryEntityList =
                 productCategoryRepository.findTreeByParentId(id);
@@ -187,33 +215,5 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         return productCategoryDtoList;
-    }
-
-    @Override
-    public void insert(Dto productCategoryDto) {
-        Entity productCategoryEntity = SelectorEntity.mapFromDto()
-                .select(productCategoryDto, ProductCategoryEntity.class);
-        if (productCategoryEntity.getId() == null)
-            productCategoryRepository.insert(productCategoryEntity);
-        else productCategoryRepository.update(productCategoryEntity);
-    }
-
-    @Override
-    public void insertList(List<Dto> productCategoryDtoList) {
-        List<Entity> productCategoryEntityList = SelectorEntity.mapFromDto()
-                .select(productCategoryDtoList, ProductCategoryEntity.class);
-        productCategoryRepository.insertList(productCategoryEntityList);
-    }
-
-    @Override
-    public void update(Dto productCategoryDto) {
-        Entity productCategoryEntity = SelectorEntity.mapFromDto()
-                .select(productCategoryDto, ProductCategoryEntity.class);
-        productCategoryRepository.update(productCategoryEntity);
-    }
-
-    @Override
-    public void deleteById(Long productCategoryId) {
-        productCategoryRepository.deleteById(productCategoryId);
     }
 }

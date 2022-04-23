@@ -9,9 +9,14 @@ import java.time.LocalDate;
 public class ProductFeedbackEntity implements Entity {
 
     private Long id;
+
     private Integer grade;
+
     private String description;
+
     private LocalDate createDttm;
+
     private Long clientId;
+
     private Long parentId;
 }

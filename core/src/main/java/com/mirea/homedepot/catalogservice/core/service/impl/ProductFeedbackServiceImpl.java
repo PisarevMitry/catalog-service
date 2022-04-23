@@ -6,7 +6,6 @@ import com.mirea.homedepot.catalogservice.core.repository.ProductFeedbackReposit
 import com.mirea.homedepot.catalogservice.core.service.ProductFeedbackService;
 import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductFeedbackDtoDefault;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,13 +15,9 @@ public class ProductFeedbackServiceImpl implements ProductFeedbackService {
 
     private final ProductFeedbackRepository productFeedbackRepository;
 
-    private final ModelMapper modelMapper;
-
     public ProductFeedbackServiceImpl(
-            ProductFeedbackRepository productFeedbackRepository,
-            ModelMapper modelMapper) {
+            ProductFeedbackRepository productFeedbackRepository) {
         this.productFeedbackRepository = productFeedbackRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -45,22 +40,6 @@ public class ProductFeedbackServiceImpl implements ProductFeedbackService {
     public List<Dto> findByListId(List<Long> listId) {
         List<Entity> productFeedbackEntityList =
                 productFeedbackRepository.findByListId(listId);
-        return SelectorDto.mapFromEntity().select(productFeedbackEntityList,
-                ProductFeedbackDtoDefault.class);
-    }
-
-    @Override
-    public List<Dto> findTreeIterationByParentId(Long id) {
-        List<Entity> productFeedbackEntityList =
-                productFeedbackRepository.findTreeIterationByParentId(id);
-        return SelectorDto.mapFromEntity().select(productFeedbackEntityList,
-                ProductFeedbackDtoDefault.class);
-    }
-
-    @Override
-    public List<Dto> findTreePathByParentId(Long id) {
-        List<Entity> productFeedbackEntityList =
-                productFeedbackRepository.findTreePathByParentId(id);
         return SelectorDto.mapFromEntity().select(productFeedbackEntityList,
                 ProductFeedbackDtoDefault.class);
     }
@@ -91,6 +70,22 @@ public class ProductFeedbackServiceImpl implements ProductFeedbackService {
     @Override
     public void deleteById(Long productFeedbackId) {
         productFeedbackRepository.deleteById(productFeedbackId);
+    }
+
+    @Override
+    public List<Dto> findTreeIterationByParentId(Long id) {
+        List<Entity> productFeedbackEntityList =
+                productFeedbackRepository.findTreeIterationByParentId(id);
+        return SelectorDto.mapFromEntity().select(productFeedbackEntityList,
+                ProductFeedbackDtoDefault.class);
+    }
+
+    @Override
+    public List<Dto> findTreePathByParentId(Long id) {
+        List<Entity> productFeedbackEntityList =
+                productFeedbackRepository.findTreePathByParentId(id);
+        return SelectorDto.mapFromEntity().select(productFeedbackEntityList,
+                ProductFeedbackDtoDefault.class);
     }
 }
 

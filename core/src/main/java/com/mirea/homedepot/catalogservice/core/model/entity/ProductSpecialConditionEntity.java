@@ -7,5 +7,6 @@ import lombok.Data;
 public class ProductSpecialConditionEntity implements Entity {
 
     private Long id;
+
     private String description;
 }

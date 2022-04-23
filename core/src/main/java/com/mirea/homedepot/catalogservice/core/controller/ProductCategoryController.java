@@ -14,7 +14,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/categories")
 public class ProductCategoryController {
 
     private final ProductCategoryService productCategoryService;
@@ -24,8 +24,8 @@ public class ProductCategoryController {
         this.productCategoryService = productCategoryService;
     }
 
-    @GetMapping("/get")
-    public List<Dto> getListAll(
+    @GetMapping("/")
+    public List<Dto> getAll(
             @RequestParam(required = false)
                     String type) {
         if (type == null) {
@@ -36,8 +36,8 @@ public class ProductCategoryController {
         }
     }
 
-    @GetMapping("/get/definite/item")
-    public Dto getItem(
+    @GetMapping("/{id}")
+    public Dto getById(
             @RequestParam(required = false)
                     String type,
             @RequestParam
@@ -50,8 +50,8 @@ public class ProductCategoryController {
         }
     }
 
-    @GetMapping("/get/definite/list")
-    List<Dto> getList(
+    @GetMapping("/list")
+    List<Dto> getByListId(
             @RequestParam(required = false)
                     String type,
             @RequestBody
