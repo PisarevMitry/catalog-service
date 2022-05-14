@@ -1,9 +1,9 @@
 package com.mirea.homedepot.catalogservice.core.service;
 
-import com.mirea.homedepot.catalogservice.core.service.base.CrudServiceForDefaultDto;
-import com.mirea.homedepot.catalogservice.core.service.base.CrudServiceForNotDefaultDto;
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
-import com.mirea.homedepot.catalogservice.dto.type.ProductDtoType;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.dto.type.ProductDtoType;
+import com.mirea.homedepot.commonmodule.services.CrudServiceForDefaultDto;
+import com.mirea.homedepot.commonmodule.services.CrudServiceForNotDefaultDto;
 import org.json.JSONObject;
 
 import java.util.List;

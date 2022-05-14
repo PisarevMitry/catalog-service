@@ -1,6 +1,5 @@
 package com.mirea.homedepot.catalogservice.core.service.impl;
 
-import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository;
 import com.mirea.homedepot.catalogservice.core.repository.ProductFeedbackRepository;
@@ -8,8 +7,7 @@ import com.mirea.homedepot.catalogservice.core.repository.ProductPhotoRepository
 import com.mirea.homedepot.catalogservice.core.repository.ProductRepository;
 import com.mirea.homedepot.catalogservice.core.repository.ProductSpecialConditionRepository;
 import com.mirea.homedepot.catalogservice.core.service.ProductService;
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
-import com.mirea.homedepot.catalogservice.dto.type.ProductDtoType;
+import com.mirea.homedepot.catalogservice.core.service.utils.EnricherProductDto;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductCategoryDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductFeedbackDtoDefault;
@@ -17,8 +15,12 @@ import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductPhotoDtoDefa
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductSpecialConditionDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductDtoFull;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductDtoFullSmall;
+import com.mirea.homedepot.catalogservice.utils.SelectorDto;
+import com.mirea.homedepot.catalogservice.utils.SelectorEntity;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.dto.type.ProductDtoType;
+import com.mirea.homedepot.commonmodule.model.Entity;
 import org.json.JSONObject;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,22 +39,18 @@ public class ProductServiceImpl implements ProductService {
     private final ProductSpecialConditionRepository
             productSpecialConditionRepository;
 
-    private final ModelMapper modelMapper;
-
     public ProductServiceImpl(
             ProductCategoryRepository productCategoryRepository,
             ProductFeedbackRepository productFeedbackRepository,
             ProductPhotoRepository productPhotoRepository,
             ProductRepository productRepository,
-            ProductSpecialConditionRepository productSpecialConditionRepository,
-            ModelMapper modelMapper) {
+            ProductSpecialConditionRepository productSpecialConditionRepository) {
         this.productCategoryRepository = productCategoryRepository;
         this.productFeedbackRepository = productFeedbackRepository;
         this.productPhotoRepository = productPhotoRepository;
         this.productRepository = productRepository;
         this.productSpecialConditionRepository =
                 productSpecialConditionRepository;
-        this.modelMapper = modelMapper;
     }
 
     private Dto enrichToFull(ProductDtoDefault dto) {
@@ -100,19 +98,14 @@ public class ProductServiceImpl implements ProductService {
     public List<Dto> findAll(ProductDtoType type) {
         List<Entity> productEntityList = productRepository.findAll();
         List<Dto> productDtoList;
-        switch (type) {
-            case FULL: {
-                productDtoList = EnricherProductDto.enrichFromEntityClass()
-                        .select(productEntityList, ProductDtoFull.class);
-            }
-            break;
-            case FULL_SMALL: {
-                productDtoList = EnricherProductDto.enrichFromEntityClass()
-                        .select(productEntityList, ProductDtoFullSmall.class);
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductDtoType.FULL) {
+            productDtoList = EnricherProductDto.enrichFromEntityClass()
+                    .select(productEntityList, ProductDtoFull.class);
+        } else if (type == ProductDtoType.FULL_SMALL) {
+            productDtoList = EnricherProductDto.enrichFromEntityClass()
+                    .select(productEntityList, ProductDtoFullSmall.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productDtoList;
     }
@@ -128,19 +121,14 @@ public class ProductServiceImpl implements ProductService {
     public Dto findById(ProductDtoType type, Long productId) {
         Entity productEntity = productRepository.findById(productId);
         Dto productDto;
-        switch (type) {
-            case FULL: {
-                productDto = EnricherProductDto.enrichFromEntityClass()
-                        .select(productEntity, ProductDtoFull.class);
-            }
-            break;
-            case FULL_SMALL: {
-                productDto = EnricherProductDto.enrichFromEntityClass()
-                        .select(productEntity, ProductDtoFullSmall.class);
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductDtoType.FULL) {
+            productDto = EnricherProductDto.enrichFromEntityClass()
+                    .select(productEntity, ProductDtoFull.class);
+        } else if (type == ProductDtoType.FULL_SMALL) {
+            productDto = EnricherProductDto.enrichFromEntityClass()
+                    .select(productEntity, ProductDtoFullSmall.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productDto;
     }
@@ -156,19 +144,14 @@ public class ProductServiceImpl implements ProductService {
     public List<Dto> findByListId(ProductDtoType type, List<Long> listId) {
         List<Entity> productEntityList = productRepository.findByListId(listId);
         List<Dto> productDtoList;
-        switch (type) {
-            case FULL: {
-                productDtoList = EnricherProductDto.enrichFromEntityClass()
-                        .select(productEntityList, ProductDtoFull.class);
-            }
-            break;
-            case FULL_SMALL: {
-                productDtoList = EnricherProductDto.enrichFromEntityClass()
-                        .select(productEntityList, ProductDtoFullSmall.class);
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductDtoType.FULL) {
+            productDtoList = EnricherProductDto.enrichFromEntityClass()
+                    .select(productEntityList, ProductDtoFull.class);
+        } else if (type == ProductDtoType.FULL_SMALL) {
+            productDtoList = EnricherProductDto.enrichFromEntityClass()
+                    .select(productEntityList, ProductDtoFullSmall.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productDtoList;
     }

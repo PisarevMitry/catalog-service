@@ -1,13 +1,15 @@
 package com.mirea.homedepot.catalogservice.core.service.impl;
 
-import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductPhotoEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductPhotoRepository;
 import com.mirea.homedepot.catalogservice.core.service.ProductPhotoService;
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
-import com.mirea.homedepot.catalogservice.dto.type.ProductPhotoDtoType;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductPhotoDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductPhotoDtoWithoutParent;
+import com.mirea.homedepot.catalogservice.utils.SelectorDto;
+import com.mirea.homedepot.catalogservice.utils.SelectorEntity;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.dto.type.ProductPhotoDtoType;
+import com.mirea.homedepot.commonmodule.model.Entity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -38,15 +40,12 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
     public List<Dto> findAll(ProductPhotoDtoType type) {
         List<Entity> productPhotoEntityList = productPhotoRepository.findAll();
         List<Dto> productPhotoDtoList;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productPhotoDtoList = SelectorDto.mapFromEntity()
-                        .select(productPhotoEntityList,
-                                ProductPhotoDtoWithoutParent.class);
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductPhotoDtoType.WITHOUT_PARENT) {
+            productPhotoDtoList = SelectorDto.mapFromEntity()
+                    .select(productPhotoEntityList,
+                            ProductPhotoDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productPhotoDtoList;
     }
@@ -64,15 +63,12 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
         Entity productPhotoEntity =
                 productPhotoRepository.findById(productPhotoId);
         Dto productPhotoDto;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productPhotoDto = SelectorDto.mapFromEntity()
-                        .select(productPhotoEntity,
-                                ProductPhotoDtoWithoutParent.class);
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductPhotoDtoType.WITHOUT_PARENT) {
+            productPhotoDto = SelectorDto.mapFromEntity()
+                    .select(productPhotoEntity,
+                            ProductPhotoDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productPhotoDto;
     }
@@ -90,15 +86,12 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
         List<Entity> productPhotoEntityList =
                 productPhotoRepository.findByListId(listId);
         List<Dto> productPhotoDtoList;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productPhotoDtoList = SelectorDto.mapFromEntity()
-                        .select(productPhotoEntityList,
-                                ProductPhotoDtoWithoutParent.class);
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductPhotoDtoType.WITHOUT_PARENT) {
+            productPhotoDtoList = SelectorDto.mapFromEntity()
+                    .select(productPhotoEntityList,
+                            ProductPhotoDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productPhotoDtoList;
     }
@@ -145,16 +138,12 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
         List<Entity> productPhotoEntityList =
                 productPhotoRepository.findTreeIterationByParentId(id);
         List<Dto> productPhotoDtoList;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productPhotoDtoList = SelectorDto.mapFromEntity()
-                        .select(productPhotoEntityList,
-                                ProductPhotoDtoWithoutParent.class);
-
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductPhotoDtoType.WITHOUT_PARENT) {
+            productPhotoDtoList = SelectorDto.mapFromEntity()
+                    .select(productPhotoEntityList,
+                            ProductPhotoDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productPhotoDtoList;
     }
@@ -172,16 +161,12 @@ public class ProductPhotoServiceImpl implements ProductPhotoService {
         List<Entity> productPhotoEntityList =
                 productPhotoRepository.findTreePathByParentId(id);
         List<Dto> productPhotoDtoList;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productPhotoDtoList = SelectorDto.mapFromEntity()
-                        .select(productPhotoEntityList,
-                                ProductPhotoDtoWithoutParent.class);
-
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductPhotoDtoType.WITHOUT_PARENT) {
+            productPhotoDtoList = SelectorDto.mapFromEntity()
+                    .select(productPhotoEntityList,
+                            ProductPhotoDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productPhotoDtoList;
     }

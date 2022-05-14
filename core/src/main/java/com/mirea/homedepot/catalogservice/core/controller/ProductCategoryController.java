@@ -1,10 +1,11 @@
 package com.mirea.homedepot.catalogservice.core.controller;
 
 import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
-import com.mirea.homedepot.catalogservice.dto.type.ProductCategoryDtoType;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.dto.type.ProductCategoryDtoType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,7 @@ public class ProductCategoryController {
         this.productCategoryService = productCategoryService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Dto> getAll(
             @RequestParam(required = false)
                     String type) {
@@ -40,7 +41,7 @@ public class ProductCategoryController {
     public Dto getById(
             @RequestParam(required = false)
                     String type,
-            @RequestParam
+            @PathVariable
                     Long id) {
         if (type == null) {
             return productCategoryService.findById(id);

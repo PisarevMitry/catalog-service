@@ -1,4 +1,4 @@
-package com.mirea.homedepot.catalogservice.core.service.impl;
+package com.mirea.homedepot.catalogservice.utils;
 
 /**
  * Интерфейс опряделяющий методы обогащения объектов Product.

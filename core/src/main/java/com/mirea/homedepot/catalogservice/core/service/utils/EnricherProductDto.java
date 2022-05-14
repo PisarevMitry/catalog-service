@@ -1,13 +1,11 @@
-package com.mirea.homedepot.catalogservice.core.service.impl;
+package com.mirea.homedepot.catalogservice.core.service.utils;
 
-import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository;
 import com.mirea.homedepot.catalogservice.core.repository.ProductFeedbackRepository;
 import com.mirea.homedepot.catalogservice.core.repository.ProductPhotoRepository;
 import com.mirea.homedepot.catalogservice.core.repository.ProductRepository;
 import com.mirea.homedepot.catalogservice.core.repository.ProductSpecialConditionRepository;
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductCategoryDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductFeedbackDtoDefault;
@@ -15,6 +13,10 @@ import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductPhotoDtoDefa
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductSpecialConditionDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductDtoFull;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductDtoFullSmall;
+import com.mirea.homedepot.catalogservice.utils.EnricherProduct;
+import com.mirea.homedepot.catalogservice.utils.SelectorDto;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.model.Entity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -52,7 +54,7 @@ public class EnricherProductDto implements EnricherProduct {
         return enricherFromEntityClass;
     }
 
-    static class EnricherProductDtoMapper {
+    public static class EnricherProductDtoMapper {
         private final ProductCategoryRepository productCategoryRepository;
 
         private final ProductFeedbackRepository productFeedbackRepository;

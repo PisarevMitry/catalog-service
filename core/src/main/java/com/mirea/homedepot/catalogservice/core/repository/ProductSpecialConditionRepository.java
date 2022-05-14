@@ -1,7 +1,7 @@
 package com.mirea.homedepot.catalogservice.core.repository;
 
-import com.mirea.homedepot.catalogservice.core.repository.base.BasicMethodRepository;
-import com.mirea.homedepot.catalogservice.core.repository.base.Repository;
+import com.mirea.homedepot.commonmodule.repositories.BasicMethodRepository;
+import com.mirea.homedepot.commonmodule.repositories.Repository;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

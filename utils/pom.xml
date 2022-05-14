@@ -2,7 +2,9 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>dependency-management-bom</artifactId>
         <groupId>com.mirea</groupId>
@@ -10,25 +12,13 @@
         <relativePath>../dependency-management-bom/pom.xml</relativePath>
     </parent>
 
-    <artifactId>catalog-service-dto</artifactId>
+    <artifactId>catalog-service-utils</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.mirea</groupId>
-            <artifactId>common-dto</artifactId>
+            <artifactId>common-utils</artifactId>
         </dependency>
     </dependencies>
 

@@ -1,8 +1,8 @@
 package com.mirea.homedepot.catalogservice.core.controller;
 
 import com.mirea.homedepot.catalogservice.core.service.ProductService;
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
-import com.mirea.homedepot.catalogservice.dto.type.ProductDtoType;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.dto.type.ProductDtoType;
 import org.json.JSONObject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;

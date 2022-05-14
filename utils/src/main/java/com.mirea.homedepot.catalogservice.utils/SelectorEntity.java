@@ -1,7 +1,7 @@
-package com.mirea.homedepot.catalogservice.core.service.impl;
+package com.mirea.homedepot.catalogservice.utils;
 
-import com.mirea.homedepot.catalogservice.core.model.base.Entity;
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.model.Entity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +28,7 @@ public class SelectorEntity {
         return mapFromDtoClass;
     }
 
-    static class SelectorEntityMapper<T> {
+    public static class SelectorEntityMapper<T> {
 
         private ModelMapper modelMapper;
 

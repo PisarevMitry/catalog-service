@@ -13,22 +13,6 @@
     <artifactId>dependency-management-bom</artifactId>
     <packaging>pom</packaging>
 
-    <properties>
-        <docker.image.prefix>myProject</docker.image.prefix>
-
-        <postgresql.version>42.3.3</postgresql.version>
-        <spring.security.version>5.6.2</spring.security.version>
-        <spring.boot.version>2.6.5</spring.boot.version>
-        <thymeleaf.version>3.1.0.M1</thymeleaf.version>
-        <!--        myBatis-->
-        <mybatis.version>2.2.2</mybatis.version>
-        <!--        liquibase-->
-        <liquibase.version>4.8.0</liquibase.version>
-        <liquibase.plugin.version>4.8.0</liquibase.plugin.version>
-        <!--        <slf4j.version>1.7.36</slf4j.version>-->
-        <!--        <logback.version>1.2.11</logback.version>-->
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <!--   Зависимости Spring -->
@@ -94,6 +78,36 @@
                 <artifactId>catalog-service-migration</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.mirea</groupId>
+                <artifactId>catalog-service-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mirea</groupId>
+                <artifactId>common-utils</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mirea</groupId>
+                <artifactId>common-dto</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mirea</groupId>
+                <artifactId>common-services</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mirea</groupId>
+                <artifactId>common-repositories</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mirea</groupId>
+                <artifactId>common-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- Для создания и взаимодействия dto -->
             <dependency>
@@ -151,6 +165,20 @@
                 <groupId>org.springframework.amqp</groupId>
                 <artifactId>spring-rabbit</artifactId>
                 <version>${spring.rabbit.version}</version>
+            </dependency>
+
+            <!-- Сборка проекта -->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-elasticsearch</artifactId>
+                <version>3.2.5.RELEASE</version>
+            </dependency>
+
+            <!-- Документация -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>2.9.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -1,8 +1,8 @@
 package com.mirea.homedepot.catalogservice.core.repository;
 
-import com.mirea.homedepot.catalogservice.core.model.base.Entity;
-import com.mirea.homedepot.catalogservice.core.repository.base.BasicMethodRepository;
-import com.mirea.homedepot.catalogservice.core.repository.base.Repository;
+import com.mirea.homedepot.commonmodule.model.Entity;
+import com.mirea.homedepot.commonmodule.repositories.BasicMethodRepository;
+import com.mirea.homedepot.commonmodule.repositories.Repository;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.json.JSONObject;

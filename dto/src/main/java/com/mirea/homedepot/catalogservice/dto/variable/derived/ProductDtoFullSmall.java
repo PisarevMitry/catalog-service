@@ -1,8 +1,8 @@
 package com.mirea.homedepot.catalogservice.dto.variable.derived;
 
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
-import com.mirea.homedepot.catalogservice.dto.abstractive.ProductDto;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductDtoDefault;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.dto.definition.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

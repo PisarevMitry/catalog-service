@@ -1,9 +1,9 @@
 package com.mirea.homedepot.catalogservice.core.repository;
 
-import com.mirea.homedepot.catalogservice.core.repository.base.BasicMethodRepository;
-import com.mirea.homedepot.catalogservice.core.repository.base.ParentSearchRepository;
-import com.mirea.homedepot.catalogservice.core.repository.base.Repository;
-import com.mirea.homedepot.catalogservice.core.repository.base.TreeSearchRepository;
+import com.mirea.homedepot.commonmodule.repositories.BasicMethodRepository;
+import com.mirea.homedepot.commonmodule.repositories.ParentSearchRepository;
+import com.mirea.homedepot.commonmodule.repositories.Repository;
+import com.mirea.homedepot.commonmodule.repositories.TreeSearchRepository;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

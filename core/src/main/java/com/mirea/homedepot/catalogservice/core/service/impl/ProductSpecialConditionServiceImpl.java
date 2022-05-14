@@ -1,11 +1,13 @@
 package com.mirea.homedepot.catalogservice.core.service.impl;
 
-import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductSpecialConditionEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductSpecialConditionRepository;
 import com.mirea.homedepot.catalogservice.core.service.ProductSpecialConditionService;
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductSpecialConditionDtoDefault;
+import com.mirea.homedepot.catalogservice.utils.SelectorDto;
+import com.mirea.homedepot.catalogservice.utils.SelectorEntity;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.model.Entity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

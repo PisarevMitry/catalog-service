@@ -16,12 +16,20 @@
         <module>dependency-management-bom</module>
         <module>dto</module>
         <module>migration</module>
+        <module>utils</module>
     </modules>
 
     <properties>
         <start-class>com.mirea.homedepot.catalogservice.core.CatalogServiceApplication</start-class>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-elasticsearch</artifactId>
+            <version>3.2.5.RELEASE</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

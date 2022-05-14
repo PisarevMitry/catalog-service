@@ -1,14 +1,15 @@
 package com.mirea.homedepot.catalogservice.core.service.impl;
 
-import com.mirea.homedepot.catalogservice.core.model.base.Entity;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository;
 import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;
-import com.mirea.homedepot.catalogservice.dto.abstractive.Dto;
-import com.mirea.homedepot.catalogservice.dto.type.ProductCategoryDtoType;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductCategoryDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductCategoryDtoWithoutParent;
-import org.modelmapper.ModelMapper;
+import com.mirea.homedepot.catalogservice.utils.SelectorDto;
+import com.mirea.homedepot.catalogservice.utils.SelectorEntity;
+import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.dto.type.ProductCategoryDtoType;
+import com.mirea.homedepot.commonmodule.model.Entity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,13 +19,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     private final ProductCategoryRepository productCategoryRepository;
 
-    private final ModelMapper modelMapper;
-
     public ProductCategoryServiceImpl(
-            ProductCategoryRepository productCategoryRepository,
-            ModelMapper modelMapper) {
+            ProductCategoryRepository productCategoryRepository) {
         this.productCategoryRepository = productCategoryRepository;
-        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -40,15 +37,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<Entity> productCategoryEntityList =
                 productCategoryRepository.findAll();
         List<Dto> productCategoryDtoList;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productCategoryDtoList = SelectorDto.mapFromEntity()
-                        .select(productCategoryEntityList,
-                                ProductCategoryDtoWithoutParent.class);
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductCategoryDtoType.WITHOUT_PARENT) {
+            productCategoryDtoList = SelectorDto.mapFromEntity()
+                    .select(productCategoryEntityList,
+                            ProductCategoryDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productCategoryDtoList;
     }
@@ -66,15 +60,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         Entity productCategoryEntity =
                 productCategoryRepository.findById(productCategoryId);
         Dto productCategoryDto;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productCategoryDto = SelectorDto.mapFromEntity()
-                        .select(productCategoryEntity,
-                                ProductCategoryDtoWithoutParent.class);
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductCategoryDtoType.WITHOUT_PARENT) {
+            productCategoryDto = SelectorDto.mapFromEntity()
+                    .select(productCategoryEntity,
+                            ProductCategoryDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productCategoryDto;
     }
@@ -93,15 +84,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<Entity> productCategoryEntityList =
                 productCategoryRepository.findByListId(listId);
         List<Dto> productCategoryDtoList;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productCategoryDtoList = SelectorDto.mapFromEntity()
-                        .select(productCategoryEntityList,
-                                ProductCategoryDtoWithoutParent.class);
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductCategoryDtoType.WITHOUT_PARENT) {
+            productCategoryDtoList = SelectorDto.mapFromEntity()
+                    .select(productCategoryEntityList,
+                            ProductCategoryDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productCategoryDtoList;
     }
@@ -147,16 +135,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<Entity> productCategoryEntityList =
                 productCategoryRepository.findTreeByParentId(id);
         List<Dto> productCategoryDtoList;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productCategoryDtoList = SelectorDto.mapFromEntity()
-                        .select(productCategoryEntityList,
-                                ProductCategoryDtoWithoutParent.class);
-
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductCategoryDtoType.WITHOUT_PARENT) {
+            productCategoryDtoList = SelectorDto.mapFromEntity()
+                    .select(productCategoryEntityList,
+                            ProductCategoryDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productCategoryDtoList;
     }
@@ -175,16 +159,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<Entity> productCategoryEntityList =
                 productCategoryRepository.findTreeIterationByParentId(id);
         List<Dto> productCategoryDtoList;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productCategoryDtoList = SelectorDto.mapFromEntity()
-                        .select(productCategoryEntityList,
-                                ProductCategoryDtoWithoutParent.class);
-
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductCategoryDtoType.WITHOUT_PARENT) {
+            productCategoryDtoList = SelectorDto.mapFromEntity()
+                    .select(productCategoryEntityList,
+                            ProductCategoryDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productCategoryDtoList;
     }
@@ -203,16 +183,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         List<Entity> productCategoryEntityList =
                 productCategoryRepository.findTreePathByParentId(id);
         List<Dto> productCategoryDtoList;
-        switch (type) {
-            case WITHOUT_PARENT: {
-                productCategoryDtoList = SelectorDto.mapFromEntity()
-                        .select(productCategoryEntityList,
-                                ProductCategoryDtoWithoutParent.class);
-
-            }
-            break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + type);
+        if (type == ProductCategoryDtoType.WITHOUT_PARENT) {
+            productCategoryDtoList = SelectorDto.mapFromEntity()
+                    .select(productCategoryEntityList,
+                            ProductCategoryDtoWithoutParent.class);
+        } else {
+            throw new IllegalStateException("Unexpected value: " + type);
         }
         return productCategoryDtoList;
     }

@@ -1,6 +1,6 @@
 package com.mirea.homedepot.catalogservice.dto.variable.basic;
 
-import com.mirea.homedepot.catalogservice.dto.abstractive.ProductFeedbackDto;
+import com.mirea.homedepot.commonmodule.dto.definition.ProductFeedbackDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
