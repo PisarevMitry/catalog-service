@@ -93,17 +93,11 @@
             <artifactId>spring-rabbit</artifactId>
         </dependency>
 
-        <!-- Сборка проекта -->
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-elasticsearch</artifactId>
-        </dependency>
-
        <!--  Документация -->
-        <dependency>
+       <!--  <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
-        </dependency>
+        </dependency> -->
     </dependencies>
 
     <build>

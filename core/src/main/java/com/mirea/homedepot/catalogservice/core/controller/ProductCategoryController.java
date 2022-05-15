@@ -2,6 +2,7 @@ package com.mirea.homedepot.catalogservice.core.controller;
 
 import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;
 import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.dto.definition.ProductCategoryDto;
 import com.mirea.homedepot.commonmodule.dto.type.ProductCategoryDtoType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,16 +65,18 @@ public class ProductCategoryController {
                     ProductCategoryDtoType.valueOf(type), listId);
         }
     }
-/*    @GetMapping("/get/child/list")
+
+    @GetMapping("/get/child/list")
     List<Dto> getListChildItem(
             @RequestParam(required = false)
                     String type,
             @RequestParam
                     Long id) {
         if (type == null) {
-            return productCategoryService.findListByParentId(id);
+            return productCategoryService.findTreeIterationByParentId(id);
         } else {
-            return productCategoryService.findListByParentId(ProductCategoryDtoType.valueOf(type), id);
+            return productCategoryService.findTreeIterationByParentId(
+                    ProductCategoryDtoType.valueOf(type), id);
         }
     }
 
@@ -84,15 +87,19 @@ public class ProductCategoryController {
             @RequestParam
                     Long id) {
         if (type == null) {
-            return productCategoryService.findListRecursiveByParentId(id);
+            return productCategoryService.findTreePathByParentId(id);
         } else {
-            return productCategoryService.findListRecursiveByParentId(ProductCategoryDtoType.valueOf(type), id);
+            return productCategoryService.findTreePathByParentId(
+                    ProductCategoryDtoType.valueOf(type), id);
         }
     }
 
-   @GetMapping("/get?{id}&{numberIteration}")
-    Tree<ProductCategoryDto> getProductCategoryByParentId(@PathVariable
-                                                                  Long id, @PathVariable Integer numberIteration) {
+    /*@GetMapping("/get?{id}&{numberIteration}")
+    Tree<ProductCategoryDto> getProductCategoryByParentId(
+            @PathVariable
+                    Long id,
+            @PathVariable
+                    Integer numberIteration) {
         return productCategoryService.findTreeByParentId(id, numberIteration);
     }*/
 }
