@@ -4,7 +4,9 @@ server:
     context-path: /
 
 spring:
-
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   datasource:
     url: jdbc:postgresql://ec2-52-212-228-71.eu-west-1.compute.amazonaws.com:5432/d94a4t5v068md8
     username: ejnhkhzhpeqize

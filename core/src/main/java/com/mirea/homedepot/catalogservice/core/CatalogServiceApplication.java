@@ -1,5 +1,6 @@
 package com.mirea.homedepot.catalogservice.core;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
@@ -9,7 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
  * Service application.
  */
 @SpringBootApplication(exclude = HibernateJpaAutoConfiguration.class)
-@ComponentScan("com.mirea.homedepot.catalogservice")
+@ComponentScan({"com.mirea.homedepot.catalogservice", "com.mirea.homedepot.commonmodule.utils"})
+@MapperScan("com.mirea.homedepot.catalogservice.controller")
 public class CatalogServiceApplication {
 
     /**
