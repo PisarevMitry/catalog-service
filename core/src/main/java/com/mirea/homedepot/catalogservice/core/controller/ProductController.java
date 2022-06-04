@@ -6,7 +6,7 @@ import com.mirea.homedepot.commonmodule.dto.type.ProductDtoType;
 import org.json.JSONObject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +25,8 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/")
-    public List<Dto> getAll(
+    @GetMapping()
+    public List<Dto> findAll(
             @RequestParam(required = false)
                     String type) {
         if (type == null) {
@@ -36,44 +36,60 @@ public class ProductController {
         }
     }
 
-    @GetMapping("/{id}")
-    public Dto getById(
+    @GetMapping("/item")
+    public Dto findById(
             @RequestParam(required = false)
                     String type,
-            @PathVariable
-                    Long id) {
+            @RequestBody
+                    ProductRequestFilter filter) {
         if (type == null) {
-            return productService.findById(id);
+            return productService.findById(filter.getId());
         } else {
-            return productService.findById(ProductDtoType.valueOf(type), id);
+            return productService.findById(ProductDtoType.valueOf(type),
+                    filter.getId());
         }
     }
 
     @GetMapping("/list")
-    List<Dto> getByListId(
+    List<Dto> findByListId(
             @RequestParam(required = false)
                     String type,
             @RequestBody
-                    List<Long> listId) {
+                    ProductRequestFilter filter) {
         if (type == null) {
-            return productService.findByListId(listId);
+            return productService.findByListId(filter.getListId());
         } else {
             return productService.findByListId(ProductDtoType.valueOf(type),
-                    listId);
+                    filter.getListId());
         }
     }
 
-    @GetMapping("/categories/{id}")
-    List<Dto> getByCategoryId(
+    @GetMapping("/categories")
+    List<Dto> findByCategoryId(
             @RequestParam(required = false)
                     String type,
-            @PathVariable
-                    Long id) {
+            @RequestBody
+                    ProductRequestFilter filter) {
         if (type == null) {
-            return productService.findByCategoryId(id);
+            return productService.findByCategoryId(filter.getCategoryId());
         } else {
             return productService.findByCategoryId(ProductDtoType.valueOf(type),
-                    id);
+                    filter.getCategoryId());
+        }
+    }
+
+    @GetMapping("/list/categories")
+    List<Dto> findByListCategoryId(
+            @RequestParam(required = false)
+                    String type,
+            @RequestBody
+                    ProductRequestFilter filter) {
+        if (type == null) {
+            return productService.findByListCategoryId(
+                    filter.getListCategoryId());
+        } else {
+            return productService.findByListCategoryId(
+                    ProductDtoType.valueOf(type), filter.getListCategoryId());
         }
     }
 
@@ -90,4 +106,51 @@ public class ProductController {
                     option);
         }
     }
+
+    @PostMapping()
+    void insert(
+            @RequestBody
+                    Dto dto) {
+        productService.insert(dto);
+    }
+/*
+    @PostMapping("/list")
+    void insertList(
+            @RequestParam(required = false)
+                    String type,
+            @RequestBody
+                    List<Dto> dto) {
+        if (type == null) {
+            productService.insertList(dto);
+        } else {
+            productService.insertList(ProductDtoType.valueOf(type), dto);
+        }
+    }
+
+    @PutMapping()
+    void update(
+            @RequestParam(required = false)
+                    String type,
+            @RequestBody
+                    Dto dto) {
+        if (type == null) {
+            productService.update(dto);
+        } else {
+            productService.update(ProductDtoType.valueOf(type), dto);
+        }
+    }
+
+    @DeleteMapping()
+    void delete(
+            @RequestParam(required = false)
+                    String type,
+            @RequestBody
+                    Long id) {
+        if (type == null) {
+            productService.delete(id);
+        } else {
+            productService.delete(ProductDtoType.valueOf(type), id);
+        }
+    }
+*/
 }

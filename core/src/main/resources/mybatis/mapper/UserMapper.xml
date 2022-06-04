@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.ProductSpecialConditionRepository">
+<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.UserRepository">
 
-    <resultMap id="ProductSpecialConditionEntity"
-               type="com.mirea.homedepot.catalogservice.core.model.entity.ProductSpecialConditionEntity"
-               autoMapping="true">
+    <resultMap id="UserEntity"
+               type="com.mirea.homedepot.catalogservice.core.model.entity.UserEntity" autoMapping="true">
         <id property="id" column="id" jdbcType="BIGINT"/>
     </resultMap>
 
-    <select id="findAll" resultMap="ProductSpecialConditionEntity">
+    <select id="findAll" resultMap="UserEntity">
         SELECT *
-        FROM catalog_data.product_special_condition;
+        FROM catalog_data.user
     </select>
 
-    <select id="findById" resultMap="ProductSpecialConditionEntity">
+    <select id="findById" resultMap="UserEntity">
         SELECT *
-        FROM catalog_data.product_special_condition
+        FROM catalog_data.user
         WHERE id = #{id, jdbcType=BIGINT};
     </select>
 
-    <select id="findByListId" resultMap="ProductSpecialConditionEntity">
+    <select id="findByListId" resultMap="UserEntity">
         <bind name="" value=""/>
         SELECT *
-        FROM catalog_data.product_special_condition
+        FROM catalog_data.user
         <choose>
             <when test="listId.isEmpty()">
                 ORDER BY id DESC
@@ -36,31 +35,38 @@
             </otherwise>
         </choose>
     </select>
+    <select id="findByLogin" resultType="com.mirea.homedepot.commonmodule.model.Entity">
+        SELECT *
+        FROM catalog_data.user
+        WHERE email = #{login, jdbcType=VARCHAR};
+    </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.product_special_condition (id, description)
-        VALUES (#{description});
+        INSERT INTO catalog_data.user (email, password)
+        VALUES (#{email}, #{password});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.product_special_condition (id, description) VALUES
+        INSERT INTO catalog_data.user (email, password) VALUES
         <foreach collection="entityList" item="entity" separator=",">
-            ( #{description})
+            (#{email}, #{password})
         </foreach>
     </insert>
 
-    <update id="update"
-            parameterType="com.mirea.homedepot.catalogservice.core.model.entity.ProductSpecialConditionEntity">
-        UPDATE catalog_data.product_special_condition SET
-        <if test="description != null">
-            description = #{description},
+    <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.UserEntity">
+        UPDATE catalog_data.user SET
+        <if test="email != null">
+            email = #{email},
+        </if>
+        <if test="password != null">
+            password = #{password},
         </if>
         WHERE id = #{id};
     </update>
 
     <delete id="deleteById">
         DELETE
-        FROM catalog_data.product_special_condition
+        FROM catalog_data.user
         WHERE id = #{id};
     </delete>
 </mapper>

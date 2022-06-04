@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.RoleRepository">
+
+    <resultMap id="RoleEntity"
+               type="com.mirea.homedepot.catalogservice.core.model.entity.RoleEntity" autoMapping="true">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="RoleEntity">
+        SELECT *
+        FROM catalog_data.role;
+    </select>
+
+    <select id="findById" resultMap="RoleEntity">
+        SELECT *
+        FROM catalog_data.role
+        WHERE id = #{id, jdbcType=BIGINT};
+    </select>
+
+    <select id="findByListId" resultMap="RoleEntity">
+        <bind name="" value=""/>
+        SELECT *
+        FROM catalog_data.role
+        <choose>
+            <when test="listId.isEmpty()">
+                ORDER BY id DESC
+                LIMIT 10;
+            </when>
+            <otherwise>
+                WHERE id IN
+                <foreach collection='listId' item='id' open='(' separator=',' close=')'>
+                    #{id, jdbcType=BIGINT}
+                </foreach>
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findByName" resultType="com.mirea.homedepot.commonmodule.model.Entity">
+        SELECT *
+        FROM catalog_data.role
+        WHERE name = #{name, jdbcType=VARCHAR};
+    </select>
+
+    <select id="getListRoleByUserId"
+            resultType="com.mirea.homedepot.catalogservice.core.model.entity.RoleEntity">
+        SELECT *
+        FROM catalog_data.user_role
+        where user_id = #{userId, jdbcType=BIGINT}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO catalog_data.role (id, name)
+        VALUES (#{name});
+    </insert>
+
+    <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO catalog_data.role (id, name VALUES
+        <foreach collection="entityList" item="entity" separator=",">
+            (#{name})
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.RoleEntity">
+        UPDATE catalog_data.role SET
+        <if test="name != null">
+            name = #{name},
+        </if>
+        WHERE id = #{id};
+    </update>
+
+    <delete id="deleteById">
+        DELETE
+        FROM catalog_data.role
+        WHERE id = #{id};
+    </delete>
+</mapper>
+

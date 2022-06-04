@@ -8,11 +8,7 @@ import com.mirea.homedepot.catalogservice.core.repository.ProductRepository;
 import com.mirea.homedepot.catalogservice.core.repository.ProductSpecialConditionRepository;
 import com.mirea.homedepot.catalogservice.core.service.ProductService;
 import com.mirea.homedepot.catalogservice.core.service.utils.EnricherProductDto;
-import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductCategoryDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductDtoDefault;
-import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductFeedbackDtoDefault;
-import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductPhotoDtoDefault;
-import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductSpecialConditionDtoDefault;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductDtoFull;
 import com.mirea.homedepot.catalogservice.dto.variable.derived.ProductDtoFullSmall;
 import com.mirea.homedepot.catalogservice.utils.SelectorDto;
@@ -51,40 +47,6 @@ public class ProductServiceImpl implements ProductService {
         this.productRepository = productRepository;
         this.productSpecialConditionRepository =
                 productSpecialConditionRepository;
-    }
-
-    private Dto enrichToFull(ProductDtoDefault dto) {
-
-        List<Entity> photoList =
-                productPhotoRepository.findTreePathByParentId(dto.getPhotoId());
-
-        List<Entity> feedbackList =
-                productFeedbackRepository.findTreePathByParentId(
-                        dto.getFeedbackId());
-        Entity category =
-                productCategoryRepository.findById(dto.getCategoryId());
-        Entity specialCondition = productSpecialConditionRepository.findById(
-                dto.getSpecialConditionId());
-
-        return new ProductDtoFull(dto, SelectorDto.mapFromEntity()
-                .select(photoList, ProductPhotoDtoDefault.class),
-                SelectorDto.mapFromEntity()
-                        .select(category, ProductCategoryDtoDefault.class),
-                SelectorDto.mapFromEntity()
-                        .select(feedbackList, ProductFeedbackDtoDefault.class),
-                SelectorDto.mapFromEntity().select(specialCondition,
-                        ProductSpecialConditionDtoDefault.class));
-    }
-
-    private Dto enrichToFullSmall(ProductDtoDefault dto) {
-        Entity photo = productPhotoRepository.findById(dto.getPhotoId());
-        Entity specialCondition = productSpecialConditionRepository.findById(
-                dto.getSpecialConditionId());
-
-        return new ProductDtoFullSmall(dto, SelectorDto.mapFromEntity()
-                .select(photo, ProductPhotoDtoDefault.class),
-                SelectorDto.mapFromEntity().select(specialCondition,
-                        ProductSpecialConditionDtoDefault.class));
     }
 
     @Override
@@ -157,31 +119,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void insert(Dto productDto) {
-        Entity productEntity = SelectorEntity.mapFromDto()
-                .select(productDto, ProductEntity.class);
-        if (productEntity.getId() == null) {
-            productRepository.insert(productEntity);
-        } else {
-            productRepository.update(productEntity);
-        }
-    }
-
-    @Override
-    public void insertList(List<Dto> productDtoList) {
-        List<Entity> productEntityList = SelectorEntity.mapFromDto()
-                .select(productDtoList, ProductEntity.class);
-        productRepository.insertList(productEntityList);
-    }
-
-    @Override
-    public void update(Dto productDto) {
-        Entity productEntity = SelectorEntity.mapFromDto()
-                .select(productDto, ProductEntity.class);
-        productRepository.update(productEntity);
-    }
-/*
-    @Override
     public List<Dto> findByCategoryId(Long id) {
         List<Entity> productEntityList = productRepository.findByCategoryId(id);
         return SelectorDto.mapFromEntity()
@@ -215,9 +152,9 @@ public class ProductServiceImpl implements ProductService {
                 productRepository.findByListCategoryId(listId);
         return SelectorDto.mapFromEntity()
                 .select(productEntityList, ProductDtoDefault.class);
-    }*/
+    }
 
- /*   @Override
+    @Override
     public List<Dto> findByListCategoryId(ProductDtoType type,
                                           List<Long> listId) {
         List<Entity> productEntityList =
@@ -249,7 +186,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Dto> findByOption(ProductDtoType type, JSONObject option) {
-        List<Entity> productEntityList = productRepository.findByOption(id);
+        List<Entity> productEntityList = productRepository.findByOption(option);
         List<Dto> productDtoList;
         switch (type) {
             case FULL: {
@@ -266,42 +203,37 @@ public class ProductServiceImpl implements ProductService {
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         return productDtoList;
-    }*/
+    }
+
+    @Override
+    public void insert(Dto productDto) {
+        Entity productEntity = SelectorEntity.mapFromDto()
+                .select(productDto, ProductEntity.class);
+        if (productEntity.getId() == null) {
+            productRepository.insert(productEntity);
+        } else {
+            productRepository.update(productEntity);
+        }
+    }
+
+    @Override
+    public void insertList(List<Dto> productDtoList) {
+        List<Entity> productEntityList = SelectorEntity.mapFromDto()
+                .select(productDtoList, ProductEntity.class);
+        productRepository.insertList(productEntityList);
+    }
+
+    @Override
+    public void update(Dto productDto) {
+        Entity productEntity = SelectorEntity.mapFromDto()
+                .select(productDto, ProductEntity.class);
+        productRepository.update(productEntity);
+    }
 
     @Override
     public void deleteById(Long productId) {
         productRepository.deleteById(productId);
     }
 
-    @Override
-    public List<Dto> findByCategoryId(Long id) {
-        return null;
-    }
-
-    @Override
-    public List<Dto> findByCategoryId(ProductDtoType type, Long id) {
-        return null;
-    }
-
-    @Override
-    public List<Dto> findByListCategoryId(List<Long> listId) {
-        return null;
-    }
-
-    @Override
-    public List<Dto> findByListCategoryId(ProductDtoType type,
-                                          List<Long> listId) {
-        return null;
-    }
-
-    @Override
-    public List<Dto> findByOption(JSONObject option) {
-        return null;
-    }
-
-    @Override
-    public List<Dto> findByOption(ProductDtoType type, JSONObject option) {
-        return null;
-    }
 }
 

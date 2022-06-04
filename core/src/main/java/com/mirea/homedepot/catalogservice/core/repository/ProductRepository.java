@@ -23,4 +23,15 @@ public interface ProductRepository extends Repository, BasicMethodRepository {
             @Param("option")
                     JSONObject option);
 
+    List<Entity> findByCategoryId(
+            @Param("id")
+                    Long id);
+
+    List<Entity> findByListCategoryId(
+            @Param("listId")
+                    List<Long> listId);
+
+    List<Entity> findByOption(
+            @Param("option")
+                    JSONObject option);
 }

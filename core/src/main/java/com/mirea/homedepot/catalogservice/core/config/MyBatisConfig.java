@@ -19,7 +19,6 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableTransactionManagement(mode = AdviceMode.PROXY)
-//@MapperScan(basePackages = "mybatis")
 @Slf4j
 public class MyBatisConfig {
 

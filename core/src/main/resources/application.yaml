@@ -1,16 +1,16 @@
 server:
   port: 8041
   servlet:
-    context-path: /
+    context-path: /catalog
 
 spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   datasource:
-    url: jdbc:postgresql://ec2-52-212-228-71.eu-west-1.compute.amazonaws.com:5432/d94a4t5v068md8
-    username: ejnhkhzhpeqize
-    password: ca6c94fd8d5e974d00e2ef276cdf8eeb067a32939c700baf4809045214bb3186
+    url: jdbc:postgresql://localhost:5432/home_depot?currentSchema=catalog_data
+    username: postgres
+    password: 913548Qaz
     driver-class-name: org.postgresql.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:

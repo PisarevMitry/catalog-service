@@ -19,34 +19,44 @@
     </select>
 
     <select id="findByListId" resultMap="ProductEntity">
-        <bind name="" value=""/>
         SELECT *
         FROM catalog_data.product
-        <choose>
-            <when test="listId.isEmpty()">
-                ORDER BY id DESC
-                LIMIT 10;
-            </when>
-            <otherwise>
-                WHERE id IN
-                <foreach collection='listId' item='id' open='(' separator=',' close=')'>
-                    #{id, jdbcType=BIGINT}
-                </foreach>
-            </otherwise>
-        </choose>
+        WHERE id IN
+        <foreach collection='list' item='id' open='(' separator=',' close=')'>
+            #{id, jdbcType=BIGINT}
+        </foreach>
     </select>
 
-    <select id="findListByOption" resultMap="ProductEntity"></select>
+    <select id="findByCategoryId" resultMap="ProductEntity">
+        SELECT *
+        FROM catalog_data.product
+        WHERE category_id = #{id, jdbcType=BIGINT};
+    </select>
+
+    <select id="findByListCategoryId" resultMap="ProductEntity">
+        SELECT *
+        FROM catalog_data.product
+        WHERE category_id IN
+        <foreach collection='listId' item='id' open='(' separator=',' close=')'>
+            #{id, jdbcType=BIGINT}
+        </foreach>
+    </select>
+
+    <select id="findByOption" resultMap="ProductEntity">
+        SELECT *
+        FROM catalog_data.product
+        WHERE option = #{option, jdbcType=VARCHAR};
+    </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.product (id, title, description, price, amount, photo_id, option, category_id,
+        INSERT INTO catalog_data.product (title, description, price, amount, photo_id, option, category_id,
                                           feedback_id, special_condition_id)
         VALUES (#{title}, #{description}, #{price}, #{amount}, #{photoId}, #{option}, #{categoryId}, #{feedbackId},
                 #{specialConditionId});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTOcatalog_data.product (id, title, description, price, amount, photo_id, option, category_id,
+        INSERT INTO catalog_data.product (id, title, description, price, amount, photo_id, option, category_id,
         feedback_id, special_condition_id) VALUES
         <foreach collection="entityList" item="entity" separator=",">
             (#{title}, #{description}, #{price}, #{amount}, #{photoId}, #{option}, #{categoryId}, #{feedbackId},

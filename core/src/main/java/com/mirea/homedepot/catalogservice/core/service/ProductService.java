@@ -22,4 +22,5 @@ public interface ProductService extends CrudServiceForDefaultDto,
     List<Dto> findByOption(JSONObject option);
 
     List<Dto> findByOption(ProductDtoType type, JSONObject option);
+
 }
