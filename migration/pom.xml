@@ -14,39 +14,65 @@
     <artifactId>catalog-service-migration</artifactId>
     <packaging>jar</packaging>
 
+
     <dependencies>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-<!--         <dependency>
+        <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-        </dependency> -->
+            <version>${liquibase.version}</version>
+        </dependency>
     </dependencies>
 
-    <!-- <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
-                <version>${liquibase.version}</version>
-                <configuration>
-                    <changelogSchemaName>${profile.changelogSchemaName}</changelogSchemaName>
-                    <propertyFile>${profile.propertyFile}</propertyFile>
-                    <changeLogFile>${profile.changeLogFile}</changeLogFile>
-                    <dataDir>${profile.dataDir}</dataDir>
-                    &lt;!&ndash;  log   &ndash;&gt;
-                    <verbose>${profile.verbose}</verbose>
-                    <logging>${profile.logging}</logging>
-                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-                    <propertyFileWillOverride>true</propertyFileWillOverride>
-                </configuration>
             </plugin>
         </plugins>
     </build>
+
     <profiles>
-        &lt;!&ndash;  Local settings, -Denv=local  &ndash;&gt;
+        <!-- Development settings, -Denv=dev -->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <properties>
+                <profile.propertyFile>src/main/resources/db/dev/liquibase.properties</profile.propertyFile>
+                <profile.changeLogFile>src/main/resources/db/master.xml</profile.changeLogFile>
+                <profile.dataDir>src/main/resources/db/dev/data</profile.dataDir>
+                <profile.verbose>true</profile.verbose>
+                <profile.logging>debug</profile.logging>
+                <profile.changelogSchemaName></profile.changelogSchemaName>
+            </properties>
+        </profile>
+        <!-- Production settings, -Denv=prod -->
+        <profile>
+            <id>prod</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+                <profile.propertyFile>src/main/resources/db/prod/liquibase.properties</profile.propertyFile>
+                <profile.changeLogFile>src/main/resources/db/master.xml</profile.changeLogFile>
+                <profile.dataDir>src/main/resources/db/prod/data</profile.dataDir>
+                <profile.verbose>false</profile.verbose>
+                <profile.logging>info</profile.logging>
+                <profile.changelogSchemaName>public</profile.changelogSchemaName>
+            </properties>
+        </profile>
         <profile>
             <id>local</id>
             <activation>
@@ -59,10 +85,10 @@
                 <profile.propertyFile>src/main/resources/db/local/liquibase.properties</profile.propertyFile>
                 <profile.changeLogFile>src/main/resources/db/master.xml</profile.changeLogFile>
                 <profile.dataDir>src/main/resources/db/local/data</profile.dataDir>
-                <profile.verbose>true</profile.verbose>
-                <profile.logging>debug</profile.logging>
-                <profile.changelogSchemaName>warehouse_data</profile.changelogSchemaName>
+                <profile.verbose>false</profile.verbose>
+                <profile.logging>info</profile.logging>
+                <profile.changelogSchemaName></profile.changelogSchemaName>
             </properties>
         </profile>
-    </profiles> -->
+    </profiles>
 </project>
