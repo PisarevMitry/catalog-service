@@ -1,0 +1,2 @@
+TRUNCATE TABLE product_special_condition;
+DROP SEQUENCE product_special_condition_seq;

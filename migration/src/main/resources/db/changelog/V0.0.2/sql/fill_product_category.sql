@@ -21,15 +21,15 @@ values ('platea dictumst aliquam', null);
 insert into product_category (title, parent_id)
 values ('tincidunt', null);
 insert into product_category (title, parent_id)
-values ('pulvinar lobortis', 10);
+values ('pulvinar lobortis', null);
 insert into product_category (title, parent_id)
 values ('lobortis', null);
 insert into product_category (title, parent_id)
-values ('porta volutpat erat', 12);
+values ('porta volutpat erat', 13);
 insert into product_category (title, parent_id)
-values ('feugiat non pretium', 13);
+values ('feugiat non pretium', 14);
 insert into product_category (title, parent_id)
-values ('eros', 14);
+values ('eros', 15);
 insert into product_category (title, parent_id)
 values ('eros viverra eget', null);
 insert into product_category (title, parent_id)
