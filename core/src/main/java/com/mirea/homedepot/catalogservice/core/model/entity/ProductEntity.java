@@ -4,6 +4,9 @@ import com.mirea.homedepot.commonmodule.model.Entity;
 import lombok.Data;
 import org.json.JSONObject;
 
+/**
+ * Сущность "Товар".
+ */
 @Data
 public class ProductEntity implements Entity {
 

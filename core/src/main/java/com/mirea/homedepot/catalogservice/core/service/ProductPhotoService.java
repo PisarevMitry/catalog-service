@@ -6,9 +6,10 @@ import com.mirea.homedepot.commonmodule.services.CrudServiceForNotDefaultDto;
 import com.mirea.homedepot.commonmodule.services.ParentSearchForDefaultDto;
 import com.mirea.homedepot.commonmodule.services.ParentSearchForNotDefaultDto;
 
-public interface ProductPhotoService extends CrudServiceForDefaultDto,
-                                             CrudServiceForNotDefaultDto<ProductPhotoDtoType>,
-                                             ParentSearchForDefaultDto,
-                                             ParentSearchForNotDefaultDto<ProductPhotoDtoType> {
+/**
+ * Сервис работы с изображениями товаров.
+ */
+public interface ProductPhotoService extends CrudServiceForDefaultDto, CrudServiceForNotDefaultDto<ProductPhotoDtoType>, ParentSearchForDefaultDto,
+    ParentSearchForNotDefaultDto<ProductPhotoDtoType> {
 
 }

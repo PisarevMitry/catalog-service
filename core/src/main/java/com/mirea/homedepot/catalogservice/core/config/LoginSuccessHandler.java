@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * Класс отвечающий за перенаправление пользователя на страницу в зависимости от роли.
+ */
 @Component
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
@@ -19,9 +22,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication)
-            throws IOException, ServletException {
+        throws IOException, ServletException {
         Set<String> roles = AuthorityUtils.authorityListToSet(
-                authentication.getAuthorities());
+            authentication.getAuthorities());
         Long id = ((UserEntity) authentication.getPrincipal()).getId();
         response.sendRedirect("/person/" + id);
         super.onAuthenticationSuccess(request, response, authentication);

@@ -7,6 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.json.JSONObject;
 
+/**
+ * Базовое представление сущности "Товар".
+ */
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor

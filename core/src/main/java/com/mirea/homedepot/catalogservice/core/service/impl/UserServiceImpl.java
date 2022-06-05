@@ -11,6 +11,7 @@ import com.mirea.homedepot.catalogservice.utils.SelectorDto;
 import com.mirea.homedepot.catalogservice.utils.SelectorEntity;
 import com.mirea.homedepot.commonmodule.dto.Dto;
 import com.mirea.homedepot.commonmodule.model.Entity;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService, UserSecurityService {
 
     private final UserRepository userRepository;
@@ -29,20 +31,10 @@ public class UserServiceImpl implements UserService, UserSecurityService {
 
     private final SelectorDto selectorDto;
 
-    public UserServiceImpl(UserRepository userRepository,
-                           RoleService roleService, SelectorEntity selectorEntity,
-                           SelectorDto selectorDto) {
-        this.userRepository = userRepository;
-        this.roleService = roleService;
-        this.selectorEntity = selectorEntity;
-        this.selectorDto = selectorDto;
-    }
-
     @Override
     public List<Dto> findAll() {
         List<Entity> userEntityList = userRepository.findAll();
-        return SelectorDto.mapFromEntity()
-                .select(userEntityList, UserDto.class);
+        return SelectorDto.mapFromEntity().select(userEntityList, UserDto.class);
     }
 
     @Override
@@ -54,29 +46,28 @@ public class UserServiceImpl implements UserService, UserSecurityService {
     @Override
     public List<Dto> findByListId(List<Long> listId) {
         List<Entity> userEntityList = userRepository.findByListId(listId);
-        return SelectorDto.mapFromEntity()
-                .select(userEntityList, UserDto.class);
+        return SelectorDto.mapFromEntity().select(userEntityList, UserDto.class);
     }
 
     @Override
     public void insert(Dto userDto) {
-        Entity userEntity =
-                selectorEntity.mapFromDto().select(userDto, UserEntity.class);
-        if (userEntity.getId() == null) userRepository.insert(userEntity);
-        else userRepository.update(userEntity);
+        Entity userEntity = selectorEntity.mapFromDto().select(userDto, UserEntity.class);
+        if (userEntity.getId() == null) {
+            userRepository.insert(userEntity);
+        } else {
+            userRepository.update(userEntity);
+        }
     }
 
     @Override
     public void insertList(List<Dto> userDtoList) {
-        List<Entity> userEntityList = SelectorEntity.mapFromDto()
-                .select(userDtoList, UserEntity.class);
+        List<Entity> userEntityList = SelectorEntity.mapFromDto().select(userDtoList, UserEntity.class);
         userRepository.insertList(userEntityList);
     }
 
     @Override
     public void update(Dto userDto) {
-        Entity userEntity =
-                SelectorEntity.mapFromDto().select(userDto, UserEntity.class);
+        Entity userEntity = SelectorEntity.mapFromDto().select(userDto, UserEntity.class);
         userRepository.update(userEntity);
     }
 
@@ -92,8 +83,7 @@ public class UserServiceImpl implements UserService, UserSecurityService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username)
-            throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = (UserEntity) findByLogin(username);
         user.setRoles(getListRoleByUserId(user.getId()));
         return user;

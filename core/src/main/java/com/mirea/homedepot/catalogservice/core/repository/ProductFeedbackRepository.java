@@ -6,7 +6,6 @@ import com.mirea.homedepot.commonmodule.repositories.Repository;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ProductFeedbackRepository
-        extends Repository, BasicMethodRepository, ParentSearchRepository {
+public interface ProductFeedbackRepository extends Repository, BasicMethodRepository, ParentSearchRepository {
 
 }

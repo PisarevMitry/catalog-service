@@ -20,9 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final LoginSuccessHandler loginSuccessHandler;
 
     public SecurityConfig(
-            @Qualifier("userServiceImpl")
-                    UserSecurityService userSecurityService,
-            LoginSuccessHandler loginSuccessHandler) {
+        @Qualifier("userServiceImpl")
+        UserSecurityService userSecurityService,
+        LoginSuccessHandler loginSuccessHandler) {
         this.userSecurityService = userSecurityService;
         this.loginSuccessHandler = loginSuccessHandler;
     }
@@ -35,12 +35,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**").permitAll();
+            .antMatchers("/**").permitAll();
         http.formLogin().permitAll().successHandler(loginSuccessHandler)
-                .usernameParameter("email").passwordParameter("password")
-                .permitAll();
+            .usernameParameter("email").passwordParameter("password")
+            .permitAll();
     }
 
+    /**
+     * Bean с системой шифрования паролей.
+     *
+     * @return метод шифрования паролей
+     */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);

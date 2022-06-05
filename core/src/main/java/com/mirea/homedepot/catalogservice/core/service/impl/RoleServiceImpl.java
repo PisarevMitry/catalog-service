@@ -8,25 +8,23 @@ import com.mirea.homedepot.catalogservice.utils.SelectorDto;
 import com.mirea.homedepot.catalogservice.utils.SelectorEntity;
 import com.mirea.homedepot.commonmodule.dto.Dto;
 import com.mirea.homedepot.commonmodule.model.Entity;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
 @Service
+@AllArgsConstructor
 public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository roleRepository;
-
-    public RoleServiceImpl(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
 
     @Override
     public List<Dto> findAll() {
         List<Entity> roleEntityList = roleRepository.findAll();
         return SelectorDto.mapFromEntity()
-                .select(roleEntityList, RoleDto.class);
+            .select(roleEntityList, RoleDto.class);
     }
 
     @Override
@@ -39,28 +37,31 @@ public class RoleServiceImpl implements RoleService {
     public List<Dto> findByListId(List<Long> listId) {
         List<Entity> roleEntityList = roleRepository.findByListId(listId);
         return SelectorDto.mapFromEntity()
-                .select(roleEntityList, RoleDto.class);
+            .select(roleEntityList, RoleDto.class);
     }
 
     @Override
     public void insert(Dto roleDto) {
         Entity roleEntity =
-                SelectorEntity.mapFromDto().select(roleDto, RoleEntity.class);
-        if (roleEntity.getId() == null) roleRepository.insert(roleEntity);
-        else roleRepository.update(roleEntity);
+            SelectorEntity.mapFromDto().select(roleDto, RoleEntity.class);
+        if (roleEntity.getId() == null) {
+            roleRepository.insert(roleEntity);
+        } else {
+            roleRepository.update(roleEntity);
+        }
     }
 
     @Override
     public void insertList(List<Dto> roleDtoList) {
         List<Entity> roleEntityList = SelectorEntity.mapFromDto()
-                .select(roleDtoList, RoleEntity.class);
+            .select(roleDtoList, RoleEntity.class);
         roleRepository.insertList(roleEntityList);
     }
 
     @Override
     public void update(Dto roleDto) {
         Entity roleEntity =
-                SelectorEntity.mapFromDto().select(roleDto, RoleEntity.class);
+            SelectorEntity.mapFromDto().select(roleDto, RoleEntity.class);
         roleRepository.update(roleEntity);
     }
 

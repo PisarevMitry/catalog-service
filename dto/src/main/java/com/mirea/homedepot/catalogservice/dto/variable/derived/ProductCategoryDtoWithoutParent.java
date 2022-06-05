@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+/**
+ * Представление сущности "Категория товара" без информации о дочерних категориях.
+ */
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor

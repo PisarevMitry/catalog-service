@@ -31,19 +31,19 @@ public class EnricherProductDto implements EnricherProduct {
     private static EnricherProductDtoMapper enricherFromEntityClass;
 
     public EnricherProductDto(
-            ProductCategoryRepository productCategoryRepository,
-            ProductFeedbackRepository productFeedbackRepository,
-            ProductPhotoRepository productPhotoRepository,
-            ProductRepository productRepository,
-            ProductSpecialConditionRepository productSpecialConditionRepository) {
+        ProductCategoryRepository productCategoryRepository,
+        ProductFeedbackRepository productFeedbackRepository,
+        ProductPhotoRepository productPhotoRepository,
+        ProductRepository productRepository,
+        ProductSpecialConditionRepository productSpecialConditionRepository) {
         enricherFromEntityClass =
-                new EnricherProductDtoMapper(productCategoryRepository,
-                        productFeedbackRepository, productPhotoRepository,
-                        productRepository, productSpecialConditionRepository);
+            new EnricherProductDtoMapper(productCategoryRepository,
+                productFeedbackRepository, productPhotoRepository,
+                productRepository, productSpecialConditionRepository);
         enricherFromDtoClass =
-                new EnricherProductDtoMapper(productCategoryRepository,
-                        productFeedbackRepository, productPhotoRepository,
-                        productRepository, productSpecialConditionRepository);
+            new EnricherProductDtoMapper(productCategoryRepository,
+                productFeedbackRepository, productPhotoRepository,
+                productRepository, productSpecialConditionRepository);
     }
 
     public static EnricherProductDtoMapper enrichFromDtoClass() {
@@ -62,19 +62,19 @@ public class EnricherProductDto implements EnricherProduct {
         private final ProductPhotoRepository productPhotoRepository;
 
         private final ProductSpecialConditionRepository
-                productSpecialConditionRepository;
+            productSpecialConditionRepository;
 
         EnricherProductDtoMapper(
-                ProductCategoryRepository productCategoryRepository,
-                ProductFeedbackRepository productFeedbackRepository,
-                ProductPhotoRepository productPhotoRepository,
-                ProductRepository productRepository,
-                ProductSpecialConditionRepository productSpecialConditionRepository) {
+            ProductCategoryRepository productCategoryRepository,
+            ProductFeedbackRepository productFeedbackRepository,
+            ProductPhotoRepository productPhotoRepository,
+            ProductRepository productRepository,
+            ProductSpecialConditionRepository productSpecialConditionRepository) {
             this.productCategoryRepository = productCategoryRepository;
             this.productFeedbackRepository = productFeedbackRepository;
             this.productPhotoRepository = productPhotoRepository;
             this.productSpecialConditionRepository =
-                    productSpecialConditionRepository;
+                productSpecialConditionRepository;
         }
 
         public Dto select(Dto dto, Class<? extends Dto> resultClass) {
@@ -88,7 +88,7 @@ public class EnricherProductDto implements EnricherProduct {
         public List<Dto> select(List<Entity> list,
                                 Class<? extends Dto> resultClass) {
             return list.stream().map(el -> enrich(el, resultClass))
-                    .collect(Collectors.toList());
+                .collect(Collectors.toList());
         }
 
         private Dto enrich(Dto dto, Class<? extends Dto> resultClass) {
@@ -116,81 +116,81 @@ public class EnricherProductDto implements EnricherProduct {
         private Dto enrichToFull(ProductEntity entity) {
 
             List<Entity> photoList =
-                    productPhotoRepository.findTreePathByParentId(
-                            entity.getPhotoId());
+                productPhotoRepository.findTreePathByParentId(
+                    entity.getPhotoId());
 
             List<Entity> feedbackList =
-                    productFeedbackRepository.findTreePathByParentId(
-                            entity.getFeedbackId());
+                productFeedbackRepository.findTreePathByParentId(
+                    entity.getFeedbackId());
             Entity category =
-                    productCategoryRepository.findById(entity.getCategoryId());
+                productCategoryRepository.findById(entity.getCategoryId());
             Entity specialCondition =
-                    productSpecialConditionRepository.findById(
-                            entity.getSpecialConditionId());
+                productSpecialConditionRepository.findById(
+                    entity.getSpecialConditionId());
 
             return new ProductDtoFull(
-                    (ProductDtoDefault) SelectorDto.mapFromEntity()
-                            .select(entity, ProductDtoDefault.class),
-                    SelectorDto.mapFromEntity()
-                            .select(photoList, ProductPhotoDtoDefault.class),
-                    SelectorDto.mapFromEntity()
-                            .select(category, ProductCategoryDtoDefault.class),
-                    SelectorDto.mapFromEntity().select(feedbackList,
-                            ProductFeedbackDtoDefault.class),
-                    SelectorDto.mapFromEntity().select(specialCondition,
-                            ProductSpecialConditionDtoDefault.class));
+                (ProductDtoDefault) SelectorDto.mapFromEntity()
+                    .select(entity, ProductDtoDefault.class),
+                SelectorDto.mapFromEntity()
+                    .select(photoList, ProductPhotoDtoDefault.class),
+                SelectorDto.mapFromEntity()
+                    .select(category, ProductCategoryDtoDefault.class),
+                SelectorDto.mapFromEntity().select(feedbackList,
+                    ProductFeedbackDtoDefault.class),
+                SelectorDto.mapFromEntity().select(specialCondition,
+                    ProductSpecialConditionDtoDefault.class));
         }
 
         private Dto enrichToFull(ProductDtoDefault dto) {
 
             List<Entity> photoList =
-                    productPhotoRepository.findTreePathByParentId(
-                            dto.getPhotoId());
+                productPhotoRepository.findTreePathByParentId(
+                    dto.getPhotoId());
 
             List<Entity> feedbackList =
-                    productFeedbackRepository.findTreePathByParentId(
-                            dto.getFeedbackId());
+                productFeedbackRepository.findTreePathByParentId(
+                    dto.getFeedbackId());
             Entity category =
-                    productCategoryRepository.findById(dto.getCategoryId());
+                productCategoryRepository.findById(dto.getCategoryId());
             Entity specialCondition =
-                    productSpecialConditionRepository.findById(
-                            dto.getSpecialConditionId());
+                productSpecialConditionRepository.findById(
+                    dto.getSpecialConditionId());
 
             return new ProductDtoFull(dto, SelectorDto.mapFromEntity()
-                    .select(photoList, ProductPhotoDtoDefault.class),
-                    SelectorDto.mapFromEntity()
-                            .select(category, ProductCategoryDtoDefault.class),
-                    SelectorDto.mapFromEntity().select(feedbackList,
-                            ProductFeedbackDtoDefault.class),
-                    SelectorDto.mapFromEntity().select(specialCondition,
-                            ProductSpecialConditionDtoDefault.class));
+                .select(photoList, ProductPhotoDtoDefault.class),
+                SelectorDto.mapFromEntity()
+                    .select(category, ProductCategoryDtoDefault.class),
+                SelectorDto.mapFromEntity().select(feedbackList,
+                    ProductFeedbackDtoDefault.class),
+                SelectorDto.mapFromEntity().select(specialCondition,
+                    ProductSpecialConditionDtoDefault.class));
         }
 
         private Dto enrichToFullSmall(ProductDtoDefault dto) {
             Entity photo = productPhotoRepository.findById(dto.getPhotoId());
             Entity specialCondition =
-                    productSpecialConditionRepository.findById(
-                            dto.getSpecialConditionId());
+                productSpecialConditionRepository.findById(
+                    dto.getSpecialConditionId());
 
             return new ProductDtoFullSmall(dto, SelectorDto.mapFromEntity()
-                    .select(photo, ProductPhotoDtoDefault.class),
-                    SelectorDto.mapFromEntity().select(specialCondition,
-                            ProductSpecialConditionDtoDefault.class));
+                .select(photo, ProductPhotoDtoDefault.class),
+                SelectorDto.mapFromEntity().select(specialCondition,
+                    ProductSpecialConditionDtoDefault.class));
         }
 
         private Dto enrichToFullSmall(ProductEntity entity) {
             Entity photo = productPhotoRepository.findById(entity.getPhotoId());
             Entity specialCondition =
-                    productSpecialConditionRepository.findById(
-                            entity.getSpecialConditionId());
+                productSpecialConditionRepository.findById(
+                    entity.getSpecialConditionId());
 
             return new ProductDtoFullSmall(
-                    (ProductDtoDefault) SelectorDto.mapFromEntity()
-                            .select(entity, ProductDtoDefault.class),
-                    SelectorDto.mapFromEntity()
-                            .select(photo, ProductPhotoDtoDefault.class),
-                    SelectorDto.mapFromEntity().select(specialCondition,
-                            ProductSpecialConditionDtoDefault.class));
+                (ProductDtoDefault) SelectorDto.mapFromEntity()
+                    .select(entity, ProductDtoDefault.class),
+                SelectorDto.mapFromEntity()
+                    .select(photo, ProductPhotoDtoDefault.class),
+                SelectorDto.mapFromEntity().select(specialCondition,
+                    ProductSpecialConditionDtoDefault.class));
         }
 
     }

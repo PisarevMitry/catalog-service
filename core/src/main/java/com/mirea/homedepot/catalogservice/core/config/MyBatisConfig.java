@@ -27,6 +27,7 @@ public class MyBatisConfig {
 
     /**
      * Data source data source.
+     *
      * @return the data source
      */
     @Bean
@@ -36,6 +37,7 @@ public class MyBatisConfig {
 
     /**
      * Gets data source.
+     *
      * @return the data source
      */
     private DataSource getDataSource() {
@@ -43,28 +45,29 @@ public class MyBatisConfig {
         /* log.info("Setting up datasource for {} environment.", env.getActiveProfiles());*/
 
         DataSource dataSource = DataSourceBuilder.create()
-                .url(env.getProperty("spring.datasource.url"))
-                .username(env.getProperty("spring.datasource.username"))
-                .password(env.getProperty("spring.datasource.password"))
-                .build();
+            .url(env.getProperty("spring.datasource.url"))
+            .username(env.getProperty("spring.datasource.username"))
+            .password(env.getProperty("spring.datasource.password"))
+            .build();
         String maxPoolSize =
-                env.getProperty("spring.datasource.hikari.maximum-pool-size");
+            env.getProperty("spring.datasource.hikari.maximum-pool-size");
         assert maxPoolSize != null;
         ((HikariDataSource) dataSource).setMaximumPoolSize(
-                Integer.parseInt(maxPoolSize));
+            Integer.parseInt(maxPoolSize));
 
         return dataSource;
     }
 
     /**
      * Transaction manager data source transaction manager.
+     *
      * @param dataSource the data source
      * @return the data source transaction manager
      */
     @Bean
     @Primary
     public DataSourceTransactionManager transactionManager(
-            DataSource dataSource) {
+        DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 }

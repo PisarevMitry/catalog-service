@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+/**
+ * Базовое представление сущности "Роль".
+ */
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor

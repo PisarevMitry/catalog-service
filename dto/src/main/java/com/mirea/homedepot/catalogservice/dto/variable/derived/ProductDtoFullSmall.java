@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+/**
+ * Обогащенное представление сущности "Товар" без отзывов.
+ */
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor
@@ -25,8 +28,7 @@ public class ProductDtoFullSmall extends ProductDto {
 
     private Dto specialCondition;
 
-    public ProductDtoFullSmall(ProductDtoDefault productDto, Dto photo,
-                               Dto specialCondition) {
+    public ProductDtoFullSmall(ProductDtoDefault productDto, Dto photo, Dto specialCondition) {
         this.id = productDto.getId();
         this.title = productDto.getTitle();
         this.price = productDto.getPrice();

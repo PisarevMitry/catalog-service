@@ -9,13 +9,24 @@ import com.mirea.homedepot.commonmodule.services.ParentSearchForNotDefaultDto;
 
 import java.util.List;
 
-public interface ProductCategoryService extends CrudServiceForDefaultDto,
-                                                CrudServiceForNotDefaultDto<ProductCategoryDtoType>,
-                                                ParentSearchForDefaultDto,
-                                                ParentSearchForNotDefaultDto<ProductCategoryDtoType> {
+/**
+ * Сервис работы с категориями товаров
+ */
+public interface ProductCategoryService
+    extends CrudServiceForDefaultDto, CrudServiceForNotDefaultDto<ProductCategoryDtoType>, ParentSearchForDefaultDto,
+    ParentSearchForNotDefaultDto<ProductCategoryDtoType> {
 
+    /**
+     * @param id
+     * @return
+     */
     List<Dto> findTreeByParentId(Long id);
 
+    /**
+     * @param type
+     * @param id
+     * @return
+     */
     List<Dto> findTreeByParentId(ProductCategoryDtoType type, Long id);
 
 }

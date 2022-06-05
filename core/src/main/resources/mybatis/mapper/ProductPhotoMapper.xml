@@ -37,18 +37,16 @@
     </select>
 
     <select id="findTreePathByParentId" resultMap="ProductPhotoEntity">
-        WITH RECURSIVE result AS (
-            SELECT *
-            FROM catalog_data.product_photo
-            WHERE id = #{id, jdbcType=BIGINT}
+        WITH RECURSIVE result AS (SELECT *
+                                  FROM catalog_data.product_photo
+                                  WHERE id = #{id, jdbcType=BIGINT}
 
-            UNION ALL
+                                  UNION ALL
 
-            SELECT catalog_data.product_photo.*
-            FROM catalog_data.product_photo
-                     JOIN result
-                          ON catalog_data.product_photo.parent_id = result.id
-        )
+                                  SELECT catalog_data.product_photo.*
+                                  FROM catalog_data.product_photo
+                                           JOIN result
+                                                ON catalog_data.product_photo.parent_id = result.id)
 
         SELECT *
         FROM result;

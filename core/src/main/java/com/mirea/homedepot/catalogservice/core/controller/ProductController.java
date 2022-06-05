@@ -3,6 +3,7 @@ package com.mirea.homedepot.catalogservice.core.controller;
 import com.mirea.homedepot.catalogservice.core.service.ProductService;
 import com.mirea.homedepot.commonmodule.dto.Dto;
 import com.mirea.homedepot.commonmodule.dto.type.ProductDtoType;
+import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,18 +18,13 @@ import java.util.List;
 @Validated
 @RestController
 @RequestMapping("/products")
+@AllArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
-
-    @GetMapping()
-    public List<Dto> findAll(
-            @RequestParam(required = false)
-                    String type) {
+    @GetMapping
+    public List<Dto> findAll(@RequestParam(required = false) String type) {
         if (type == null) {
             return productService.findAll();
         } else {
@@ -37,80 +33,52 @@ public class ProductController {
     }
 
     @GetMapping("/item")
-    public Dto findById(
-            @RequestParam(required = false)
-                    String type,
-            @RequestBody
-                    ProductRequestFilter filter) {
+    public Dto findById(@RequestParam(required = false) String type, @RequestBody ProductRequestFilter filter) {
         if (type == null) {
             return productService.findById(filter.getId());
         } else {
-            return productService.findById(ProductDtoType.valueOf(type),
-                    filter.getId());
+            return productService.findById(ProductDtoType.valueOf(type), filter.getId());
         }
     }
 
     @GetMapping("/list")
-    List<Dto> findByListId(
-            @RequestParam(required = false)
-                    String type,
-            @RequestBody
-                    ProductRequestFilter filter) {
+    List<Dto> findByListId(@RequestParam(required = false) String type, @RequestBody ProductRequestFilter filter) {
         if (type == null) {
             return productService.findByListId(filter.getListId());
         } else {
-            return productService.findByListId(ProductDtoType.valueOf(type),
-                    filter.getListId());
+            return productService.findByListId(ProductDtoType.valueOf(type), filter.getListId());
         }
     }
 
     @GetMapping("/categories")
-    List<Dto> findByCategoryId(
-            @RequestParam(required = false)
-                    String type,
-            @RequestBody
-                    ProductRequestFilter filter) {
+    List<Dto> findByCategoryId(@RequestParam(required = false) String type, @RequestBody ProductRequestFilter filter) {
         if (type == null) {
             return productService.findByCategoryId(filter.getCategoryId());
         } else {
-            return productService.findByCategoryId(ProductDtoType.valueOf(type),
-                    filter.getCategoryId());
+            return productService.findByCategoryId(ProductDtoType.valueOf(type), filter.getCategoryId());
         }
     }
 
     @GetMapping("/list/categories")
-    List<Dto> findByListCategoryId(
-            @RequestParam(required = false)
-                    String type,
-            @RequestBody
-                    ProductRequestFilter filter) {
+    List<Dto> findByListCategoryId(@RequestParam(required = false) String type, @RequestBody ProductRequestFilter filter) {
         if (type == null) {
-            return productService.findByListCategoryId(
-                    filter.getListCategoryId());
+            return productService.findByListCategoryId(filter.getListCategoryId());
         } else {
-            return productService.findByListCategoryId(
-                    ProductDtoType.valueOf(type), filter.getListCategoryId());
+            return productService.findByListCategoryId(ProductDtoType.valueOf(type), filter.getListCategoryId());
         }
     }
 
     @GetMapping("/options")
-    List<Dto> getByOption(
-            @RequestParam(required = false)
-                    String type,
-            @RequestParam
-                    JSONObject option) {
+    List<Dto> getByOption(@RequestParam(required = false) String type, @RequestParam JSONObject option) {
         if (type == null) {
             return productService.findByOption(option);
         } else {
-            return productService.findByOption(ProductDtoType.valueOf(type),
-                    option);
+            return productService.findByOption(ProductDtoType.valueOf(type), option);
         }
     }
 
     @PostMapping()
-    void insert(
-            @RequestBody
-                    Dto dto) {
+    void insert(@RequestBody Dto dto) {
         productService.insert(dto);
     }
 /*

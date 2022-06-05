@@ -11,11 +11,20 @@ import java.util.Set;
 
 @Mapper
 public interface RoleRepository extends BasicMethodRepository {
-    Entity findByName(
-            @RequestParam("name")
-                    String name);
 
-    Set<RoleEntity> getListRoleByUserId(
-            @Param("userId")
-                    Long userId);
+    /**
+     * Метод поиска роли по названию.
+     *
+     * @param name название роли
+     * @return сущность роли
+     */
+    Entity findByName(@RequestParam("name") String name);
+
+    /**
+     * Метод поиска всех ролей пользователя.
+     *
+     * @param userId идентификатор пользователя
+     * @return список сущностей ролей
+     */
+    Set<RoleEntity> getListRoleByUserId(@Param("userId") Long userId);
 }

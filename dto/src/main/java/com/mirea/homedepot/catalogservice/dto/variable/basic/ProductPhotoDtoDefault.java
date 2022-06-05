@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+/**
+ * Базовое представление сущности "Изображение товара".
+ */
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor

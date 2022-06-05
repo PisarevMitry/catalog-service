@@ -7,7 +7,5 @@ import com.mirea.homedepot.commonmodule.repositories.TreeSearchRepository;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ProductCategoryRepository
-        extends Repository, BasicMethodRepository, ParentSearchRepository,
-                TreeSearchRepository {
+public interface ProductCategoryRepository extends Repository, BasicMethodRepository, ParentSearchRepository, TreeSearchRepository {
 }

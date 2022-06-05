@@ -11,6 +11,9 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+/**
+ * Полное представление сущности "Товар".
+ */
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor

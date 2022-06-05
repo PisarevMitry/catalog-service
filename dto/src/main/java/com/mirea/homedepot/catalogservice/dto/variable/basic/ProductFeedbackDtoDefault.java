@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+/**
+ * Базовое представление сущности "Отзыв".
+ */
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor

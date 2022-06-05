@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Mapper
 public interface UserRepository extends BasicMethodRepository {
-    Entity findByLogin(
-            @RequestParam("login")
-                    String login);
+
+    Entity findByLogin(@RequestParam("login") String login);
 }

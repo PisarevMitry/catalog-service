@@ -5,7 +5,6 @@ import com.mirea.homedepot.commonmodule.repositories.Repository;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ProductSpecialConditionRepository
-        extends Repository, BasicMethodRepository {
+public interface ProductSpecialConditionRepository extends Repository, BasicMethodRepository {
 
 }

@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+/**
+ * Сущность "Отзыв".
+ */
 @Data
 public class ProductFeedbackEntity implements Entity {
 

@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * Сущность "Пользователь".
+ */
 @Data
 @NoArgsConstructor
 public class UserEntity implements UserDetails, Entity {

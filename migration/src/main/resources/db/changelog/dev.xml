@@ -24,7 +24,8 @@
         <comment>Заполнение таблицы "Специальное предложение" тестовыми данными</comment>
         <sqlFile path="dev/sql/fill_product_special_condition.sql" relativeToChangelogFile="true"/>
         <rollback>
-            <sqlFile path="dev/sql/rollback/fill_product_special_condition_rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="dev/sql/rollback/fill_product_special_condition_rollback.sql"
+                     relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 

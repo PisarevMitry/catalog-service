@@ -2,6 +2,7 @@ package com.mirea.homedepot.catalogservice.core.controller;
 
 import com.mirea.homedepot.catalogservice.core.service.UserService;
 import com.mirea.homedepot.commonmodule.dto.Dto;
+import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +17,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @PreAuthorize(value = "ctl.admin")
+@AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping
     public List<Dto> getAll() {
@@ -30,16 +28,12 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public Dto getById(
-            @PathVariable
-                    Long id) {
+    public Dto getById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
     @GetMapping("/list")
-    List<Dto> getByListId(
-            @RequestBody
-                    List<Long> listId) {
+    List<Dto> getByListId(@RequestBody List<Long> listId) {
         return userService.findByListId(listId);
     }
 }

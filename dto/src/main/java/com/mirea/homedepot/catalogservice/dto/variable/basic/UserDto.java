@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
+/**
+ * Базовое представление сущности "Пользователь".
+ */
 @EqualsAndHashCode(callSuper = false)
 @Data
 @NoArgsConstructor
