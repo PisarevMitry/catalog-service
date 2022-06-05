@@ -11,28 +11,28 @@
         </rollback>
     </changeSet>
 
-    <changeSet id="2022-03-08 10:00:00" author="dpisarev">
+    <changeSet id="2022-03-08 11:00:00" author="dpisarev">
         <sqlFile path="V0.0.1/sql/product_photo.sql" relativeToChangelogFile="true"/>
         <rollback>
             <sqlFile path="V0.0.1/sql/rollback/product_photo_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="2022-03-08 10:00:00" author="dpisarev">
+    <changeSet id="2022-03-08 12:00:00" author="dpisarev">
         <sqlFile path="V0.0.1/sql/product_special_condition.sql" relativeToChangelogFile="true"/>
         <rollback>
             <sqlFile path="V0.0.1/sql/rollback/product_special_condition_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="2022-03-08 10:00:00" author="dpisarev">
+    <changeSet id="2022-03-08 13:00:00" author="dpisarev">
         <sqlFile path="V0.0.1/sql/product_category.sql" relativeToChangelogFile="true"/>
         <rollback>
             <sqlFile path="V0.0.1/sql/rollback/product_category_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="2022-03-08 10:00:00" author="dpisarev">
+    <changeSet id="2022-03-08 14:00:00" author="dpisarev">
         <sqlFile path="V0.0.1/sql/product.sql" relativeToChangelogFile="true"/>
         <rollback>
             <sqlFile path="V0.0.1/sql/rollback/product_rollback.sql" relativeToChangelogFile="true"/>
