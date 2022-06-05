@@ -8,9 +8,9 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   datasource:
-    url: jdbc:postgresql://localhost:5432/home_depot?currentSchema=catalog_data
+    url: jdbc:postgresql://localhost:5432/homedepot?currentSchema=ctl
     username: postgres
-    password: 913548Qaz
+    password: postgres
     driver-class-name: org.postgresql.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
