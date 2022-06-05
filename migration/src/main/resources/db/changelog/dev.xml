@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2022-03-20 12:00:00" author="dpisarev">
+        <comment>Заполнение таблицы "Категория товара" тестовыми данными</comment>
+        <sqlFile path="dev/sql/fill_product_category.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="dev/sql/rollback/fill_product_category_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2022-03-20 13:00:00" author="dpisarev">
+        <comment>Заполнение таблицы "Изображение товара" тестовыми данными</comment>
+        <sqlFile path="dev/sql/fill_product_photo.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="dev/sql/rollback/fill_product_photo_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2022-03-20 14:00:00" author="dpisarev">
+        <comment>Заполнение таблицы "Специальное предложение" тестовыми данными</comment>
+        <sqlFile path="dev/sql/fill_product_special_condition.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="dev/sql/rollback/fill_product_special_condition_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2022-03-20 15:00:00" author="dpisarev">
+        <comment>Заполнение таблицы "Отзыв" тестовыми данными</comment>
+        <sqlFile path="dev/sql/fill_product_feedback.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="dev/sql/rollback/fill_product_feedback_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2022-03-20 16:00:00" author="dpisarev">
+        <comment>Заполнение таблицы "Товар" тестовыми данными</comment>
+        <sqlFile path="dev/sql/fill_product.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="dev/sql/rollback/fill_product_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

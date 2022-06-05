@@ -4,40 +4,28 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="2022-03-20 12:00:00" author="dpisarev">
-        <sqlFile path="V0.0.2/sql/fill_product_category.sql" relativeToChangelogFile="true"/>
+    <changeSet id="2022-03-31 20:51:00" author="dpisarev">
+        <comment>Создание таблицы пользователей</comment>
+        <sqlFile path="V0.0.2/sql/user.sql" relativeToChangelogFile="true"/>
         <rollback>
-            <sqlFile path="V0.0.2/sql/rollback/fill_product_category_rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="V0.0.2/sql/rollback/user_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="2022-03-20 13:00:00" author="dpisarev">
-        <sqlFile path="V0.0.2/sql/fill_product_photo.sql" relativeToChangelogFile="true"/>
+    <changeSet id="2022-03-31 20:52:00" author="dpisarev">
+        <comment>Создание таблицы ролей</comment>
+        <sqlFile path="V0.0.2/sql/role.sql" relativeToChangelogFile="true"/>
         <rollback>
-            <sqlFile path="V0.0.2/sql/rollback/fill_product_photo_rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="V0.0.2/sql/rollback/role_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
 
-    <changeSet id="2022-03-20 14:00:00" author="dpisarev">
-        <sqlFile path="V0.0.2/sql/fill_product_special_condition.sql" relativeToChangelogFile="true"/>
+    <changeSet id="2022-03-31 20:53:00" author="dpisarev">
+        <comment>Создание таблицы связей пользователей с ролью</comment>
+        <sqlFile path="V0.0.2/sql/user_role.sql" relativeToChangelogFile="true"/>
         <rollback>
-            <sqlFile path="V0.0.2/sql/rollback/fill_product_special_condition_rollback.sql" relativeToChangelogFile="true"/>
+            <sqlFile path="V0.0.2/sql/rollback/user_role_rollback.sql" relativeToChangelogFile="true"/>
         </rollback>
     </changeSet>
-
-    <changeSet id="2022-03-20 15:00:00" author="dpisarev">
-        <sqlFile path="V0.0.2/sql/fill_product_feedback.sql" relativeToChangelogFile="true"/>
-        <rollback>
-            <sqlFile path="V0.0.2/sql/rollback/fill_product_feedback_rollback.sql" relativeToChangelogFile="true"/>
-        </rollback>
-    </changeSet>
-
-    <changeSet id="2022-03-20 16:00:00" author="dpisarev">
-        <sqlFile path="V0.0.2/sql/fill_product.sql" relativeToChangelogFile="true"/>
-        <rollback>
-            <sqlFile path="V0.0.2/sql/rollback/fill_product_rollback.sql" relativeToChangelogFile="true"/>
-        </rollback>
-    </changeSet>
-
 
 </databaseChangeLog>
