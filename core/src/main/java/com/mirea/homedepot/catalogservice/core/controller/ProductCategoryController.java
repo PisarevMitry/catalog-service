@@ -4,6 +4,7 @@ import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;
 import com.mirea.homedepot.commonmodule.dto.Dto;
 import com.mirea.homedepot.commonmodule.dto.type.ProductCategoryDtoType;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 @AllArgsConstructor
+@PreAuthorize("hasAnyRole('ctl.admin', 'ctl.searchProducts')")
 public class ProductCategoryController {
 
     private final ProductCategoryService productCategoryService;

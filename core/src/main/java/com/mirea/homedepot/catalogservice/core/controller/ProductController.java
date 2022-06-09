@@ -5,6 +5,7 @@ import com.mirea.homedepot.commonmodule.dto.Dto;
 import com.mirea.homedepot.commonmodule.dto.type.ProductDtoType;
 import lombok.AllArgsConstructor;
 import org.json.JSONObject;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 @AllArgsConstructor
+@PreAuthorize("hasAnyRole('ctl.admin', 'ctl.searchProducts')")
 public class ProductController {
 
     private final ProductService productService;
@@ -78,6 +80,7 @@ public class ProductController {
     }
 
     @PostMapping()
+    @PreAuthorize("hasAnyRole('ctl.saveProducts')")
     void insert(@RequestBody Dto dto) {
         productService.insert(dto);
     }
