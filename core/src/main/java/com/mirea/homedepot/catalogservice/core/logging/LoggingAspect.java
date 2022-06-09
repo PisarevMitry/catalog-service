@@ -3,7 +3,6 @@ package com.mirea.homedepot.catalogservice.core.logging;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mirea.homedepot.catalogservice.core.model.entity.LogEntity;
-import com.mirea.homedepot.catalogservice.core.model.entity.UserEntity;
 import com.mirea.homedepot.catalogservice.core.repository.LogRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,36 +63,36 @@ public class LoggingAspect {
         return object;
     }
 
-//    @Around("restController()")
-//    public Object restControllerLogger(ProceedingJoinPoint pjp) throws JsonProcessingException {
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        String methodName = pjp.getSignature().getName();
-//        String className = pjp.getTarget().getClass().toString();
+    @Around("restController()")
+    public Object restControllerLogger(ProceedingJoinPoint pjp) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+
+        String methodName = pjp.getSignature().getName();
+        String className = pjp.getTarget().getClass().toString();
 //        UserEntity userEntity = (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        Object[] array = pjp.getArgs();
-//
-//        LogEntity logEntityBefore = new LogEntity(null, LocalDateTime.now(), methodName, className, userEntity.getUsername());
-//        log.info(
-//            logEntityBefore.getCreateDttm() + " Вызван метод: " + logEntityBefore.getClassName() + "." + logEntityBefore.getMethodName() + " ()" +
-//                " с аргументами" + mapper.writeValueAsString(array) + " Пользователем " + logEntityBefore.getUserName());
-//        logRepository.insert(logEntityBefore);
-//
-//        Object object = null;
-//        try {
-//            object = pjp.proceed();
-//        } catch (Throwable e) {
-//            e.printStackTrace();
-//        }
-//
-//        LogEntity logEntityAfter = new LogEntity(null, LocalDateTime.now(), methodName, className, userEntity.getUsername());
-//        log.info(
-//            logEntityAfter.getCreateDttm() + " Завершен метод : " + logEntityAfter.getClassName() + "." + logEntityAfter.getMethodName() + " ()" +
-//                " с аргументами" + mapper.writeValueAsString(array) + " Пользователем " + logEntityAfter.getUserName());
-//        logRepository.insert(logEntityAfter);
-//
-//        return object;
-//    }
+
+        Object[] array = pjp.getArgs();
+
+        LogEntity logEntityBefore = new LogEntity(null, LocalDateTime.now(), methodName, className, null);
+        log.info(
+            logEntityBefore.getCreateDttm() + " Вызван метод: " + logEntityBefore.getClassName() + "." + logEntityBefore.getMethodName() + " ()" +
+                " с аргументами" + mapper.writeValueAsString(array) + " Пользователем " + logEntityBefore.getUserName());
+        logRepository.insert(logEntityBefore);
+
+        Object object = null;
+        try {
+            object = pjp.proceed();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+
+        LogEntity logEntityAfter = new LogEntity(null, LocalDateTime.now(), methodName, className, null);
+        log.info(
+            logEntityAfter.getCreateDttm() + " Завершен метод : " + logEntityAfter.getClassName() + "." + logEntityAfter.getMethodName() + " ()" +
+                " с аргументами" + mapper.writeValueAsString(array) + " Пользователем " + logEntityAfter.getUserName());
+        logRepository.insert(logEntityAfter);
+
+        return object;
+    }
 
 }
