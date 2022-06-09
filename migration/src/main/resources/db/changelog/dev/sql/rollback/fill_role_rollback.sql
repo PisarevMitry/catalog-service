@@ -1,0 +1,2 @@
+TRUNCATE TABLE role;
+DROP SEQUENCE role_seq;
