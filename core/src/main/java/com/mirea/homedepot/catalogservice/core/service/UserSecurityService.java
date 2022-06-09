@@ -1,6 +1,6 @@
 package com.mirea.homedepot.catalogservice.core.service;
 
-import com.mirea.homedepot.commonmodule.dto.Dto;
+import com.mirea.homedepot.commonmodule.model.Entity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
@@ -14,5 +14,5 @@ public interface UserSecurityService extends UserDetailsService {
      * @param login логин пользователя
      * @return представление пользователя
      */
-    Dto findByLogin(String login);
+    Entity findByLogin(String login);
 }

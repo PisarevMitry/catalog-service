@@ -37,7 +37,7 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.log (id, create_dttm, method_name, class_name, user_name)
+        INSERT INTO ctl.log (create_dttm, method_name, class_name, user_name)
         VALUES (#{createDttm}, #{methodName}, #{className}, #{userName});
     </insert>
 

@@ -75,12 +75,12 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.product_category (id, title, parent_id)
+        INSERT INTO ctl.product_category (title, parent_id)
         VALUES (#{title}, #{parentId});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.product_category (id, title, parent_id) VALUES
+        INSERT INTO ctl.product_category (title, parent_id) VALUES
         <foreach collection="entityList" item="entity" separator=",">
             (#{title}, #{parentId});
         </foreach>

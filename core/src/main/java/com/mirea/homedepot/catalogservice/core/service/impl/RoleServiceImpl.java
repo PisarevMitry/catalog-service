@@ -11,6 +11,7 @@ import com.mirea.homedepot.commonmodule.model.Entity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -72,7 +73,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Set<RoleEntity> getListRoleByUserId(Long userId) {
-        return roleRepository.getListRoleByUserId(userId);
+        return new HashSet<>(roleRepository.getListRoleByUserId(userId));
     }
 
     @Override

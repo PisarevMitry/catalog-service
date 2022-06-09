@@ -45,4 +45,28 @@
         </rollback>
     </changeSet>
 
+    <changeSet id="2022-03-20 17:00:00" author="dpisarev">
+        <comment>Заполнение таблицы "Пользователи" тестовыми данными</comment>
+        <sqlFile path="dev/sql/fill_user.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="dev/sql/rollback/fill_user_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2022-03-20 18:00:00" author="dpisarev">
+        <comment>Заполнение таблицы "Роли" тестовыми данными</comment>
+        <sqlFile path="dev/sql/fill_role.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="dev/sql/rollback/fill_role_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2022-03-20 19:00:00" author="dpisarev">
+        <comment>Заполнение таблицы "Назначение ролей" тестовыми данными</comment>
+        <sqlFile path="dev/sql/fill_user_role.sql" relativeToChangelogFile="true"/>
+        <rollback>
+            <sqlFile path="dev/sql/rollback/fill_user_role_rollback.sql" relativeToChangelogFile="true"/>
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>

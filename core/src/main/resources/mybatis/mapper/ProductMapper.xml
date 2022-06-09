@@ -50,13 +50,13 @@
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO ctl.product (title, description, price, amount, photo_id, option, category_id,
-                                          feedback_id, special_condition_id)
+                                 feedback_id, special_condition_id)
         VALUES (#{title}, #{description}, #{price}, #{amount}, #{photoId}, #{option}, #{categoryId}, #{feedbackId},
                 #{specialConditionId});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.product (id, title, description, price, amount, photo_id, option, category_id,
+        INSERT INTO ctl.product (title, description, price, amount, photo_id, option, category_id,
         feedback_id, special_condition_id) VALUES
         <foreach collection="entityList" item="entity" separator=",">
             (#{title}, #{description}, #{price}, #{amount}, #{photoId}, #{option}, #{categoryId}, #{feedbackId},

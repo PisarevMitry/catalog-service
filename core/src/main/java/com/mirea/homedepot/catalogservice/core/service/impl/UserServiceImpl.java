@@ -14,6 +14,8 @@ import com.mirea.homedepot.commonmodule.model.Entity;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +32,8 @@ public class UserServiceImpl implements UserService, UserSecurityService {
     private final SelectorEntity selectorEntity;
 
     private final SelectorDto selectorDto;
+
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(12);
 
     @Override
     public List<Dto> findAll() {
@@ -51,7 +55,8 @@ public class UserServiceImpl implements UserService, UserSecurityService {
 
     @Override
     public void insert(Dto userDto) {
-        Entity userEntity = selectorEntity.mapFromDto().select(userDto, UserEntity.class);
+        UserEntity userEntity = (UserEntity) selectorEntity.mapFromDto().select(userDto, UserEntity.class);
+        userEntity.setPassword("{bcrypt}" + passwordEncoder.encode(userEntity.getPassword()));
         if (userEntity.getId() == null) {
             userRepository.insert(userEntity);
         } else {
@@ -77,9 +82,8 @@ public class UserServiceImpl implements UserService, UserSecurityService {
     }
 
     @Override
-    public Dto findByLogin(String login) {
-        Entity userEntity = userRepository.findByLogin(login);
-        return SelectorDto.mapFromEntity().select(userEntity, UserDto.class);
+    public Entity findByLogin(String login) {
+        return userRepository.findByLogin(login);
     }
 
     @Override
@@ -90,6 +94,7 @@ public class UserServiceImpl implements UserService, UserSecurityService {
     }
 
     public Set<RoleEntity> getListRoleByUserId(Long userId) {
+        System.out.println(roleService.getListRoleByUserId(userId).toString());
         return roleService.getListRoleByUserId(userId);
     }
 }

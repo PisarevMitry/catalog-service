@@ -1,6 +1,6 @@
 CREATE SEQUENCE "role_seq";
 CREATE TABLE "role"
 (
-    "id"   BIGINT PRIMARY KEY NOT NULL DEFAULT nextval('user_seq'),
+    "id"   BIGINT PRIMARY KEY NOT NULL DEFAULT nextval('role_seq'),
     "name" VARCHAR            NOT NULL
 );

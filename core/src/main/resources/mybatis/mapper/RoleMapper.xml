@@ -42,20 +42,20 @@
         WHERE name = #{name, jdbcType=VARCHAR};
     </select>
 
-    <select id="getListRoleByUserId"
-            resultType="com.mirea.homedepot.catalogservice.core.model.entity.RoleEntity">
-        SELECT *
+    <select id="getListRoleByUserId" resultMap="RoleEntity">
+        SELECT r.id, r.name
         FROM ctl.user_role
-        where user_id = #{userId, jdbcType=BIGINT}
+                 INNER JOIN role r on r.id = user_role.role_id
+        WHERE user_id = #{userId}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.role (id, name)
+        INSERT INTO ctl.role (name)
         VALUES (#{name});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.role (id, name VALUES
+        INSERT INTO ctl.role (name) VALUES
         <foreach collection="entityList" item="entity" separator=",">
             (#{name})
         </foreach>

@@ -26,7 +26,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         Set<String> roles = AuthorityUtils.authorityListToSet(
             authentication.getAuthorities());
         Long id = ((UserEntity) authentication.getPrincipal()).getId();
-        response.sendRedirect("/person/" + id);
         super.onAuthenticationSuccess(request, response, authentication);
     }
 }

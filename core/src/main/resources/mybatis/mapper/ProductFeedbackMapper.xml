@@ -59,12 +59,12 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.product_feedback (id, grade, description, create_dttm, client_id, parent_id)
+        INSERT INTO ctl.product_feedback (grade, description, create_dttm, client_id, parent_id)
         VALUES (#{grade}, #{description}, #{createDttm}, #{clientId}, #{parentId});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.product_feedback (id, grade, description, create_dttm, client_id, parent_id) VALUES
+        INSERT INTO ctl.product_feedback (grade, description, create_dttm, client_id, parent_id) VALUES
         <foreach collection="entityList" item="entity" separator=",">
             (#{grade}, #{description}, #{createDttm}, #{clientId}, #{parentId})
         </foreach>

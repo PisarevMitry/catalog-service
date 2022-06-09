@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Set;
 
 @Mapper
@@ -26,5 +27,5 @@ public interface RoleRepository extends BasicMethodRepository {
      * @param userId идентификатор пользователя
      * @return список сущностей ролей
      */
-    Set<RoleEntity> getListRoleByUserId(@Param("userId") Long userId);
+    List<RoleEntity> getListRoleByUserId(@Param("userId") Long userId);
 }

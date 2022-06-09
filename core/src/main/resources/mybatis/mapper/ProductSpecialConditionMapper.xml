@@ -38,12 +38,12 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.product_special_condition (id, description)
+        INSERT INTO ctl.product_special_condition (description)
         VALUES (#{description});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO ctl.product_special_condition (id, description) VALUES
+        INSERT INTO ctl.product_special_condition (description) VALUES
         <foreach collection="entityList" item="entity" separator=",">
             ( #{description})
         </foreach>

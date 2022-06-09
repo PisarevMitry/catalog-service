@@ -35,7 +35,7 @@
             </otherwise>
         </choose>
     </select>
-    <select id="findByLogin" resultType="com.mirea.homedepot.commonmodule.model.Entity">
+    <select id="findByLogin" resultType="com.mirea.homedepot.catalogservice.core.model.entity.UserEntity">
         SELECT *
         FROM ctl.user
         WHERE email = #{login, jdbcType=VARCHAR};
