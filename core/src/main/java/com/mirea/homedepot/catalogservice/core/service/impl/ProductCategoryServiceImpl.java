@@ -1,5 +1,6 @@
 package com.mirea.homedepot.catalogservice.core.service.impl;
 
+import com.mirea.homedepot.catalogservice.core.controller.ProductRequestFilter;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository;
 import com.mirea.homedepot.catalogservice.core.service.ProductCategoryService;

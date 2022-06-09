@@ -1,5 +1,6 @@
 package com.mirea.homedepot.catalogservice.core.service;
 
+import com.mirea.homedepot.catalogservice.core.controller.ProductRequestFilter;
 import com.mirea.homedepot.commonmodule.dto.Dto;
 import com.mirea.homedepot.commonmodule.dto.type.ProductCategoryDtoType;
 import com.mirea.homedepot.commonmodule.services.CrudServiceForDefaultDto;
@@ -28,5 +29,4 @@ public interface ProductCategoryService
      * @return
      */
     List<Dto> findTreeByParentId(ProductCategoryDtoType type, Long id);
-
 }

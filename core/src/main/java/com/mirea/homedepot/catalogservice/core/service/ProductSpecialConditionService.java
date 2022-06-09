@@ -7,4 +7,5 @@ import com.mirea.homedepot.commonmodule.services.CrudServiceForDefaultDto;
  */
 public interface ProductSpecialConditionService extends CrudServiceForDefaultDto {
 
+
 }

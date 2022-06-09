@@ -1,6 +1,9 @@
 package com.mirea.homedepot.catalogservice.core.service.impl;
 
+import com.mirea.homedepot.catalogservice.core.controller.ProductRequestFilter;
 import com.mirea.homedepot.catalogservice.core.model.entity.ProductEntity;
+import com.mirea.homedepot.catalogservice.core.model.entity.ProductPhotoEntity;
+import com.mirea.homedepot.catalogservice.core.model.entity.ProductSpecialConditionEntity;
 import com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository;
 import com.mirea.homedepot.catalogservice.core.repository.ProductFeedbackRepository;
 import com.mirea.homedepot.catalogservice.core.repository.ProductPhotoRepository;
@@ -18,6 +21,7 @@ import com.mirea.homedepot.commonmodule.dto.type.ProductDtoType;
 import com.mirea.homedepot.commonmodule.model.Entity;
 import lombok.AllArgsConstructor;
 import org.json.JSONObject;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,15 +30,17 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductCategoryRepository productCategoryRepository;
+    private final ProductCategoryRepository productCategoryService;
 
-    private final ProductFeedbackRepository productFeedbackRepository;
+    private final ProductFeedbackRepository productFeedbackService;
 
-    private final ProductPhotoRepository productPhotoRepository;
+    private final ProductPhotoRepository productPhotoService;
 
     private final ProductRepository productRepository;
 
-    private final ProductSpecialConditionRepository productSpecialConditionRepository;
+    private final ProductSpecialConditionRepository productSpecialConditionService;
+
+    private final ModelMapper modelMapper;
 
     @Override
     public List<Dto> findAll() {
@@ -178,6 +184,45 @@ public class ProductServiceImpl implements ProductService {
             productRepository.insert(productEntity);
         } else {
             productRepository.update(productEntity);
+        }
+    }
+
+    @Override
+    public void insert(ProductRequestFilter requestFilter) {
+        if (requestFilter.getProductDtoDefault() != null) {
+            insert(requestFilter.getProductDtoDefault());
+        } else if (requestFilter.getProductDtoFullSmall() != null) {
+
+            ProductDtoFullSmall productDtoFullSmall = requestFilter.getProductDtoFullSmall();
+            ProductEntity productEntity = (ProductEntity) SelectorEntity.mapFromDto().select(productDtoFullSmall, ProductEntity.class);
+
+            productSpecialConditionService.insert(SelectorEntity.mapFromDto()
+                .select(requestFilter.getProductDtoFullSmall().getSpecialCondition(), ProductSpecialConditionEntity.class));
+            productEntity.setSpecialConditionId(
+                productSpecialConditionService.findAll().get(productSpecialConditionService.findAll().size() - 1).getId());
+
+            productPhotoService.insert(
+                SelectorEntity.mapFromDto().select(requestFilter.getProductDtoFullSmall().getPhoto(), ProductPhotoEntity.class));
+            productEntity.setPhotoId(
+                productPhotoService.findAll().get(productPhotoService.findAll().size() - 1).getId());
+            System.out.println(productPhotoService.findAll().get(productPhotoService.findAll().size() - 1).getId());
+
+            productRepository.insert(productEntity);
+        } else if (requestFilter.getProductDtoFull() != null) {
+          /*  ProductDtoFull productDtoFull = requestFilter.getProductDtoFull();
+            productSpecialConditionService.insert(SelectorEntity.mapFromDto()
+                .select(requestFilter.getProductDtoFullSmall().getSpecialCondition(), ProductSpecialConditionEntity.class));
+
+            List<ProductPhotoDtoDefault> photoList =
+                productDtoFull.getPhotoList().stream().map(t -> modelMapper.map(t, ProductPhotoDtoDefault.class)).collect(Collectors.toList());
+            photoList
+            List<Entity> productPhotoEntityList = SelectorEntity.mapFromDto().select(productDtoFull.getPhotoList(), ProductPhotoEntity.class);
+            productPhotoService.insertList(productPhotoEntityList);
+            productCategoryService.insert(
+                SelectorEntity.mapFromDto().select(requestFilter.getProductDtoFull().getCategory(), ProductCategoryEntity.class));
+            productFeedbackService.insertList(
+                SelectorEntity.mapFromDto().select(requestFilter.getProductDtoFull().getFeedbackList(), ProductFeedbackEntity.class));
+        */
         }
     }
 

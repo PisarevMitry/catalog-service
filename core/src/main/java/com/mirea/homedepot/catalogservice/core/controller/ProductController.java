@@ -1,6 +1,7 @@
 package com.mirea.homedepot.catalogservice.core.controller;
 
 import com.mirea.homedepot.catalogservice.core.service.ProductService;
+import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductDtoDefault;
 import com.mirea.homedepot.commonmodule.dto.Dto;
 import com.mirea.homedepot.commonmodule.dto.type.ProductDtoType;
 import lombok.AllArgsConstructor;
@@ -87,8 +88,8 @@ public class ProductController {
 
     @PostMapping()
     @PreAuthorize("hasAuthority('ctl.saveProducts')")
-    void insert(@RequestBody Dto dto) {
-        productService.insert(dto);
+    void insert(@RequestBody ProductRequestFilter requestFilter) {
+        productService.insert(requestFilter);
     }
 /*
     @PostMapping("/list")

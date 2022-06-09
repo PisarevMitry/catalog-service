@@ -1,6 +1,8 @@
 package com.mirea.homedepot.catalogservice.dto.variable.derived;
 
 import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductDtoDefault;
+import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductPhotoDtoDefault;
+import com.mirea.homedepot.catalogservice.dto.variable.basic.ProductSpecialConditionDtoDefault;
 import com.mirea.homedepot.commonmodule.dto.Dto;
 import com.mirea.homedepot.commonmodule.dto.definition.ProductDto;
 import lombok.AllArgsConstructor;
@@ -24,16 +26,16 @@ public class ProductDtoFullSmall extends ProductDto {
 
     private Integer amount;
 
-    private Dto photo;
+    private ProductPhotoDtoDefault photo;
 
-    private Dto specialCondition;
+    private ProductSpecialConditionDtoDefault specialCondition;
 
     public ProductDtoFullSmall(ProductDtoDefault productDto, Dto photo, Dto specialCondition) {
         this.id = productDto.getId();
         this.title = productDto.getTitle();
         this.price = productDto.getPrice();
         this.amount = productDto.getAmount();
-        this.photo = photo;
-        this.specialCondition = specialCondition;
+        this.photo = (ProductPhotoDtoDefault) photo;
+        this.specialCondition = (ProductSpecialConditionDtoDefault) specialCondition;
     }
 }

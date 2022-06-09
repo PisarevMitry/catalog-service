@@ -1,5 +1,6 @@
 package com.mirea.homedepot.catalogservice.core.service;
 
+import com.mirea.homedepot.catalogservice.core.controller.ProductRequestFilter;
 import com.mirea.homedepot.commonmodule.dto.Dto;
 import com.mirea.homedepot.commonmodule.dto.type.ProductDtoType;
 import com.mirea.homedepot.commonmodule.services.CrudServiceForDefaultDto;
@@ -56,4 +57,5 @@ public interface ProductService extends CrudServiceForDefaultDto, CrudServiceFor
      */
     List<Dto> findByOption(ProductDtoType type, JSONObject option);
 
+    void insert(ProductRequestFilter requestFilter);
 }
