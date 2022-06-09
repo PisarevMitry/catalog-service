@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 @AllArgsConstructor
-@PreAuthorize("hasAnyRole('ctl.admin', 'ctl.searchProducts')")
+//@PreAuthorize("hasAnyRole('ctl.admin', 'ctl.searchProducts')")
 public class ProductController {
 
     private final ProductService productService;

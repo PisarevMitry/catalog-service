@@ -3,6 +3,7 @@ package com.mirea.homedepot.catalogservice.core.config;
 import com.mirea.homedepot.catalogservice.core.service.UserSecurityService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,18 +28,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+            .antMatchers( "/user/**").hasRole("ctl.admin")
+            .antMatchers( "/products/**").hasRole("ctl.admin")
+            .antMatchers( "/categories/**").hasRole("ctl.admin")
+            .antMatchers("/**/**").authenticated();
         http
             .csrf().disable().authorizeRequests()
-            //Доступ только для не зарегистрированных пользователей
-            .antMatchers("/registration").not().fullyAuthenticated()
-            //Доступ только для пользователей с ролью Администратор
-            .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/news").hasRole("USER")
-            //Доступ разрешен всем пользователей
-            .antMatchers("/").permitAll()
-            //Все остальные страницы требуют аутентификации
-            .anyRequest().authenticated();
+            .antMatchers("/registration").not().fullyAuthenticated();
         http.formLogin().permitAll().successHandler(loginSuccessHandler)
             .usernameParameter("email").passwordParameter("password")
             .permitAll();

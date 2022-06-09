@@ -16,7 +16,6 @@ import java.util.List;
 @Validated
 @RestController
 @RequestMapping("/user")
-@PreAuthorize(value = "ctl.admin")
 @AllArgsConstructor
 public class UserController {
 

@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 @AllArgsConstructor
-@PreAuthorize("hasAnyRole('ctl.admin', 'ctl.searchProducts')")
+@PreAuthorize(value = "hasAnyRole('ctl.admin', 'ctl.searchProducts')")
 public class ProductCategoryController {
 
     private final ProductCategoryService productCategoryService;
