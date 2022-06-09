@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.ProductCategoryRepository">
+<mapper namespace="com.mirea.homedepot.catalogservice.core.repository.LogRepository">
 
-    <resultMap id="ProductCategoryEntity"
-               type="com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity" autoMapping="true">
+    <resultMap id="LogEntity"
+               type="com.mirea.homedepot.catalogservice.core.model.entity.LogEntity" autoMapping="true">
         <id property="id" column="id" jdbcType="BIGINT"/>
     </resultMap>
 
-    <select id="findAll" resultMap="ProductCategoryEntity">
+    <select id="findAll" resultMap="LogEntity">
         SELECT *
         FROM ctl.log;
     </select>
 
-    <select id="findById" resultMap="ProductCategoryEntity">
+    <select id="findById" resultMap="LogEntity">
         SELECT *
         FROM ctl.log
         WHERE id = #{id, jdbcType=BIGINT};
     </select>
 
-    <select id="findByListId" resultMap="ProductCategoryEntity">
+    <select id="findByListId" resultMap="LogEntity">
         <bind name="" value=""/>
         SELECT *
         FROM ctl.log

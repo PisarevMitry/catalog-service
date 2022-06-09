@@ -86,7 +86,7 @@
         </foreach>
     </insert>
 
-    <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.ProductPhotoEntity">
+    <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.ProductCategoryEntity">
         UPDATE ctl.product_category SET
         <if test="title != null">
             title = #{title},
