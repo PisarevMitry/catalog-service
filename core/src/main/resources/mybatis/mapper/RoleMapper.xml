@@ -9,19 +9,19 @@
 
     <select id="findAll" resultMap="RoleEntity">
         SELECT *
-        FROM catalog_data.role;
+        FROM ctl.role;
     </select>
 
     <select id="findById" resultMap="RoleEntity">
         SELECT *
-        FROM catalog_data.role
+        FROM ctl.role
         WHERE id = #{id, jdbcType=BIGINT};
     </select>
 
     <select id="findByListId" resultMap="RoleEntity">
         <bind name="" value=""/>
         SELECT *
-        FROM catalog_data.role
+        FROM ctl.role
         <choose>
             <when test="listId.isEmpty()">
                 ORDER BY id DESC
@@ -38,31 +38,31 @@
 
     <select id="findByName" resultType="com.mirea.homedepot.commonmodule.model.Entity">
         SELECT *
-        FROM catalog_data.role
+        FROM ctl.role
         WHERE name = #{name, jdbcType=VARCHAR};
     </select>
 
     <select id="getListRoleByUserId"
             resultType="com.mirea.homedepot.catalogservice.core.model.entity.RoleEntity">
         SELECT *
-        FROM catalog_data.user_role
+        FROM ctl.user_role
         where user_id = #{userId, jdbcType=BIGINT}
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.role (id, name)
+        INSERT INTO ctl.role (id, name)
         VALUES (#{name});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.role (id, name VALUES
+        INSERT INTO ctl.role (id, name VALUES
         <foreach collection="entityList" item="entity" separator=",">
             (#{name})
         </foreach>
     </insert>
 
     <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.RoleEntity">
-        UPDATE catalog_data.role SET
+        UPDATE ctl.role SET
         <if test="name != null">
             name = #{name},
         </if>
@@ -71,7 +71,7 @@
 
     <delete id="deleteById">
         DELETE
-        FROM catalog_data.role
+        FROM ctl.role
         WHERE id = #{id};
     </delete>
 </mapper>

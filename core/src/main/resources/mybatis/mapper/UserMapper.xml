@@ -9,19 +9,19 @@
 
     <select id="findAll" resultMap="UserEntity">
         SELECT *
-        FROM catalog_data.user
+        FROM ctl.user
     </select>
 
     <select id="findById" resultMap="UserEntity">
         SELECT *
-        FROM catalog_data.user
+        FROM ctl.user
         WHERE id = #{id, jdbcType=BIGINT};
     </select>
 
     <select id="findByListId" resultMap="UserEntity">
         <bind name="" value=""/>
         SELECT *
-        FROM catalog_data.user
+        FROM ctl.user
         <choose>
             <when test="listId.isEmpty()">
                 ORDER BY id DESC
@@ -37,24 +37,24 @@
     </select>
     <select id="findByLogin" resultType="com.mirea.homedepot.commonmodule.model.Entity">
         SELECT *
-        FROM catalog_data.user
+        FROM ctl.user
         WHERE email = #{login, jdbcType=VARCHAR};
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.user (email, password)
+        INSERT INTO ctl.user (email, password)
         VALUES (#{email}, #{password});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.user (email, password) VALUES
+        INSERT INTO ctl.user (email, password) VALUES
         <foreach collection="entityList" item="entity" separator=",">
             (#{email}, #{password})
         </foreach>
     </insert>
 
     <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.UserEntity">
-        UPDATE catalog_data.user SET
+        UPDATE ctl.user SET
         <if test="email != null">
             email = #{email},
         </if>
@@ -66,7 +66,7 @@
 
     <delete id="deleteById">
         DELETE
-        FROM catalog_data.user
+        FROM ctl.user
         WHERE id = #{id};
     </delete>
 </mapper>

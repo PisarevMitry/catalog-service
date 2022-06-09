@@ -10,19 +10,19 @@
 
     <select id="findAll" resultMap="ProductSpecialConditionEntity">
         SELECT *
-        FROM catalog_data.product_special_condition;
+        FROM ctl.product_special_condition;
     </select>
 
     <select id="findById" resultMap="ProductSpecialConditionEntity">
         SELECT *
-        FROM catalog_data.product_special_condition
+        FROM ctl.product_special_condition
         WHERE id = #{id, jdbcType=BIGINT};
     </select>
 
     <select id="findByListId" resultMap="ProductSpecialConditionEntity">
         <bind name="" value=""/>
         SELECT *
-        FROM catalog_data.product_special_condition
+        FROM ctl.product_special_condition
         <choose>
             <when test="listId.isEmpty()">
                 ORDER BY id DESC
@@ -38,12 +38,12 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.product_special_condition (id, description)
+        INSERT INTO ctl.product_special_condition (id, description)
         VALUES (#{description});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.product_special_condition (id, description) VALUES
+        INSERT INTO ctl.product_special_condition (id, description) VALUES
         <foreach collection="entityList" item="entity" separator=",">
             ( #{description})
         </foreach>
@@ -51,7 +51,7 @@
 
     <update id="update"
             parameterType="com.mirea.homedepot.catalogservice.core.model.entity.ProductSpecialConditionEntity">
-        UPDATE catalog_data.product_special_condition SET
+        UPDATE ctl.product_special_condition SET
         <if test="description != null">
             description = #{description},
         </if>
@@ -60,7 +60,7 @@
 
     <delete id="deleteById">
         DELETE
-        FROM catalog_data.product_special_condition
+        FROM ctl.product_special_condition
         WHERE id = #{id};
     </delete>
 </mapper>

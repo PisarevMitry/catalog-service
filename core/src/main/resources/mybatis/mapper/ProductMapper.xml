@@ -9,18 +9,18 @@
 
     <select id="findAll" resultMap="ProductEntity">
         SELECT *
-        FROM catalog_data.product;
+        FROM ctl.product;
     </select>
 
     <select id="findById" resultMap="ProductEntity">
         SELECT *
-        FROM catalog_data.product
+        FROM ctl.product
         WHERE id = #{id, jdbcType=BIGINT};
     </select>
 
     <select id="findByListId" resultMap="ProductEntity">
         SELECT *
-        FROM catalog_data.product
+        FROM ctl.product
         WHERE id IN
         <foreach collection='list' item='id' open='(' separator=',' close=')'>
             #{id, jdbcType=BIGINT}
@@ -29,13 +29,13 @@
 
     <select id="findByCategoryId" resultMap="ProductEntity">
         SELECT *
-        FROM catalog_data.product
+        FROM ctl.product
         WHERE category_id = #{id, jdbcType=BIGINT};
     </select>
 
     <select id="findByListCategoryId" resultMap="ProductEntity">
         SELECT *
-        FROM catalog_data.product
+        FROM ctl.product
         WHERE category_id IN
         <foreach collection='listId' item='id' open='(' separator=',' close=')'>
             #{id, jdbcType=BIGINT}
@@ -44,19 +44,19 @@
 
     <select id="findByOption" resultMap="ProductEntity">
         SELECT *
-        FROM catalog_data.product
+        FROM ctl.product
         WHERE option = #{option, jdbcType=VARCHAR};
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.product (title, description, price, amount, photo_id, option, category_id,
+        INSERT INTO ctl.product (title, description, price, amount, photo_id, option, category_id,
                                           feedback_id, special_condition_id)
         VALUES (#{title}, #{description}, #{price}, #{amount}, #{photoId}, #{option}, #{categoryId}, #{feedbackId},
                 #{specialConditionId});
     </insert>
 
     <insert id="insertList" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO catalog_data.product (id, title, description, price, amount, photo_id, option, category_id,
+        INSERT INTO ctl.product (id, title, description, price, amount, photo_id, option, category_id,
         feedback_id, special_condition_id) VALUES
         <foreach collection="entityList" item="entity" separator=",">
             (#{title}, #{description}, #{price}, #{amount}, #{photoId}, #{option}, #{categoryId}, #{feedbackId},
@@ -65,7 +65,7 @@
     </insert>
 
     <update id="update" parameterType="com.mirea.homedepot.catalogservice.core.model.entity.ProductEntity">
-        UPDATE catalog_data.product SET
+        UPDATE ctl.product SET
         <if test="title != null">
             title = #{title},
         </if>
@@ -98,7 +98,7 @@
 
     <delete id="deleteById">
         DELETE
-        FROM catalog_data.product
+        FROM ctl.product
         WHERE id = #{id};
     </delete>
 </mapper>

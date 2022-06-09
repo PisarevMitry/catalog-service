@@ -1,25 +1,11 @@
 package com.mirea.homedepot.catalogservice.core.repository;
 
-import liga.store.warehouseservice.core.model.entity.LogEntity;
+import com.mirea.homedepot.commonmodule.repositories.BasicMethodRepository;
+import com.mirea.homedepot.commonmodule.repositories.Repository;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Mapper
-public interface LogRepository extends BasicMethodRepository<LogEntity> {
+public interface LogRepository extends Repository, BasicMethodRepository {
 
-    @Override
-    List<LogEntity> findAll();
-
-    @Override
-    LogEntity findById(
-            @RequestParam("logId")
-                    Long logId);
-
-    @Override
-    Boolean insert(
-            @RequestParam("logEntity")
-                    LogEntity logEntity);
 }
 
