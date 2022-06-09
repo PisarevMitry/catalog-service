@@ -20,12 +20,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 @AllArgsConstructor
-//@PreAuthorize("hasAnyRole('ctl.admin', 'ctl.searchProducts')")
+@PreAuthorize("hasAuthority('ctl.admin')")
 public class ProductController {
 
     private final ProductService productService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     public List<Dto> findAll(@RequestParam(required = false) String type) {
         if (type == null) {
             return productService.findAll();
@@ -35,6 +36,7 @@ public class ProductController {
     }
 
     @GetMapping("/item")
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     public Dto findById(@RequestParam(required = false) String type, @RequestBody ProductRequestFilter filter) {
         if (type == null) {
             return productService.findById(filter.getId());
@@ -44,6 +46,7 @@ public class ProductController {
     }
 
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     List<Dto> findByListId(@RequestParam(required = false) String type, @RequestBody ProductRequestFilter filter) {
         if (type == null) {
             return productService.findByListId(filter.getListId());
@@ -53,6 +56,7 @@ public class ProductController {
     }
 
     @GetMapping("/categories")
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     List<Dto> findByCategoryId(@RequestParam(required = false) String type, @RequestBody ProductRequestFilter filter) {
         if (type == null) {
             return productService.findByCategoryId(filter.getCategoryId());
@@ -62,6 +66,7 @@ public class ProductController {
     }
 
     @GetMapping("/list/categories")
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     List<Dto> findByListCategoryId(@RequestParam(required = false) String type, @RequestBody ProductRequestFilter filter) {
         if (type == null) {
             return productService.findByListCategoryId(filter.getListCategoryId());
@@ -71,6 +76,7 @@ public class ProductController {
     }
 
     @GetMapping("/options")
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     List<Dto> getByOption(@RequestParam(required = false) String type, @RequestParam JSONObject option) {
         if (type == null) {
             return productService.findByOption(option);
@@ -80,7 +86,7 @@ public class ProductController {
     }
 
     @PostMapping()
-    @PreAuthorize("hasAnyRole('ctl.saveProducts')")
+    @PreAuthorize("hasAuthority('ctl.saveProducts')")
     void insert(@RequestBody Dto dto) {
         productService.insert(dto);
     }

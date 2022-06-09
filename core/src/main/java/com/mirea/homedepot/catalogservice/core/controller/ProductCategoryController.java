@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/categories")
 @AllArgsConstructor
-@PreAuthorize(value = "hasAnyRole('ctl.admin', 'ctl.searchProducts')")
+@PreAuthorize(value = "hasAuthority('ctl.admin')")
 public class ProductCategoryController {
 
     private final ProductCategoryService productCategoryService;
@@ -34,6 +34,7 @@ public class ProductCategoryController {
      * @return список представлений сущности "Категория товара"
      */
     @GetMapping
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     public List<Dto> getAll(@RequestParam(required = false) String type) {
         if (type == null) {
             return productCategoryService.findAll();
@@ -50,6 +51,7 @@ public class ProductCategoryController {
      * @return представление сущности "Категория товара"
      */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     public Dto getById(@RequestParam(required = false) String type, @PathVariable Long id) {
         if (type == null) {
             return productCategoryService.findById(id);
@@ -66,6 +68,7 @@ public class ProductCategoryController {
      * @return список представлений сущности "Категория товара"
      */
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     List<Dto> getByListId(@RequestParam(required = false) String type, @RequestBody List<Long> listId) {
         if (type == null) {
             return productCategoryService.findByListId(listId);
@@ -82,6 +85,7 @@ public class ProductCategoryController {
      * @return список представлений сущности "Категория товара"
      */
     @GetMapping("/get/child/list")
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     List<Dto> getListChildItem(@RequestParam(required = false) String type, @RequestParam Long id) {
         if (type == null) {
             return productCategoryService.findTreeIterationByParentId(id);
@@ -98,6 +102,7 @@ public class ProductCategoryController {
      * @return список представлений сущности "Категория товара"
      */
     @GetMapping("/get/path/list")
+    @PreAuthorize("hasAuthority('ctl.searchProducts')")
     List<Dto> getItemPath(@RequestParam(required = false) String type, @RequestParam Long id) {
         if (type == null) {
             return productCategoryService.findTreePathByParentId(id);
@@ -105,13 +110,4 @@ public class ProductCategoryController {
             return productCategoryService.findTreePathByParentId(ProductCategoryDtoType.valueOf(type), id);
         }
     }
-
-    /*@GetMapping("/get?{id}&{numberIteration}")
-    Tree<ProductCategoryDto> getProductCategoryByParentId(
-            @PathVariable
-                    Long id,
-            @PathVariable
-                    Integer numberIteration) {
-        return productCategoryService.findTreeByParentId(id, numberIteration);
-    }*/
 }

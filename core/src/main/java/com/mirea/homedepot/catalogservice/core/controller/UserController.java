@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@AllArgsConstructor
 @Validated
 @RestController
 @RequestMapping("/user")
-@AllArgsConstructor
+@PreAuthorize("hasAuthority('ctl.admin')")
 public class UserController {
 
     private final UserService userService;
